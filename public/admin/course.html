@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Upload Course</title>
+    <link rel="stylesheet" href="../styles/admin_course.css" />
+  </head>
+  <body>
+    <h2>Upload New Course</h2>
+    <form
+      method="post"
+      action="/api/1.0/admin/course"
+      enctype="multipart/form-data"
+    >
+      <h3>Basic Information:</h3>
+      Title <input type="text" name="title" /><br />
+      Description<br /><textarea name="description"></textarea><br />
+      Price <input type="number" name="price" />
+      <br />
+      <!-- Teacher <input type="text" name="user_id" /><br /> -->
+      <p>
+        Category
+        <select name="category">
+          <option value="humanities">Humanities</option>
+          <option value="investment">Investment</option>
+          <option value="language">Language</option>
+          <option value="marketing" selected="selected">Marketing</option>
+          <option value="music">Music</option>
+          <option value="programming">Programming</option>
+          <option value="others">Others</option>
+        </select>
+      </p>
+      <hr />
+      <h3>Hashtags:</h3>
+      <section id="hashtagCols">
+        <div id="hashtagCol">
+          <input type="text" name="hashtag" placeholder="#DigitalMarketing" />
+        </div>
+      </section>
+      <button type="button" onclick="addHashtagCol()">
+        Add another Hashtag
+      </button>
+      <hr />
+      <h3>Upload Cover and Video:</h3>
+      Cover <input type="file" name="cover" /><br />
+      Video <input type="file" name="video" /><br />
+      <br />
+      <input type="submit" />
+    </form>
+    <script src="../js/admin_course.js"></script>
+  </body>
+</html>

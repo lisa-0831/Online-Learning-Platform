@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>π</title>
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
+    <link rel="stylesheet" href="./styles/course.css" />
+    <link rel="stylesheet" href="./assets/fontawesome/css/all.css" />
+  </head>
+
+  <body>
+    <div class="desktop-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="48" />
+      </a>
+      <div class="nav">
+        <a href="./courses.html" class="tag tag-courses">Courses</a>
+        <div class="tag-line"></div>
+        <a href="./livestreams.html" class="tag tag-livestreams"
+          >Live Streams</a
+        >
+        <div class="tag-line"></div>
+        <a href="./chatroom.html" class="tag tag-chatroom">Chatroom</a>
+      </div>
+      <input class="search" />
+      <a class="cart" href="./cart.html">
+        <img src="./images/cart.png" height="35" />
+        <div class="count"></div>
+      </a>
+      <div class="member" onclick="checkLogin()">
+        <img src="./images/member.png" height="35" />
+      </div>
+    </div>
+    <div class="mobile-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="20" />
+      </a>
+      <input class="search" />
+    </div>
+    <div class="mobile-nav">
+      <a href="./courses.html" class="tag tag-courses">Courses</a>
+      <a href="./livestreams.html" class="tag tag-livestreams">Live Streams</a>
+      <a href="./chatroom.html" class="tag tag-chatroom">Chatroom</a>
+    </div>
+    <div class="mobile-footer">
+      <a class="cart" href="./cart.html">
+        <img src="./images/cart-mobile.png" height="44" />
+        <div class="count"></div>
+        Cart
+      </a>
+      <div class="member" onclick="checkLogin()">
+        <img src="./images/member-mobile.png" height="44" />
+        Member
+      </div>
+    </div>
+
+    <main>
+      <div class="course-context">
+        <div class="video">
+          <video controls width="1280" height="720" id="video-controls"></video>
+        </div>
+        <div id="course-info"></div>
+      </div>
+
+      <div class="course-rating"></div>
+
+      <!-- Contenedor Principal -->
+      <div class="comments-container">
+        <h1 id="comments-num"></h1>
+        <ul id="comments-list" class="comments-list">
+          <li>
+            <div class="comment-main-level">
+              <div class="comment-avatar">
+                <img src="./images/shiba.jpg" alt="" />
+              </div>
+              <div class="comment-box">
+                <div class="comment-head">
+                  <h6 class="comment-name">
+                    <a href="http://creaticode.com/blog">Lisa Wang</a>
+                  </h6>
+                  <i class="fa fa-reply"></i>
+                  <i class="fa fa-heart"></i>
+                </div>
+                <textarea class="comment-content comment-area"> </textarea>
+                <button
+                  type="button"
+                  class="comment-btn"
+                  onclick="fontendSendComment()"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </li>
+
+          <!-- <li>
+            <div class="comment-main-level">
+              <div class="comment-avatar">
+                <img
+                  src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="comment-box">
+                <div class="comment-head">
+                  <h6 class="comment-name">
+                    <a href="http://creaticode.com/blog">Lorena Rojero</a>
+                  </h6>
+                  <span>hace 10 minutos</span>
+                  <i class="fa fa-reply"></i>
+                  <i class="fa fa-heart"></i>
+                </div>
+                <div class="comment-content">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Velit omnis animi et iure laudantium vitae, praesentium optio,
+                  sapiente distinctio illo?
+                </div>
+              </div>
+            </div>
+          </li> -->
+        </ul>
+      </div>
+    </main>
+    <script src="./js/course.js"></script>
+  </body>
+  <footer>
+    <nav>
+      <ul>
+        <li>About Us</li>
+        <li>TBC</li>
+        <li>TBC</li>
+        <li>Contact Us</li>
+        <li>FAQ</li>
+      </ul>
+    </nav>
+    <div class="links">
+      <img src="./images/line.png" />
+      <img src="./images/twitter.png" />
+      <img src="./images/facebook.png" />
+    </div>
+    <div class="rights">© 2022. All rights reserved.</div>
+  </footer>
+</html>

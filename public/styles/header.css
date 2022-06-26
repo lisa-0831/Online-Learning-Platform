@@ -1,0 +1,240 @@
+/* #region Desktop Header */
+.desktop-header {
+    height: 60px;
+    width: 100vw;
+    display: flex;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    border-bottom: 5px solid var(--charcoal-grey);
+    z-index: 99;
+    background-color: #EEF4FE;
+}
+
+.desktop-header > .logo {
+    margin-left: 60px;
+    margin-top: 6px;
+}
+
+.desktop-header > .nav {
+    margin-left: auto;
+    margin-top: 10px;
+    display: flex;
+}
+
+.desktop-header .tag {
+    /* letter-spacing: 30px; */
+    font-size: 20px;
+    color: #3f3a3a;
+    line-height: 28px;
+}
+
+.desktop-header .tag:hover {
+    /* color: var(--sepia); */
+    color: #1890FF;
+    cursor: pointer;
+}
+  
+.desktop-header .tag.tag--active {
+    color: var(--sepia);
+}
+  
+.tag-line {
+    width: 60px;
+    font-size: 20px;
+    color: #3f3a3a;
+    line-height: 28px;
+    margin-left: 11px;
+    margin-right: 5px;
+}
+  
+.desktop-header > .search {
+    width: 214px;
+    height: 30px;
+    padding: 8px 48px 8px 20px;
+    border: solid 1px #979797;
+    border-radius: 20px;
+    outline: none;
+    font-size: 15px;
+    background-image: url('../images/search.png');
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position: left center;
+    margin-left: auto;
+    margin-top: 12px;
+}
+  
+.desktop-header .cart {
+    margin-top: 8px;
+    margin-left: 42px;
+    position: relative;
+}
+  
+.desktop-header .count {
+    position: absolute;
+    text-align: center;
+    background-color: #8b572a;
+    font-weight: bold;
+    border-radius: 50%;
+    color: #ffffff;
+    opacity: 0.8;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    bottom: 0;
+    right: 0;
+}
+  
+.desktop-header .member {
+    margin-top: 8px;
+    margin-left: 42px;
+    margin-right: 54px;
+    cursor: pointer;
+}
+/* #endregion */
+  
+.mobile-header {
+    display: none;
+}
+  
+.mobile-nav {
+    display: none;
+}
+  
+.mobile-footer {
+    display: none;
+}
+  
+main {
+    margin-top: 100px;  /* The height of the header */
+    min-height: calc(100vh - 255px);
+}
+  
+@media only screen and (max-width: 1280px) {
+    .desktop-header {
+      display: none;
+    }
+  
+    /* #region Mobile Header */
+    .mobile-header {
+      height: 52px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      z-index: 99;
+      background-color: white;
+    }
+  
+    .mobile-header > .search {
+      width: 0;
+      height: 40px;
+      padding: 20px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      font-size: 16px;
+      background-image: url('../images/search.png');
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: 32px;
+  
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+    }
+  
+    .mobile-header > .search:focus {
+      width: calc(100% - 20px);
+      padding: 8px 48px 8px 20px;
+      border: solid 1px #979797;
+      left: 10px;
+      cursor: text;
+    }
+    /* #endregion */
+  
+    /* #region Mobile Nav */
+    .mobile-nav {
+      position: fixed;
+      height: 40px;
+      top: 52px;
+      background-color: var(--charcoal-grey);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      z-index: 99;
+    }
+  
+    .mobile-nav .tag {
+      font-size: 16px;
+      color: #828282;
+      flex-grow: 1;
+      text-align: center;
+    }
+  
+    .mobile-nav .tag:hover {
+      color: white;
+    }
+  
+    .mobile-nav .tag.tag--active {
+      color: white;
+    }
+  
+    .mobile-nav .tag + a.tag {
+      border-left: 2px solid #828282;
+    }
+    /* #endregion */
+  
+    /* #region Mobile Footer */
+    .mobile-footer {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      height: 60px;
+      background-color: var(--charcoal-grey);
+      width: 100%;
+      margin-left: 0;
+      align-items: center;
+    }
+  
+    .mobile-footer .cart, .mobile-footer .member {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #ffffff;
+    }
+  
+    .mobile-footer .cart {
+      position: relative;
+    }
+  
+    .mobile-footer .member {
+      border-left: 1px solid #828282;
+      cursor: pointer;
+    }
+  
+    .mobile-footer .count {
+      position: absolute;
+      text-align: center;
+      background-color: #8b572a;
+      font-weight: bold;
+      border-radius: 50%;
+      color: #ffffff;
+      opacity: 0.8;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      left: calc(50% - 24px);
+      top: 20px;
+    }
+    /* #endregion */
+  
+    main {
+      margin-top: 92px;
+      min-height: calc(100vh - 300px);
+    }
+}
