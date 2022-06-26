@@ -144,3 +144,46 @@ const fontendSendComment = (event) => {
     })
     .catch((error) => console.log("Error:", error));
 };
+
+const addToFavorites = (event) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const body = { id: parseInt(searchParams.get("id")) };
+
+  fetch("/api/1.0/favorites", {
+    method: "POST",
+    headers: new Headers({
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      "content-type": "application/json",
+    }),
+    body: JSON.stringify(body),
+  })
+    .then((res) => {
+      alert(res.statusText);
+    })
+    .catch((error) => console.log("Error:", error));
+};
+
+// slight change from the video, where I've set the eventListener
+// for the animationend to remove itself after the click
+
+const rippleButton = document.querySelector(".course-button");
+
+function mousePositionToCustomProp(event, element) {
+  let posX = event.offsetX;
+  let posY = event.offsetY;
+
+  element.style.setProperty("--x", posX + "px");
+  element.style.setProperty("--y", posY + "px");
+}
+
+rippleButton.addEventListener("click", (e) => {
+  mousePositionToCustomProp(e, rippleButton);
+  rippleButton.classList.add("pulse");
+  rippleButton.addEventListener(
+    "animationend",
+    () => {
+      rippleButton.classList.remove("pulse");
+    },
+    { once: true }
+  );
+});
