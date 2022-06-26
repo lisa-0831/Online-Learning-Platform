@@ -20,6 +20,7 @@ app.use(express.static("public"));
 app.use("/api/" + API_VERSION, [
   require("./server/routes/course_route"),
   require("./server/routes/user_route"),
+  require("./server/routes/admin_route"),
 ]);
 
 app.get("/", function (req, res) {
