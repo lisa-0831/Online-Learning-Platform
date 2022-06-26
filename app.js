@@ -22,6 +22,7 @@ app.use("/api/" + API_VERSION, [
   require("./server/routes/user_route"),
   require("./server/routes/admin_route"),
   require("./server/routes/comment_route"),
+  require("./server/routes/favorites_route"),
 ]);
 
 app.get("/", function (req, res) {
