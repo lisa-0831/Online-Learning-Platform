@@ -97,7 +97,38 @@ const signIn = async (req, res) => {
   });
 };
 
+const getUserProfile = async (req, res) => {
+  try {
+    if (!req.headers.authorization) {
+      return res.status(401).send("Error 401: No token");
+    }
+
+    const token = req.headers.authorization.split(" ")[1];
+    const { decoded } = await User.getUserDetail(token);
+    console.log(108, decoded);
+    if (decoded.error) {
+      const statusCode = decoded.status ? decoded.status : 403;
+      return res.status(statusCode).send({ error: decoded.error });
+    }
+
+    let userDetail = {
+      data: {
+        provider: decoded.provider,
+        name: decoded.name,
+        email: decoded.email,
+        picture: decoded.picture,
+      },
+    };
+    console.log(117, userDetail);
+    return res.status(200).send(userDetail);
+  } catch (e) {
+    res.status(500).send(e.message);
+    return;
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
+  getUserProfile,
 };
