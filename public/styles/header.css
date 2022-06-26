@@ -8,7 +8,7 @@
     top: 0;
     border-bottom: 5px solid var(--charcoal-grey);
     z-index: 99;
-    background-color: #EEF4FE;
+    background-color: #E0E0E0;
 }
 
 .desktop-header > .logo {

@@ -44,7 +44,7 @@ const signInForm = (event) => {
       localStorage.setItem("access_token", response.data.access_token);
     })
     .then((data) => {
-      window.location.href = "/profile.html";
+      history.go(0);
     })
     .catch((error) => console.error("Error:", error));
 };
