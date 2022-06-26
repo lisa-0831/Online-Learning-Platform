@@ -9,6 +9,6 @@ const {
 
 router.route("/user/signup").post(errorHandler(signUp));
 router.route("/user/signin").post(errorHandler(signIn));
-router.route("/user/profile").get(errorHandler(getUserProfile));
+router.route("/user/profile/:detail").get(errorHandler(getUserProfile));
 
 module.exports = router;
