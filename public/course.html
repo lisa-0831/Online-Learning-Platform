@@ -25,11 +25,11 @@
         <a href="./chatroom.html" class="tag tag-chatroom">Chatroom</a>
       </div>
       <input class="search" />
-      <a class="cart" href="./cart.html">
+      <div class="cart" onclick="checkLogin()">
         <img src="./images/cart.png" height="35" />
         <div class="count"></div>
-      </a>
-      <div class="member" onclick="checkLogin()">
+      </div>
+      <div class="member" onclick="checkIdentity()">
         <img src="./images/member.png" height="35" />
       </div>
     </div>
@@ -45,12 +45,12 @@
       <a href="./chatroom.html" class="tag tag-chatroom">Chatroom</a>
     </div>
     <div class="mobile-footer">
-      <a class="cart" href="./cart.html">
+      <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="44" />
         <div class="count"></div>
         Cart
-      </a>
-      <div class="member" onclick="checkLogin()">
+      </div>
+      <div class="member" onclick="checkIdentity()">
         <img src="./images/member-mobile.png" height="44" />
         Member
       </div>
@@ -136,6 +136,7 @@
       </div>
     </main>
     <script src="./js/course.js"></script>
+    <script src="./util/util.js"></script>
   </body>
   <footer>
     <nav>

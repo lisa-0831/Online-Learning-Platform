@@ -41,10 +41,12 @@ const signInForm = (event) => {
   })
     .then((res) => res.json())
     .then((response) => {
+      console.log(44, response.data);
       localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("user_id", response.data.user.id);
     })
     .then((data) => {
-      history.go(0);
+      history.go(-1);
     })
     .catch((error) => console.error("Error:", error));
 };
