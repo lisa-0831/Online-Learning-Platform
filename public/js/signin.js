@@ -25,7 +25,7 @@ const signUpForm = (event) => {
       localStorage.setItem("access_token", response.data.access_token);
     })
     .then((data) => {
-      window.location.href = "/profile.html";
+      window.location.href = "/courses.html";
     })
     .catch((error) => console.error("Error:", error));
 };
@@ -46,7 +46,7 @@ const signInForm = (event) => {
       localStorage.setItem("user_id", response.data.user.id);
     })
     .then((data) => {
-      history.go(-1);
+      window.location.href = "/courses.html";
     })
     .catch((error) => console.error("Error:", error));
 };
