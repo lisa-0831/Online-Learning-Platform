@@ -84,7 +84,6 @@ const signIn = async (req, res) => {
   res.status(200).send({
     data: {
       access_token: user.access_token,
-      access_expired: user.access_expired,
       login_at: user.login_at,
       user: {
         id: user.id,
@@ -97,14 +96,14 @@ const signIn = async (req, res) => {
   });
 };
 
-const getUserProfile = async (req, res) => {
+const getUserStatus = async (req, res) => {
   try {
     if (!req.headers.authorization) {
       return res.status(401).send("Error 401: No token");
     }
 
     const token = req.headers.authorization.split(" ")[1];
-    const { decoded } = await User.getUserDetail(token);
+    const { decoded } = await User.getUserStatus(token);
     console.log(108, decoded);
     if (decoded.error) {
       const statusCode = decoded.status ? decoded.status : 403;
@@ -130,5 +129,5 @@ const getUserProfile = async (req, res) => {
 module.exports = {
   signUp,
   signIn,
-  getUserProfile,
+  getUserStatus,
 };

@@ -163,6 +163,24 @@ const addToFavorites = (event) => {
     .catch((error) => console.log("Error:", error));
 };
 
+const addToCart = (event) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const body = { id: parseInt(searchParams.get("id")) };
+
+  // Start to Storage - shopping list
+  var shoppingList = localStorage.getItem("list");
+  if (!shoppingList) {
+    list = [body.id];
+  } else {
+    var list = JSON.parse(shoppingList);
+    list.push(body.id);
+  }
+  localStorage.removeItem("list");
+  localStorage.setItem("list", JSON.stringify(list));
+
+  alert("已加入購物車");
+};
+
 // slight change from the video, where I've set the eventListener
 // for the animationend to remove itself after the click
 

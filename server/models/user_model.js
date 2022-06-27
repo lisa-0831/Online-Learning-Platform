@@ -38,25 +38,26 @@ const signUp = async (name, roleId, email, password) => {
       password: bcrypt.hashSync(password, salt),
       name: name,
       picture: null,
-      access_expired: TOKEN_EXPIRATION,
       login_at: new Date(),
     };
 
-    const accessToken = jwt.sign(
+    const [result] = await conn.query("INSERT INTO user SET ?", user);
+    user.id = result.insertId;
+
+    const access_token = jwt.sign(
       {
         provider: user.provider,
         name: user.name,
         email: user.email,
         picture: user.picture,
+        roleId: roleId,
+        userId: result.insertId,
       },
       TOKEN_SECRET,
       { expiresIn: TOKEN_EXPIRATION }
     );
+    user.access_token = access_token;
 
-    user.access_token = accessToken;
-
-    const [result] = await conn.query("INSERT INTO user SET ?", user);
-    user.id = result.insertId;
     return { user };
   } catch (error) {
     return {
@@ -86,26 +87,25 @@ const nativeSignIn = async (email, password) => {
       return { error: "Entered a Wrong Password. Please Sign In again." };
     }
 
-    const accessToken = jwt.sign(
+    const access_token = jwt.sign(
       {
         provider: user.provider,
         name: user.name,
         email: user.email,
         picture: user.picture,
+        roleId: user.role_id,
+        userId: user.id,
       },
       TOKEN_SECRET,
       { expiresIn: TOKEN_EXPIRATION }
     );
+    user.access_token = access_token;
 
     // Update the User's Info
-    user.access_token = accessToken;
-    user.access_expired = TOKEN_EXPIRATION;
-    user.login_at = new Date();
-
-    await conn.query(
-      "UPDATE user SET access_token = ?, access_expired = ?, login_at = ? WHERE id = ?",
-      [user.access_token, user.access_expired, user.login_at, user.id]
-    );
+    await conn.query("UPDATE user SET login_at = ? WHERE id = ?", [
+      new Date(),
+      user.id,
+    ]);
     await conn.query("COMMIT");
 
     return { user };
@@ -118,14 +118,14 @@ const nativeSignIn = async (email, password) => {
   }
 };
 
-const getUserDetail = async (token) => {
+const getUserStatus = async (token) => {
   try {
     console.log(token);
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
     console.log(125, decoded);
     return { decoded };
-  } catch (e) {
+  } catch (err) {
     return { error: "Error 403: Wrong token" };
   }
 };
@@ -134,5 +134,5 @@ module.exports = {
   USER_ROLE,
   signUp,
   nativeSignIn,
-  getUserDetail,
+  getUserStatus,
 };
