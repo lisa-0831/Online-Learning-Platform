@@ -120,13 +120,63 @@ const nativeSignIn = async (email, password) => {
 
 const getUserStatus = async (token) => {
   try {
-    console.log(token);
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
-    console.log(125, decoded);
     return { decoded };
   } catch (err) {
     return { error: "Error 403: Wrong token" };
+  }
+};
+
+const getUserDetail = async (userId, token) => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.query("START TRANSACTION");
+
+    // Verify token
+    const decoded = jwt.verify(token, TOKEN_SECRET);
+
+    const [bought] = await conn.query(
+      "SELECT course.id, course.cover, course.title, course.price \
+    FROM course_student \
+    LEFT JOIN course \
+    ON course.id=course_student.course_id \
+    WHERE course_student.user_id=?",
+      [decoded.userId]
+    );
+
+    const [favorites] = await conn.query(
+      "SELECT course.id, course.cover, course.title, course.price \
+    FROM course_favorites \
+    LEFT JOIN course \
+    ON course.id=course_favorites.course_id \
+    WHERE course_favorites.user_id=?",
+      [decoded.userId]
+    );
+
+    const [teach] = await conn.query(
+      "SELECT course.id, course.cover, course.title, course.price \
+    FROM course \
+    WHERE course.user_id=?",
+      [decoded.userId]
+    );
+
+    user = {
+      name: decoded.name,
+      email: decoded.email,
+      picture: decoded.picture,
+      bought: bought,
+      favorites: favorites,
+      teach: teach,
+    };
+
+    return { user };
+  } catch (error) {
+    await conn.query("ROLLBACK");
+    console.log(error);
+    return { error };
+  } finally {
+    conn.release();
   }
 };
 
@@ -135,4 +185,5 @@ module.exports = {
   signUp,
   nativeSignIn,
   getUserStatus,
+  getUserDetail,
 };

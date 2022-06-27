@@ -58,7 +58,6 @@ const nativeSignIn = async (email, password) => {
 
 const signIn = async (req, res) => {
   const data = req.body;
-  console.log(data);
 
   switch (data.provider) {
     case "native":
@@ -104,7 +103,6 @@ const getUserStatus = async (req, res) => {
 
     const token = req.headers.authorization.split(" ")[1];
     const { decoded } = await User.getUserStatus(token);
-    console.log(108, decoded);
     if (decoded.error) {
       const statusCode = decoded.status ? decoded.status : 403;
       return res.status(statusCode).send({ error: decoded.error });
@@ -118,7 +116,6 @@ const getUserStatus = async (req, res) => {
         picture: decoded.picture,
       },
     };
-    console.log(117, userDetail);
     return res.status(200).send(userDetail);
   } catch (e) {
     res.status(500).send(e.message);
@@ -126,8 +123,23 @@ const getUserStatus = async (req, res) => {
   }
 };
 
+const getUserInfo = async (req, res) => {
+  const authorization = req.headers.authorization;
+  let token = "";
+  if (authorization !== undefined) {
+    token = authorization.split(" ")[1];
+  }
+
+  // const details = req.params.category || "details";
+  const userId = parseInt(req.query.id);
+  if (Number.isInteger(userId)) {
+    return await User.getUserDetail(userId, token);
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
   getUserStatus,
+  getUserInfo,
 };
