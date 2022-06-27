@@ -170,6 +170,12 @@ const getUserDetail = async (userId, token) => {
       teach: teach,
     };
 
+    if (decoded.userId == userId) {
+      user.auth = 1;
+    } else {
+      user.auth = 0;
+    }
+
     return { user };
   } catch (error) {
     await conn.query("ROLLBACK");
