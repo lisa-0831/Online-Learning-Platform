@@ -38,25 +38,26 @@ const signUp = async (name, roleId, email, password) => {
       password: bcrypt.hashSync(password, salt),
       name: name,
       picture: null,
-      access_expired: TOKEN_EXPIRATION,
       login_at: new Date(),
     };
 
-    const accessToken = jwt.sign(
+    const [result] = await conn.query("INSERT INTO user SET ?", user);
+    user.id = result.insertId;
+
+    const access_token = jwt.sign(
       {
         provider: user.provider,
         name: user.name,
         email: user.email,
         picture: user.picture,
+        roleId: roleId,
+        userId: result.insertId,
       },
       TOKEN_SECRET,
       { expiresIn: TOKEN_EXPIRATION }
     );
+    user.access_token = access_token;
 
-    user.access_token = accessToken;
-
-    const [result] = await conn.query("INSERT INTO user SET ?", user);
-    user.id = result.insertId;
     return { user };
   } catch (error) {
     return {
@@ -86,26 +87,25 @@ const nativeSignIn = async (email, password) => {
       return { error: "Entered a Wrong Password. Please Sign In again." };
     }
 
-    const accessToken = jwt.sign(
+    const access_token = jwt.sign(
       {
         provider: user.provider,
         name: user.name,
         email: user.email,
         picture: user.picture,
+        roleId: user.role_id,
+        userId: user.id,
       },
       TOKEN_SECRET,
       { expiresIn: TOKEN_EXPIRATION }
     );
+    user.access_token = access_token;
 
     // Update the User's Info
-    user.access_token = accessToken;
-    user.access_expired = TOKEN_EXPIRATION;
-    user.login_at = new Date();
-
-    await conn.query(
-      "UPDATE user SET access_token = ?, access_expired = ?, login_at = ? WHERE id = ?",
-      [user.access_token, user.access_expired, user.login_at, user.id]
-    );
+    await conn.query("UPDATE user SET login_at = ? WHERE id = ?", [
+      new Date(),
+      user.id,
+    ]);
     await conn.query("COMMIT");
 
     return { user };
@@ -118,15 +118,71 @@ const nativeSignIn = async (email, password) => {
   }
 };
 
-const getUserDetail = async (token) => {
+const getUserStatus = async (token) => {
   try {
-    console.log(token);
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
-    console.log(125, decoded);
     return { decoded };
-  } catch (e) {
+  } catch (err) {
     return { error: "Error 403: Wrong token" };
+  }
+};
+
+const getUserDetail = async (userId, token) => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.query("START TRANSACTION");
+
+    // Verify token
+    const decoded = jwt.verify(token, TOKEN_SECRET);
+
+    const [bought] = await conn.query(
+      "SELECT course.id, course.cover, course.title, course.price \
+    FROM course_student \
+    LEFT JOIN course \
+    ON course.id=course_student.course_id \
+    WHERE course_student.user_id=?",
+      [decoded.userId]
+    );
+
+    const [favorites] = await conn.query(
+      "SELECT course.id, course.cover, course.title, course.price \
+    FROM course_favorites \
+    LEFT JOIN course \
+    ON course.id=course_favorites.course_id \
+    WHERE course_favorites.user_id=?",
+      [decoded.userId]
+    );
+
+    const [teach] = await conn.query(
+      "SELECT course.id, course.cover, course.title, course.price \
+    FROM course \
+    WHERE course.user_id=?",
+      [decoded.userId]
+    );
+
+    user = {
+      name: decoded.name,
+      email: decoded.email,
+      picture: decoded.picture,
+      bought: bought,
+      favorites: favorites,
+      teach: teach,
+    };
+
+    if (decoded.userId == userId) {
+      user.auth = 1;
+    } else {
+      user.auth = 0;
+    }
+
+    return { user };
+  } catch (error) {
+    await conn.query("ROLLBACK");
+    console.log(error);
+    return { error };
+  } finally {
+    conn.release();
   }
 };
 
@@ -134,5 +190,6 @@ module.exports = {
   USER_ROLE,
   signUp,
   nativeSignIn,
+  getUserStatus,
   getUserDetail,
 };

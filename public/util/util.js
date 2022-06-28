@@ -1,8 +1,7 @@
 const checkLogin = (event) => {
   const access_token = localStorage.getItem("access_token");
-  console.log(3, access_token);
   if (access_token !== null) {
-    fetch(`/api/1.0/user/profile/detail?`, {
+    fetch(`/api/1.0/user/status`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -11,15 +10,31 @@ const checkLogin = (event) => {
     })
       .then((res) => res.json())
       .then((response) => {
-        if (response.error) {
-          console.log(106, response.error);
-          window.location.href = "/signin.html";
-        } else {
-          console.log(response);
-          // window.location.href = "/profile.html";
-        }
+        window.location.href = "/cart.html";
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => (window.location.href = "/signin.html"));
+  } else {
+    window.location.href = "/signin.html";
+  }
+};
+
+const checkIdentity = (event) => {
+  const access_token = localStorage.getItem("access_token");
+  const user_id = localStorage.getItem("user_id");
+
+  if (access_token !== null) {
+    fetch(`/api/1.0/user/status`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      }),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        window.location.href = `/profile.html?id=${user_id}`;
+      })
+      .catch((error) => (window.location.href = "/signin.html"));
   } else {
     window.location.href = "/signin.html";
   }

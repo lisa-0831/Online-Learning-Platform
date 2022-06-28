@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>π</title>
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
+    <link rel="stylesheet" href="./styles/bar.css" />
+    <link rel="stylesheet" href="./styles/courses.css" />
+  </head>
+
+  <body>
+    <div class="desktop-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="48" />
+      </a>
+      <div class="nav">
+        <a href="./courses.html" class="tag tag-courses">Courses</a>
+        <div class="tag-line"></div>
+        <a href="./livestreams.html" class="tag tag-livestreams"
+          >Live Streams</a
+        >
+        <div class="tag-line"></div>
+        <a href="./chatroom.html" class="tag tag-chatroom">Chatroom</a>
+      </div>
+      <input class="search" />
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart.png" height="35" />
+        <div class="count"></div>
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member.png" height="35" />
+      </div>
+    </div>
+    <div class="mobile-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="20" />
+      </a>
+      <input class="search" />
+    </div>
+    <div class="mobile-nav">
+      <a href="./courses.html" class="tag tag-courses">Courses</a>
+      <a href="./livestreams.html" class="tag tag-livestreams">Live Streams</a>
+      <a href="./chatroom.html" class="tag tag-chatroom">Chatroom</a>
+    </div>
+    <div class="mobile-footer">
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart-mobile.png" height="44" />
+        <div class="count"></div>
+        Cart
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member-mobile.png" height="44" />
+        Member
+      </div>
+    </div>
+
+    <main>
+      <section>
+        <h1>Thank you!</h1>
+        <div id="order_number"></div>
+      </section>
+      <hr />
+      <section>
+        <p>錢沒有不見，只是變成你喜歡的樣子XD</p>
+      </section>
+    </main>
+    <footer>
+      <nav>
+        <ul>
+          <li>About Us</li>
+          <li>TBC</li>
+          <li>TBC</li>
+          <li>Contact Us</li>
+          <li>FAQ</li>
+        </ul>
+      </nav>
+      <div class="links">
+        <img src="./images/line.png" />
+        <img src="./images/twitter.png" />
+        <img src="./images/facebook.png" />
+      </div>
+      <div class="rights">© 2022. All rights reserved.</div>
+    </footer>
+    <script src="./js/courses.js"></script>
+    <script src="./util/util.js"></script>
+    <!-- <script src="https://js.tappaysdk.com/tpdirect/v5.7.0"></script> -->
+
+    <!-- <script>
+      const searchParams = new URLSearchParams(window.location.search);
+      const order_number = searchParams.get("order");
+      document.getElementById(
+        "order_number"
+      ).innerText = `order number: ${order_number}`;
+    </script> -->
+  </body>
+</html>

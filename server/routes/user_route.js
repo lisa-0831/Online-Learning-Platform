@@ -4,11 +4,13 @@ const { errorHandler } = require("../../util/util");
 const {
   signUp,
   signIn,
-  getUserProfile,
+  getUserStatus,
+  getUserInfo,
 } = require("../controllers/user_controller");
 
 router.route("/user/signup").post(errorHandler(signUp));
 router.route("/user/signin").post(errorHandler(signIn));
-router.route("/user/profile/:detail").get(errorHandler(getUserProfile));
+router.route("/user/status").get(errorHandler(getUserStatus));
+router.route("/user/profile/:category").get(errorHandler(getUserInfo));
 
 module.exports = router;

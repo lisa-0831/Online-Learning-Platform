@@ -12,19 +12,14 @@ const addFavorites = async (body, token) => {
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
 
-    const [[getUserId]] = await conn.query(
-      "SELECT user.id FROM user WHERE email= ?",
-      [decoded.email]
-    );
-
     const [[checkHistory]] = await conn.query(
       "SELECT * FROM course_favorites WHERE user_id=? && course_id=?",
-      [getUserId.id, body.id]
+      [decoded.userId, body.id]
     );
 
     if (!checkHistory) {
       const favorites = {
-        user_id: getUserId.id,
+        user_id: decoded.userId,
         course_id: body.id,
       };
 
@@ -35,10 +30,10 @@ const addFavorites = async (body, token) => {
 
       await conn.query("COMMIT");
       return result.insertId;
+    } else {
+      await conn.query("COMMIT");
+      return -1;
     }
-
-    await conn.query("COMMIT");
-    return -1;
   } catch (error) {
     await conn.query("ROLLBACK");
     console.log(error);

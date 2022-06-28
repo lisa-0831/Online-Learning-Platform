@@ -18,7 +18,6 @@ const createComment = async (req, res) => {
 
   const commentId = await Comment.createComment(comment, token);
   if (commentId == -1) {
-    console.log(21, "here");
     return res.status(500);
   } else {
     return res.status(200).json({ "Comment created": commentId });

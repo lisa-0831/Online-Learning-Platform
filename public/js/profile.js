@@ -9,6 +9,7 @@ window.onload = async function () {
       "content-type": "application/json",
     }),
   });
+  console.log(userRes);
   const userObj = await userRes.json();
   console.log(userObj);
 };

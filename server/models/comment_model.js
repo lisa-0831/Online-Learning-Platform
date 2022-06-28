@@ -12,14 +12,9 @@ const createComment = async (comment, token) => {
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
 
-    const [[getUserId]] = await conn.query(
-      "SELECT user.id FROM user WHERE email= ?",
-      [decoded.email]
-    );
-
     const commentWithId = {
       commented_id: comment.commentedId,
-      user_id: getUserId.id,
+      user_id: decoded.userId,
       content: comment.content,
       create_time: Date.now(),
     };

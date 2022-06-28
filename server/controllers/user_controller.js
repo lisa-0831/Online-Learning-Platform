@@ -58,7 +58,6 @@ const nativeSignIn = async (email, password) => {
 
 const signIn = async (req, res) => {
   const data = req.body;
-  console.log(data);
 
   switch (data.provider) {
     case "native":
@@ -84,7 +83,6 @@ const signIn = async (req, res) => {
   res.status(200).send({
     data: {
       access_token: user.access_token,
-      access_expired: user.access_expired,
       login_at: user.login_at,
       user: {
         id: user.id,
@@ -97,15 +95,14 @@ const signIn = async (req, res) => {
   });
 };
 
-const getUserProfile = async (req, res) => {
+const getUserStatus = async (req, res) => {
   try {
     if (!req.headers.authorization) {
       return res.status(401).send("Error 401: No token");
     }
 
     const token = req.headers.authorization.split(" ")[1];
-    const { decoded } = await User.getUserDetail(token);
-    console.log(108, decoded);
+    const { decoded } = await User.getUserStatus(token);
     if (decoded.error) {
       const statusCode = decoded.status ? decoded.status : 403;
       return res.status(statusCode).send({ error: decoded.error });
@@ -119,7 +116,6 @@ const getUserProfile = async (req, res) => {
         picture: decoded.picture,
       },
     };
-    console.log(117, userDetail);
     return res.status(200).send(userDetail);
   } catch (e) {
     res.status(500).send(e.message);
@@ -127,8 +123,23 @@ const getUserProfile = async (req, res) => {
   }
 };
 
+const getUserInfo = async (req, res) => {
+  const authorization = req.headers.authorization;
+  let token = "";
+  if (authorization !== undefined) {
+    token = authorization.split(" ")[1];
+  }
+
+  // const details = req.params.category || "details";
+  const userId = parseInt(req.query.id);
+  if (Number.isInteger(userId)) {
+    return await User.getUserDetail(userId, token);
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
-  getUserProfile,
+  getUserStatus,
+  getUserInfo,
 };

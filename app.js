@@ -23,6 +23,7 @@ app.use("/api/" + API_VERSION, [
   require("./server/routes/admin_route"),
   require("./server/routes/comment_route"),
   require("./server/routes/favorites_route"),
+  require("./server/routes/order_route"),
 ]);
 
 app.get("/", function (req, res) {
