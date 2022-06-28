@@ -6,8 +6,13 @@
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/footer.css" />
-    <link rel="stylesheet" href="./styles/profile.css" />
-    <link rel="stylesheet" href="./assets/fontawesome/css/all.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles/messenger.css" />
   </head>
 
   <body>
@@ -57,52 +62,32 @@
     </div>
 
     <main>
-      <div class="sidebar">
-        <div class="center">
-          <div class="profile">
-            <div class="image">
-              <div class="circle-1"></div>
-              <div class="circle-2"></div>
-              <img
-                src="./images/shiba.jpg"
-                width="170"
-                height="170"
-                alt="Jessica Potter"
-              />
+        <div class="chat-container">
+            <!-- <header class="chat-header">
+              <h1><i class="fas fa-smile"></i> ChatCord</h1>
+              <a href="index.html" class="btn">Leave Room</a>
+            </header> -->
+            <main class="chat-main">
+              <div class="chat-sidebar">
+                <h3><i class="fas fa-comments"></i> Room Name:</h3>
+                <h2 id="room-name"></h2>
+                <h3><i class="fas fa-users"></i> Users</h3>
+                <ul id="users"></ul>
+              </div>
+              <div class="chat-messages"></div>
+            </main>
+            <div class="chat-form-container">
+              <form id="chat-form">
+                <input
+                  id="msg"
+                  type="text"
+                  placeholder="Enter Message"
+                  required
+                  autocomplete="off"
+                />
+                <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+              </form>
             </div>
-
-            <div class="name"></div>
-            <div class="email"></div>
-
-            <div class="actions">
-              <button class="btn">Follow</button>
-              <button class="btn">Message</button>
-            </div>
-          </div>
-
-          <div class="stats">
-            <div class="box">
-              <span class="parameter">已修過</span>
-              <span class="value"></span>
-            </div>
-            <div class="box">
-              <span class="parameter">已開課</span>
-              <span class="value"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <h1>選修的課程</h1>
-        <div class="courses"></div>
-        <hr width="70%" />
-        <h1>收藏的課程</h1>
-        <div class="courses">
-        </div>
-        <hr width="70%" />
-        <h1>開設的課程</h1>
-        <div class="courses">
-      </div>
     </main>
     <!-- <footer>
       <nav>
@@ -121,7 +106,14 @@
       </div>
       <div class="rights">© 2022. All rights reserved.</div>
     </footer> -->
-    <script src="./js/profile.js"></script>
     <script src="./util/util.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.3/qs.min.js"
+      integrity="sha512-juaCj8zi594KHQqb92foyp87mCSriYjw3BcTHaXsAn4pEB1YWh+z+XQScMxIxzsjfM4BeVFV3Ij113lIjWiC2w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/messenger.js"></script>
   </body>
 </html>
