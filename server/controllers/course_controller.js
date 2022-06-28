@@ -1,5 +1,6 @@
 const Course = require("../models/course_model");
 pageSize = 12;
+hashtagSize = 20;
 
 const createCourse = async (req, res) => {
   const body = req.body;
@@ -50,7 +51,7 @@ const getCourses = async (req, res) => {
       case "marketing":
       case "music":
       case "programming":
-        return await Course.getCourses(pageSize, paging, {
+        return await Course.getCourses(hashtagSize, pageSize, paging, {
           category,
           hashtag,
           order,
