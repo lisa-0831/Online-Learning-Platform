@@ -1,8 +1,13 @@
+pageSize = 3;
+pages = 1;
+currentPage = 1;
+
 window.onload = async function () {
   // Courses
   let order = "trending";
   let hashtag = null;
   let category = "all";
+  let paging = null;
 
   let params = new URL(document.location).searchParams;
   if (params.get("category") !== null) {
@@ -11,11 +16,16 @@ window.onload = async function () {
   if (params.get("order") !== null) {
     order = params.get("order");
   }
-
   let url = `/api/1.0/courses/${category}?order=${order}`;
+
   hashtag = params.get("hashtag");
   if (hashtag !== null) {
     url += `&hashtag=${hashtag}`;
+  }
+
+  paging = params.get("paging");
+  if (paging !== null) {
+    url += `&paging=${paging - 1}`;
   }
 
   const coursesAllRes = await fetch(url);
@@ -23,6 +33,7 @@ window.onload = async function () {
 
   const coursesObj = coursesAllObj.products;
   const hashtagsObj = coursesAllObj.hashtags;
+  const courseNum = coursesAllObj.courseNum[0]["COUNT(*)"];
 
   for (let i = 0; i < coursesObj.length; i++) {
     // Course Div
@@ -71,6 +82,7 @@ window.onload = async function () {
     document.getElementById("courses").appendChild(course);
   }
 
+  // Top Hashtags
   for (let i = 0; i < hashtagsObj.length; i++) {
     let aTag = document.createElement("a");
     aTag.setAttribute("class", "sidebar-tag");
@@ -78,6 +90,63 @@ window.onload = async function () {
 
     aTag.innerText = hashtagsObj[i]["name"];
     document.getElementById("tagParent").appendChild(aTag);
+  }
+
+  // Paging
+  pages = Math.ceil(courseNum / pageSize);
+  currentPage = parseInt(paging) || 1;
+
+  const pageArr = [];
+  if (pages <= 4 || (currentPage - 3 < 1 && currentPage + 3 > pages)) {
+    for (let i = 1; i <= pages; i++) {
+      pageArr.push(i);
+    }
+  } else {
+    if (currentPage - 3 < 1) {
+      pageArr = [1, 2, 3];
+    } else {
+      pageArr = [1, "...", currentPage - 1, currentPage];
+      if (currentPage !== pages) {
+        pageArr.push(currentPage + 1);
+      }
+    }
+
+    if (pageArr[pageArr.length - 1] + 1 == pages) {
+      pageArr.push(pages);
+    } else if (pageArr[pageArr.length - 1] + 1 < pages) {
+      pageArr.push("...");
+      pageArr.push(pages);
+    }
+  }
+
+  console.log(117, pageArr);
+
+  for (let i = 0; i < pageArr.length; i++) {
+    let aTag = document.createElement("a");
+
+    if (!parseInt(pageArr[i])) {
+      if (i == 1) {
+        let page = currentPage - 3;
+        if (page < 1) {
+          page = 1;
+        }
+        aTag.setAttribute("data-type", page);
+      } else {
+        let page = currentPage + 3;
+        if (page > pages) {
+          page = pages;
+        }
+        aTag.setAttribute("data-type", page);
+      }
+    } else {
+      aTag.setAttribute("data-type", pageArr[i]);
+      if (pageArr[i] == currentPage) {
+        aTag.setAttribute("class", "active");
+      }
+    }
+
+    aTag.innerText = pageArr[i];
+    document.getElementById("pagingNum").appendChild(aTag);
   }
 
   const orderParent = document.getElementById("orderParent");
@@ -97,6 +166,34 @@ window.onload = async function () {
     let hashtag = e.target.dataset.type;
     hashtag = hashtag.substring(1);
     let url = `./courses.html?category=all&order=${order}&hashtag=${hashtag}`;
+    window.location.href = url;
+  });
+
+  const pagingParent = document.getElementById("pagingParent");
+  pagingParent.addEventListener("click", function (e) {
+    e.preventDefault();
+    let paging = e.target.dataset.type;
+    if (paging == "last") {
+      if (currentPage == 1) {
+        paging = 1;
+      } else {
+        paging = currentPage - 1;
+      }
+    } else if (paging == "next") {
+      if (currentPage == pages) {
+        paging = pages;
+      } else {
+        paging = currentPage + 1;
+      }
+    }
+    let url = "";
+    if (!hashtag) {
+      url = `./courses.html?category=${category}&order=${order}&paging=${paging}`;
+    } else {
+      url = `./courses.html?category=all&order=${order}&hashtag=${hashtag}&paging=${paging}`;
+    }
+    console.log(url);
+
     window.location.href = url;
   });
 };

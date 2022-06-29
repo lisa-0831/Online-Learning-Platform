@@ -1,5 +1,5 @@
 const Course = require("../models/course_model");
-pageSize = 12;
+pageSize = 3;
 hashtagSize = 20;
 
 const createCourse = async (req, res) => {

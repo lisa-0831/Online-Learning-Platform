@@ -83,24 +83,34 @@ const getCourses = async (
       ],
       binding: [],
     };
+    const pagingCondition = {
+      sql: ["SELECT COUNT(*) FROM pi.course "],
+      binding: [],
+    };
 
     // Category
     if (requirement.category !== "all") {
-      condition.sql.push(
+      let categorySql =
         "LEFT JOIN category \
-    ON course.category_id=category.id \
-    WHERE category.name= ? "
-      );
+      ON course.category_id=category.id \
+      WHERE category.name= ? ";
+
+      condition.sql.push(categorySql);
       condition.binding = [requirement.category];
+      pagingCondition.sql.push(categorySql);
+      pagingCondition.binding = [requirement.category];
     } else if (requirement.hashtag !== undefined) {
-      condition.sql.push(
+      let hashtagSql =
         "LEFT JOIN course_tag \
-      ON course_student.course_id=course_tag.course_id \
+      ON course.id=course_tag.course_id \
       LEFT JOIN tag \
       ON course_tag.tag_id=tag.id \
-      WHERE tag.name=? "
-      );
+      WHERE tag.name=? ";
+
+      condition.sql.push(hashtagSql);
       condition.binding = [`#${requirement.hashtag}`];
+      pagingCondition.sql.push(hashtagSql);
+      pagingCondition.binding = [`#${requirement.hashtag}`];
     }
 
     // Order
@@ -125,8 +135,11 @@ const getCourses = async (
     const hashtagUpdate = "UPDATE pi.tag SET views = views + 1 WHERE name=?";
     await conn.query(hashtagUpdate, `#${requirement.hashtag}`);
 
+    const pagingQuery = pagingCondition.sql.join("");
+    const [courseNum] = await conn.query(pagingQuery, pagingCondition.binding);
+
     await conn.query("COMMIT");
-    return { products: products, hashtags: hashtags };
+    return { products: products, hashtags: hashtags, courseNum: courseNum };
   } catch (error) {
     await conn.query("ROLLBACK");
     console.log(error);
