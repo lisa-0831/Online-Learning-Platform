@@ -1,5 +1,5 @@
 const Course = require("../models/course_model");
-pageSize = 3;
+pageSize = 9;
 hashtagSize = 20;
 
 const createCourse = async (req, res) => {
@@ -72,14 +72,14 @@ const getCourses = async (req, res) => {
     return;
   }
 
-  //   if (products.length == 0) {
-  //     if (category === "details") {
-  //       res.status(200).json({ data: null });
-  //     } else {
-  //       res.status(200).json({ data: [] });
-  //     }
-  //     return;
-  //   }
+  if (courses.length == 0) {
+    if (category === "details") {
+      res.status(200).json({ data: null });
+    } else {
+      res.status(200).json({ data: [] });
+    }
+    return;
+  }
 
   res.status(200).json(courses);
 };
