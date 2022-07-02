@@ -160,3 +160,9 @@ window.onload = async function () {
     document.getElementsByClassName("courses")[1].appendChild(course);
   }
 };
+
+const signOut = (event) => {
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("user_id");
+  window.location.href = "./";
+};
