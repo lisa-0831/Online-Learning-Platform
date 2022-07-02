@@ -23,6 +23,7 @@ const signUpForm = (event) => {
     .then((res) => res.json())
     .then((response) => {
       localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("user_id", response.data.user.id);
     })
     .then((data) => {
       window.location.href = "/courses.html";
