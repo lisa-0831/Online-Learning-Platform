@@ -26,7 +26,6 @@ const orderCheckout = async (req, res) => {
       token = authorization.split(" ")[1];
     }
     const orderId = await Order.checkout(prime, order, token);
-    console.log(orderId);
 
     if (orderId == -1) {
       return res.status(500).json({ Error: error });

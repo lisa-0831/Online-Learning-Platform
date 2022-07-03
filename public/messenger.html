@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>π</title>
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+      crossorigin="anonymous"
+    /> -->
+    <link rel="stylesheet" href="./styles/messenger.css" />
+  </head>
+
+  <body>
+    <div class="desktop-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="48" />
+      </a>
+      <div class="nav">
+        <a href="./courses.html" class="tag tag-courses">Courses</a>
+        <div class="tag-line"></div>
+        <a href="./livestreams.html" class="tag tag-livestreams"
+          >Live Streams</a
+        >
+        <div class="tag-line"></div>
+        <a href="./messenger.html" class="tag tag-messenger">Messenger</a>
+      </div>
+      <input class="search" />
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart.png" height="35" />
+        <div class="count"></div>
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member.png" height="35" />
+      </div>
+    </div>
+    <div class="mobile-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="20" />
+      </a>
+      <input class="search" />
+    </div>
+    <div class="mobile-nav">
+      <a href="./courses.html" class="tag tag-courses">Courses</a>
+      <a href="./livestreams.html" class="tag tag-livestreams">Live Streams</a>
+      <a href="./messenger.html" class="tag tag-messenger">Messenger</a>
+    </div>
+    <div class="mobile-footer">
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart-mobile.png" height="44" />
+        <div class="count"></div>
+        Cart
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member-mobile.png" height="44" />
+        Member
+      </div>
+    </div>
+
+    <main>
+      <div class="container">
+        <div class="chats">
+          <div class="chat-nav">
+            <p class="header">Message</p>
+          </div>
+          <div class="group-list">
+            <div class="group">
+              <div class="image">
+                <image
+                  class="profile"
+                  src="http://placekitten.com/51/51"
+                  alt="profile piture"
+                ></image>
+                <i class="fas"></i>
+              </div>
+              <div class="group-name">
+                <p class="title">
+                  Group One
+                  <span class="date">3 min</span>
+                </p>
+                <p>
+                  How do you feel about...
+                  <span class="n">1</span>
+                </p>
+              </div>
+            </div>
+            <div class="group active">
+              <div class="image">
+                <image
+                  class="profile"
+                  src="http://placekitten.com/50/50"
+                  alt="profile piture"
+                ></image>
+                <i class="fas"></i>
+              </div>
+              <div class="group-name">
+                <p class="title">
+                  Group Two
+                  <span class="date">5 min</span>
+                </p>
+                <p>
+                  Where did you put the...
+                  <span class="n">3</span>
+                </p>
+              </div>
+            </div>
+            <div class="group">
+              <div class="image">
+                <image
+                  class="profile"
+                  src="https://placedog.net/52/50"
+                  alt="profile piture"
+                ></image>
+                <i class="fas"></i>
+              </div>
+              <div class="group-name">
+                <p class="title">
+                  Group Three
+                  <span class="date">8 min</span>
+                </p>
+                <p>
+                  My trip to the North Pole...
+                  <span></span>
+                </p>
+              </div>
+            </div>
+            <div class="group">
+              <div class="image">
+                <image
+                  class="profile"
+                  src="http://placekitten.com/49/51"
+                  alt="profile piture"
+                ></image>
+                <i class="fas"></i>
+              </div>
+              <div class="group-name">
+                <p class="title">
+                  Group Four
+                  <span class="date">2 hours</span>
+                </p>
+                <p>
+                  Are you busy on...
+                  <span class=""></span>
+                </p>
+              </div>
+            </div>
+            <div class="group">
+              <div class="image">
+                <image
+                  class="profile"
+                  src="http://placekitten.com/48/50"
+                  alt="profile piture"
+                ></image>
+                <i class="fas"></i>
+              </div>
+              <div class="group-name">
+                <p class="title">
+                  Group Five
+                  <span class="date">5 hours</span>
+                </p>
+                <p>
+                  I don't think we should...
+                  <span class=""></span>
+                </p>
+              </div>
+            </div>
+            <div class="group">
+              <div class="image">
+                <image
+                  class="profile"
+                  src="https://placedog.net/49/50"
+                  alt="profile piture"
+                ></image>
+                <i class="fas"></i>
+              </div>
+              <div class="group-name">
+                <p class="title">
+                  Design Team
+                  <span class="date">8 hours</span>
+                </p>
+                <p>
+                  Dave, plaid and polka-dot...
+                  <span></span>
+                </p>
+              </div>
+            </div>
+            <div class="group">
+              <div class="image">
+                <image
+                  class="profile"
+                  src="https://placedog.net/48/48"
+                  alt="profile piture"
+                ></image>
+                <i class="fas"></i>
+              </div>
+              <div class="group-name">
+                <p class="title">
+                  Group Six
+                  <span class="date">2 days</span>
+                </p>
+                <p>
+                  I left my keys in my car...
+                  <span></span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-container">
+          <div class="chat-room">
+            <div class="chatroom-nav">
+              <div>
+                <image
+                  class="image"
+                  src="http://placekitten.com/50"
+                  alt="Profile piture"
+                ></image>
+              </div>
+              <div>
+                <p>Dave</p>
+              </div>
+            </div>
+            <p class="date">Today 2:35</p>
+            <div class="message">
+              <div class="blurb">Some sample text</div>
+            </div>
+            <div class="message">
+              <div class="blurb">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
+                provident adipisci ad possimus error nesciunt ipsum ut maxime
+                ipsa voluptatum, libero accusantium nihil minus voluptates nulla
+                doloribus deserunt! Molestias, neque!
+              </div>
+            </div>
+            <div class="message">
+              <div class="odd-blurb">Some sample text</div>
+            </div>
+            <div class="message">
+              <div class="blurb">Lorem ipsum dolor sit amet?</div>
+            </div>
+            <div class="message">
+              <div class="odd-blurb">lorem ipsum dolor sit amet</div>
+            </div>
+            <div class="message"></div>
+            <div class="message"></div>
+            <div class="message"></div>
+          </div>
+          <div class="chat-bar">
+            <span class="text-container">
+              <span
+                class="editable"
+                contenteditable="true"
+                data-text="Write new message"
+              ></span>
+            </span>
+            <button><i class="fas fa-paper-plane"></i></button>
+            <span>
+              <i class="fas fa-link"></i>
+              <i class="fas fa-file-image"></i>
+              <i class="fas fa-grin"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- <footer>
+      <nav>
+        <ul>
+          <li>About Us</li>
+          <li>TBC</li>
+          <li>TBC</li>
+          <li>Contact Us</li>
+          <li>FAQ</li>
+        </ul>
+      </nav>
+      <div class="links">
+        <img src="./images/line.png" />
+        <img src="./images/twitter.png" />
+        <img src="./images/facebook.png" />
+      </div>
+      <div class="rights">© 2022. All rights reserved.</div>
+    </footer> -->
+    <script src="./util/util.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.3/qs.min.js"
+      integrity="sha512-juaCj8zi594KHQqb92foyp87mCSriYjw3BcTHaXsAn4pEB1YWh+z+XQScMxIxzsjfM4BeVFV3Ij113lIjWiC2w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/messenger.js"></script>
+  </body>
+</html>

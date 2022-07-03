@@ -30,4 +30,9 @@ app.get("/", function (req, res) {
   res.send("Hello!");
 });
 
+// // Initiate socket.io
+// const serverForSocket = require("http").createServer(app);
+// module.exports = serverForSocket;
+// require("./socketio/socket");
+
 app.listen(process.env.PORT);

@@ -67,7 +67,7 @@ window.onload = async function () {
     commentAvatar.setAttribute("class", "comment-avatar");
 
     let img = document.createElement("img");
-    img.src = `images/profile.png`;
+    img.src = `images/${commentsArr[i]["picture"]}`;
     img.alt = "";
     commentAvatar.appendChild(img);
 
@@ -84,7 +84,7 @@ window.onload = async function () {
     commentHead.appendChild(commentName);
 
     let commentATag = document.createElement("a");
-    //commentATag.href="" // personal profile page
+    commentATag.href = `/profile.html?id=${commentsArr[i]["id"]}`; // personal profile page
     commentATag.innerText = commentsArr[i]["name"];
     commentName.appendChild(commentATag);
     commentHead.appendChild(commentName);
@@ -97,13 +97,13 @@ window.onload = async function () {
     commentSpan.innerText = createDate;
     commentHead.appendChild(commentSpan);
 
-    let commentReply = document.createElement("i");
-    commentReply.setAttribute("class", "fa fa-reply");
-    commentHead.appendChild(commentReply);
+    // let commentReply = document.createElement("i");
+    // commentReply.setAttribute("class", "fa fa-reply");
+    // commentHead.appendChild(commentReply);
 
-    let commentHeart = document.createElement("i");
-    commentHeart.setAttribute("class", "fa fa-heart");
-    commentHead.appendChild(commentHeart);
+    // let commentHeart = document.createElement("i");
+    // commentHeart.setAttribute("class", "fa fa-heart");
+    // commentHead.appendChild(commentHeart);
 
     commentBox.appendChild(commentHead);
 

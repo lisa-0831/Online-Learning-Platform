@@ -133,7 +133,9 @@ const getUserInfo = async (req, res) => {
   // const details = req.params.category || "details";
   const userId = parseInt(req.query.id);
   if (Number.isInteger(userId)) {
-    return await User.getUserDetail(userId, token);
+    // return await User.getUserDetail(userId, token);
+    const user = await User.getUserDetail(userId, token);
+    return res.send({ user });
   }
 };
 

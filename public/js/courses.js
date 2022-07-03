@@ -18,9 +18,11 @@ window.onload = async function () {
     url += `&hashtag=${hashtag}`;
   }
 
-  const coursesRes = await fetch(url);
-  const coursesObj = await coursesRes.json();
-  console.log(coursesObj);
+  const coursesAllRes = await fetch(url);
+  const coursesAllObj = await coursesAllRes.json();
+
+  const coursesObj = coursesAllObj.products;
+  const hashtagsObj = coursesAllObj.hashtags;
 
   for (let i = 0; i < coursesObj.length; i++) {
     // Course Div
@@ -67,6 +69,15 @@ window.onload = async function () {
     courseTag.appendChild(figcaption);
     course.appendChild(courseTag);
     document.getElementById("courses").appendChild(course);
+  }
+
+  for (let i = 0; i < hashtagsObj.length; i++) {
+    let aTag = document.createElement("a");
+    aTag.setAttribute("class", "sidebar-tag");
+    aTag.setAttribute("data-type", hashtagsObj[i]["name"]);
+
+    aTag.innerText = hashtagsObj[i]["name"];
+    document.getElementById("tagParent").appendChild(aTag);
   }
 
   const orderParent = document.getElementById("orderParent");
