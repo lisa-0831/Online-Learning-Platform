@@ -140,6 +140,7 @@
 }
 
 .course {
+  overflow: hidden;
   font-family: 'Open Sans', Arial, sans-serif;
   position: relative;
   margin: 10px;
@@ -150,7 +151,6 @@
   text-align: center;
   line-height: 1.4em;
   font-size: 14px;
-  /* box-shadow: none !important; */
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -178,6 +178,7 @@
 }
 
 .course figcaption {
+  height: 100%;
   width: 100%;
   background-color: #F2F2F2;
   color: #555;
