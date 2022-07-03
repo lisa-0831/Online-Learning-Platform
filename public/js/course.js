@@ -16,7 +16,7 @@ window.onload = async function () {
 
   // Course Video
   let courseVideo = document.createElement("source");
-  courseVideo.src = `/assets/${detailsObj["video"]}`;
+  courseVideo.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${detailsObj["video"]}`;
   courseVideo.type = "video/mp4";
   document.getElementById("video-controls").appendChild(courseVideo);
 
@@ -67,7 +67,7 @@ window.onload = async function () {
     commentAvatar.setAttribute("class", "comment-avatar");
 
     let img = document.createElement("img");
-    img.src = `images/${commentsArr[i]["picture"]}`;
+    img.src = `https://d1wan10jjr4v2x.cloudfront.net/profile/${commentsArr[i]["picture"]}`;
     img.alt = "";
     commentAvatar.appendChild(img);
 

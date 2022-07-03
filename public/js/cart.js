@@ -27,7 +27,10 @@ window.onload = async function () {
 
           let item_image = document.createElement("img");
           item_image.setAttribute("class", "item__image");
-          item_image.setAttribute("src", `assets/${list[i]["cover"]}`);
+          item_image.setAttribute(
+            "src",
+            `https://d1wan10jjr4v2x.cloudfront.net/assets/${list[i]["cover"]}`
+          );
 
           item.appendChild(item_image);
 

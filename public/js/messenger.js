@@ -98,7 +98,10 @@ window.onload = async function () {
       imageDiv.setAttribute("data-type", otherId);
       const image = document.createElement("img");
       image.setAttribute("class", "profile");
-      image.setAttribute("src", `/images/${otherPic}`);
+      image.setAttribute(
+        "src",
+        `https://d1wan10jjr4v2x.cloudfront.net/profile/${otherPic}`
+      );
       image.setAttribute("alt", "profile piture");
       image.setAttribute("width", "50px");
       image.setAttribute("height", "50px");
