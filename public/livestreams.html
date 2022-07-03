@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>π</title>
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
+    <link rel="stylesheet" href="./styles/bar.css" />
+    <link rel="stylesheet" href="./styles/courses.css" />
+  </head>
+
+  <body>
+    <div class="desktop-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="48" />
+      </a>
+      <div class="nav">
+        <a href="./courses.html" class="tag tag-courses">Courses</a>
+        <div class="tag-line"></div>
+        <a href="./livestreams.html" class="tag tag-livestreams"
+          >Live Streams</a
+        >
+        <div class="tag-line"></div>
+        <a href="./messenger.html" class="tag tag-messenger">Messenger</a>
+      </div>
+      <input class="search" />
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart.png" height="35" />
+        <div class="count"></div>
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member.png" height="35" />
+      </div>
+    </div>
+    <div class="mobile-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="20" />
+      </a>
+      <input class="search" />
+    </div>
+    <div class="mobile-nav">
+      <a href="./courses.html" class="tag tag-courses">Courses</a>
+      <a href="./livestreams.html" class="tag tag-livestreams">Live Streams</a>
+      <a onclick="checkMessenger()" class="tag tag-messenger">Messenger</a>
+    </div>
+    <div class="mobile-footer">
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart-mobile.png" height="44" />
+        <div class="count"></div>
+        Cart
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member-mobile.png" height="44" />
+        Member
+      </div>
+    </div>
+
+    <main>
+      <div class="sidebar">
+        <div class="sidebar-categories">
+          <a href="./courses.html?category=all" class="sidebar-category">All</a>
+          <a href="./courses.html?category=humanities" class="sidebar-category"
+            >Humanities</a
+          >
+          <a href="./courses.html?category=investment" class="sidebar-category"
+            >Investment</a
+          >
+          <a href="./courses.html?category=language" class="sidebar-category"
+            >Language</a
+          >
+          <a href="./courses.html?category=marketing" class="sidebar-category"
+            >Marketing</a
+          >
+          <a href="./courses.html?category=music" class="sidebar-category"
+            >Music</a
+          >
+          <a href="./courses.html?category=programming" class="sidebar-category"
+            >Programming</a
+          >
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="top-bar">
+          <h2 class="top-bar-title">Courses</h2>
+          <div id="orderParent" class="top-bar-selections">
+            <a class="top-bar-selection selected" data-type="trending"
+              >Trending</a
+            >
+            <a class="top-bar-selection" data-type="latest">Latest</a>
+            <a class="top-bar-selection" data-type="recommend">Recommend</a>
+          </div>
+        </div>
+        <div id="courses">
+          <!-- <figure class="course">
+            <a class="course-detail" href="/"></a>
+              <div class="course-image">
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample47.jpg"
+                  alt="sample47"
+                />
+              </div>
+              <figcaption>
+                <h3>自動理財：不記帳的無痛存錢課</h3>
+                <h4>學生 360 人</h4>
+                <p>NT$ 2800</p>
+              </figcaption>
+            </a>
+          </figure> -->
+        </div>
+        <div class="pagination">
+          <div id="pagingParent">
+            <a data-type="last">&laquo;</a>
+            <div id="pagingNum">
+              <!-- <a data-type="1">1</a>
+            <a class="active" data-type="2">2</a>
+            <a data-type="3">3</a>
+            <a data-type="4">4</a>
+            <a data-type="5">5</a>
+            <a data-type="...">...</a> -->
+            </div>
+            <a data-type="next">&raquo;</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="slogan">
+        <p>
+          3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102
+        </p>
+      </div>
+      <div class="rights">© 2022. All rights reserved.</div>
+    </footer>
+    <script src="./util/util.js"></script>
+  </body>
+</html>
