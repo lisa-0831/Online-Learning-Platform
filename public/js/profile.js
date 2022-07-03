@@ -32,7 +32,7 @@ window.onload = async function () {
     imgDiv.setAttribute("class", "course-image");
 
     let courseImg = document.createElement("img");
-    courseImg.src = `/assets/${user.bought[i]["cover"]}`;
+    courseImg.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${user.bought[i]["cover"]}`;
     courseImg.width = "300";
     courseImg.height = "186";
     imgDiv.appendChild(courseImg);
@@ -80,7 +80,7 @@ window.onload = async function () {
     imgDiv.setAttribute("class", "course-image");
 
     let courseImg = document.createElement("img");
-    courseImg.src = `/assets/${user.favorites[i]["cover"]}`;
+    courseImg.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${user.favorites[i]["cover"]}`;
     courseImg.width = "300";
     courseImg.height = "186";
     imgDiv.appendChild(courseImg);
@@ -128,7 +128,7 @@ window.onload = async function () {
     imgDiv.setAttribute("class", "course-image");
 
     let courseImg = document.createElement("img");
-    courseImg.src = `/assets/${user.teach[i]["cover"]}`;
+    courseImg.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${user.teach[i]["cover"]}`;
     courseImg.width = "300";
     courseImg.height = "186";
     imgDiv.appendChild(courseImg);

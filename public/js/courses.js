@@ -50,7 +50,7 @@ window.onload = async function () {
     imgDiv.setAttribute("class", "course-image");
 
     let courseImg = document.createElement("img");
-    courseImg.src = `/assets/${coursesObj[i]["cover"]}`;
+    courseImg.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${coursesObj[i]["cover"]}`;
     // courseImg.width = "300";
     // courseImg.height = "186";
     imgDiv.appendChild(courseImg);
