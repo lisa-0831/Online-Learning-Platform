@@ -10,6 +10,7 @@ const createCourse = async (course, hashtags) => {
     await conn.query("START TRANSACTION");
     const [result] = await conn.query("INSERT INTO course SET ?", course);
 
+    console.log(13, hashtags);
     // Hashtags
     let insertSqlMark = "";
     let selectSqlMark = "";
@@ -20,6 +21,11 @@ const createCourse = async (course, hashtags) => {
     insertSqlMark = insertSqlMark.slice(0, -2);
     selectSqlMark = selectSqlMark.slice(0, -2);
 
+    console.log(
+      24,
+      "INSERT IGNORE INTO tag (name) VALUES " + insertSqlMark,
+      hashtags
+    );
     // Insert Tags Into Tags Table
     const [insertTagResult] = await conn.query(
       "INSERT IGNORE INTO tag (name) VALUES " + insertSqlMark,
@@ -129,7 +135,8 @@ const getCourses = async (
     const courseBindings = condition.binding.concat(limit.binding);
     const [products] = await conn.query(courseQuery, courseBindings);
 
-    const hashtagQuery = "SELECT * FROM pi.tag ORDER BY views DESC LIMIT 0, ?";
+    const hashtagQuery =
+      "SELECT * FROM pi.tag ORDER BY (views + create_time*0.00000001) DESC LIMIT 0, ?";
     const [hashtags] = await conn.query(hashtagQuery, hashtagSize);
 
     const hashtagUpdate = "UPDATE pi.tag SET views = views + 1 WHERE name=?";

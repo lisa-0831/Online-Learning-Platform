@@ -5,25 +5,15 @@ const { API_VERSION } = process.env;
 const express = require("express");
 const app = express();
 
-// Socketio
-const http = require("http");
-const server = http.createServer(app);
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-  },
-});
-const formatMessage = require("./util/messages");
-
 // Multer
 const multer = require("multer");
 const upload = multer();
+app.use(upload.array());
 
 // Middleware
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(upload.array());
 app.use(express.static("public"));
 
 // API routes
@@ -36,6 +26,16 @@ app.use("/api/" + API_VERSION, [
   require("./server/routes/order_route"),
   require("./server/routes/messenger_route"),
 ]);
+
+// Socketio
+const http = require("http");
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
+});
+const formatMessage = require("./util/messages");
 
 io.on("connection", (socket) => {
   console.log(`New Connection: ${socket.id} ...`);
