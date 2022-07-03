@@ -104,6 +104,7 @@ const getUserStatus = async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const { decoded } = await User.getUserStatus(token);
     if (decoded.error) {
+      console.log(decoded.error);
       const statusCode = decoded.status ? decoded.status : 403;
       return res.status(statusCode).send({ error: decoded.error });
     }
