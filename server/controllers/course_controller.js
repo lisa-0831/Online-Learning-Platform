@@ -57,6 +57,15 @@ const getCourses = async (req, res) => {
           order,
           paging,
         });
+      case "search": {
+        const keyword = req.query.keyword;
+        if (keyword) {
+          return await Course.getCourses(hashtagSize, pageSize, paging, {
+            keyword,
+          });
+        }
+        break;
+      }
       case "details": {
         const courseId = parseInt(req.query.id);
         if (Number.isInteger(courseId)) {
