@@ -42,7 +42,7 @@
     <div class="mobile-nav">
       <a href="./courses.html" class="tag tag-courses">Courses</a>
       <a href="./livestreams.html" class="tag tag-livestreams">Live Streams</a>
-      <a href="./messenger.html" class="tag tag-messenger">Messenger</a>
+      <a onclick="checkMessenger()" class="tag tag-messenger">Messenger</a>
     </div>
     <div class="mobile-footer">
       <div class="cart" onclick="checkLogin()">
@@ -83,19 +83,7 @@
         <div class="sidebar-hot">
           <h2 class="sidebar-title">Top Hashtags</h2>
           <div id="tagParent" class="sidebar-tags">
-            <!-- <a class="sidebar-tag" data-type="#Writing">#Writing</a>
-            <a class="sidebar-tag" data-type="#English">#English</a>
-            <a class="sidebar-tag" data-type="#DigitalMarketing"
-              >#DigitalMarketing</a
-            >
-            <a class="sidebar-tag" data-type="#Piano">#Piano</a>
-            <a class="sidebar-tag" data-type="#Frontend">#Frontend</a>
-            <a class="sidebar-tag" data-type="#Backend">#Backend</a>
-            <a class="sidebar-tag" data-type="#Stock">#Stock</a>
-            <a class="sidebar-tag" data-type="#Novel">#Novel</a>
-            <a class="sidebar-tag" data-type="#Analysis">#Analysis</a>
-            <a class="sidebar-tag" data-type="#Deposit">#Deposit</a>
-            <a class="sidebar-tag" data-type="#Guitar">#Guitar</a> -->
+            <!-- <a class="sidebar-tag" data-type="#Writing">#Writing</a>-->
           </div>
         </div>
       </div>
@@ -127,6 +115,20 @@
               </figcaption>
             </a>
           </figure> -->
+        </div>
+        <div class="pagination">
+          <div id="pagingParent">
+            <a data-type="last">&laquo;</a>
+            <div id="pagingNum">
+              <!-- <a data-type="1">1</a>
+            <a class="active" data-type="2">2</a>
+            <a data-type="3">3</a>
+            <a data-type="4">4</a>
+            <a data-type="5">5</a>
+            <a data-type="...">...</a> -->
+            </div>
+            <a data-type="next">&raquo;</a>
+          </div>
         </div>
       </div>
     </main>

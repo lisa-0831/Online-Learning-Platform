@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/footer.css" />
-    <link rel="stylesheet" href="./styles/profile.css" />
-    <link rel="stylesheet" href="./assets/fontawesome/css/all.css" />
   </head>
 
   <body>
@@ -22,7 +20,7 @@
           >Live Streams</a
         >
         <div class="tag-line"></div>
-        <a href="./messenger.html" class="tag tag-messenger">Messenger</a>
+        <a onclick="checkMessenger()" class="tag tag-messenger">Messenger</a>
       </div>
       <input class="search" />
       <div class="cart" onclick="checkLogin()">
@@ -56,55 +54,7 @@
       </div>
     </div>
 
-    <main>
-      <div class="sidebar">
-        <div class="center">
-          <div class="profile">
-            <div class="image">
-              <div class="circle-1"></div>
-              <div class="circle-2"></div>
-              <img
-                src="./images/shiba.jpg"
-                width="170"
-                height="170"
-                alt="Jessica Potter"
-              />
-            </div>
-
-            <div class="name"></div>
-            <div class="email"></div>
-
-            <div class="actions">
-              <button class="btn">Follow</button>
-              <button class="btn">Message</button>
-              <button class="btn" onclick="signOut()">Sign Out</button>
-            </div>
-          </div>
-
-          <div class="stats">
-            <div class="box">
-              <span class="parameter">已修過</span>
-              <span class="value"></span>
-            </div>
-            <div class="box">
-              <span class="parameter">已開課</span>
-              <span class="value"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <h1>選修的課程</h1>
-        <div class="courses"></div>
-        <hr width="70%" />
-        <h1>收藏的課程</h1>
-        <div class="courses">
-        </div>
-        <hr width="70%" />
-        <h1>開設的課程</h1>
-        <div class="courses">
-      </div>
-    </main>
+    <main></main>
     <footer>
       <nav>
         <ul>
@@ -122,7 +72,8 @@
       </div>
       <div class="rights">© 2022. All rights reserved.</div>
     </footer>
-    <script src="./js/profile.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/messenger.js"></script>
     <script src="./util/util.js"></script>
   </body>
 </html>

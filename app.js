@@ -5,6 +5,16 @@ const { API_VERSION } = process.env;
 const express = require("express");
 const app = express();
 
+// Socketio
+const http = require("http");
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
+});
+const formatMessage = require("./util/messages");
+
 // Multer
 const multer = require("multer");
 const upload = multer();
@@ -24,15 +34,27 @@ app.use("/api/" + API_VERSION, [
   require("./server/routes/comment_route"),
   require("./server/routes/favorites_route"),
   require("./server/routes/order_route"),
+  require("./server/routes/messenger_route"),
 ]);
 
-app.get("/", function (req, res) {
-  res.send("Hello!");
+io.on("connection", (socket) => {
+  console.log(`New Connection: ${socket.id} ...`);
+
+  // User Join the Room
+  socket.on("user_join", (user) => {
+    socket.join(user.room);
+  });
+
+  // Listen for Message
+  socket.on("send_message", (playload) => {
+    io.to(playload.room).emit("receive_message", formatMessage(playload));
+  });
+
+  socket.on("disconnet", () => {
+    console.log(`${socket.id} has left the chat...`);
+  });
 });
 
-// // Initiate socket.io
-// const serverForSocket = require("http").createServer(app);
-// module.exports = serverForSocket;
-// require("./socketio/socket");
-
-app.listen(process.env.PORT);
+server.listen(process.env.PORT, () =>
+  console.log(`Server running on port ${process.env.PORT}!`)
+);

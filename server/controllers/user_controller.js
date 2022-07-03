@@ -114,6 +114,7 @@ const getUserStatus = async (req, res) => {
         name: decoded.name,
         email: decoded.email,
         picture: decoded.picture,
+        userId: decoded.userId,
       },
     };
     return res.status(200).send(userDetail);
