@@ -188,7 +188,7 @@ const getCourse = async (courseId, token) => {
     }
 
     let sql =
-      "SELECT course.title, course.description, course.upload_time, \
+      "SELECT course.title, course.description, course.price, course.upload_time, \
             course.video, user.name FROM course INNER JOIN user \
      ON course.user_id=user.id \
      WHERE course.id = ?";
@@ -198,24 +198,67 @@ const getCourse = async (courseId, token) => {
       details.video = "lock.mp4";
     }
 
-    // Comments
-    const [[commented_type_id]] = await conn.query(
+    // Q&A
+    const [[course_before_pay_type_id]] = await conn.query(
       "SELECT id FROM commented_type WHERE type= ? ",
-      [status]
+      ["course_before_pay"]
     );
 
-    const [comments] = await conn.query(
+    const [questions] = await conn.query(
       "SELECT comment.content, comment.create_time, user.name, user.picture, user.id \
      FROM comment \
      LEFT JOIN user \
      ON comment.user_id=user.id \
      WHERE comment.commented_id= ? and comment.commented_type_id= ? \
      ORDER BY comment.create_time DESC",
-      [courseId, commented_type_id.id]
+      [courseId, course_before_pay_type_id.id]
     );
 
+    // Rating
+    const [[rating_type_id]] = await conn.query(
+      "SELECT id FROM commented_type WHERE type= ? ",
+      ["rating"]
+    );
+
+    const [rating] = await conn.query(
+      "SELECT comment.content, comment.create_time, user.name, user.picture, user.id, course_rating.star  \
+     FROM comment \
+     LEFT JOIN user \
+     ON comment.user_id=user.id \
+     LEFT JOIN course_rating \
+	   ON comment.user_id=course_rating.user_id and comment.commented_id=course_rating.course_id \
+     WHERE comment.commented_id= ? and comment.commented_type_id= ? \
+     ORDER BY comment.create_time DESC",
+      [courseId, rating_type_id.id]
+    );
+
+    // Discussion
+    let discussion = [];
+    if (status == "course_after_pay") {
+      const [[course_after_pay_type_id]] = await conn.query(
+        "SELECT id FROM commented_type WHERE type= ? ",
+        ["course_after_pay"]
+      );
+
+      [discussion] = await conn.query(
+        "SELECT comment.content, comment.create_time, user.name, user.picture, user.id \
+       FROM comment \
+       LEFT JOIN user \
+       ON comment.user_id=user.id \
+       WHERE comment.commented_id= ? and comment.commented_type_id= ? \
+       ORDER BY comment.create_time DESC",
+        [courseId, course_after_pay_type_id.id]
+      );
+    }
+
     await conn.query("COMMIT");
-    return { details: details, comments: comments };
+    return {
+      details: details,
+      questions: questions,
+      rating: rating,
+      discussion: discussion,
+      status: status,
+    };
   } catch (error) {
     await conn.query("ROLLBACK");
     console.log(error);
