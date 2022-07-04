@@ -56,6 +56,7 @@ window.onload = async function () {
 
   // SideBar
   const renderSidebar = async () => {
+    console.log(59, "render sidebar");
     const sidebarRes = await fetch(`/api/1.0/messages/all`, {
       method: "GET",
       headers: new Headers({
@@ -232,41 +233,44 @@ window.onload = async function () {
   // Message submit
   chatForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (currentRoom.length == 0) {
+      alert("請先選擇聊天室。");
+    } else {
+      // Get message text
+      const msg = e.target.elements.msg.value;
+      const playload = {
+        room: currentRoom,
+        userId: userId,
+        message: {
+          text: msg,
+          username: username,
+        },
+      };
 
-    // Get message text
-    const msg = e.target.elements.msg.value;
-    const playload = {
-      room: currentRoom,
-      userId: userId,
-      message: {
-        text: msg,
-        username: username,
-      },
-    };
+      // Emit message to server
+      socket.emit("send_message", playload);
 
-    // Emit message to server
-    socket.emit("send_message", playload);
+      // Clear input
+      e.target.elements.msg.value = "";
+      e.target.elements.msg.focus();
 
-    // Clear input
-    e.target.elements.msg.value = "";
-    e.target.elements.msg.focus();
+      // Store Message API
+      const messageId = await fetch(`/api/1.0/messages`, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        }),
+        body: JSON.stringify(playload),
+      });
+    }
 
-    // Store Message API
-    const messageId = await fetch(`/api/1.0/messages`, {
-      method: "POST",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      }),
-      body: JSON.stringify(playload),
-    });
+    // // Remove SideBar
+    // const sidebarElement = document.getElementById("roomParent"); // will return element
+    // sidebarElement.innerHTML = "";
 
-    // Remove SideBar
-    const sidebarElement = document.getElementById("roomParent"); // will return element
-    sidebarElement.innerHTML = "";
-
-    // Put SideBar
-    await renderSidebar();
+    // // Put SideBar
+    // await renderSidebar();
   });
 
   // Message from server
