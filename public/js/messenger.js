@@ -155,6 +155,17 @@ window.onload = async function () {
 
   await renderSidebar();
 
+  // If User clicked messenger button
+  // const receiver_id = localStorage.getItem("receiver_id");
+  // if (receiver_id !== null) {
+  //   currentRoom = [userId, receiver_id];
+  //   room.sort(function (a, b) {
+  //     return a - b;
+  //   });
+  //   room = room.toString();
+  // }
+  // 要再remove localstorage
+
   // Change Room
   const roomParent = document.getElementById("roomParent");
   roomParent.addEventListener("click", async function (e) {

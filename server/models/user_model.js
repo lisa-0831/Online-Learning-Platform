@@ -136,13 +136,20 @@ const getUserDetail = async (userId, token) => {
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
 
+    const [[userInfo]] = await conn.query(
+      "SELECT user.name, user.email, user.picture \
+    FROM user \
+    WHERE id=?",
+      [userId]
+    );
+
     const [bought] = await conn.query(
       "SELECT course.id, course.cover, course.title, course.price \
     FROM course_student \
     LEFT JOIN course \
     ON course.id=course_student.course_id \
     WHERE course_student.user_id=?",
-      [decoded.userId]
+      [userId]
     );
 
     const [favorites] = await conn.query(
@@ -151,20 +158,20 @@ const getUserDetail = async (userId, token) => {
     LEFT JOIN course \
     ON course.id=course_favorites.course_id \
     WHERE course_favorites.user_id=?",
-      [decoded.userId]
+      [userId]
     );
 
     const [teach] = await conn.query(
       "SELECT course.id, course.cover, course.title, course.price \
     FROM course \
     WHERE course.user_id=?",
-      [decoded.userId]
+      [userId]
     );
 
-    user = {
-      name: decoded.name,
-      email: decoded.email,
-      picture: decoded.picture,
+    const user = {
+      name: userInfo.name,
+      email: userInfo.email,
+      picture: userInfo.picture,
       bought: bought,
       favorites: favorites,
       teach: teach,

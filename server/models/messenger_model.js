@@ -4,6 +4,22 @@ const { pool } = require("./mysqlcon");
 const { TOKEN_SECRET } = process.env;
 const jwt = require("jsonwebtoken");
 
+const addRoom = async (token, receiverId) => {
+  const decoded = jwt.verify(token, TOKEN_SECRET);
+  const userId = decoded.userId;
+  let room = [userId, receiverId];
+  room.sort(function (a, b) {
+    return a - b;
+  });
+  room = room.toString();
+
+  const [result] = await pool.query(
+    "INSERT INTO message_check (room, user_id, last_time) VALUES (?, ?, ?)",
+    [room, userId, Date.now()]
+  );
+  return result.insertId;
+};
+
 const addMessage = async (data) => {
   const conn = await pool.getConnection();
   try {
@@ -145,6 +161,7 @@ const getMessage = async (token, otherSideId) => {
 };
 
 module.exports = {
+  addRoom,
   addMessage,
   getMessage,
   getMessages,

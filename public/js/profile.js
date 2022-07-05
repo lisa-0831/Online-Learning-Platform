@@ -11,11 +11,29 @@ window.onload = async function () {
   });
   const userObj = await userRes.json();
   const user = userObj.user.user;
+  console.log(userObj);
   document.getElementsByClassName("name")[0].innerText = user.name;
   document.getElementsByClassName("email")[0].innerText = user.email;
   document.getElementsByClassName("value")[0].innerText = user.bought.length;
   document.getElementsByClassName("value")[1].innerText = user.teach.length;
+  const imgNode = document.createElement("img");
+  imgNode.setAttribute(
+    "src",
+    `https://d1wan10jjr4v2x.cloudfront.net/profile/${user.picture}`
+  );
+  imgNode.setAttribute("width", "170");
+  imgNode.setAttribute("height", "170");
+  document.getElementsByClassName("image")[0].appendChild(imgNode);
 
+  if (user.auth == 1) {
+    document.getElementsByClassName(
+      "actions"
+    )[0].innerHTML = `<button class="btn">Edit</button><button class="btn" onclick="signOut()">Sign Out</button>`;
+  } else {
+    document.getElementsByClassName(
+      "actions"
+    )[0].innerHTML = `<button class="btn" onclick="sendMessage()">Message</button>`;
+  }
   // Bought
   for (let i = 0; i < user.bought.length; i++) {
     // Course Div
@@ -157,7 +175,7 @@ window.onload = async function () {
 
     courseTag.appendChild(figcaption);
     course.appendChild(courseTag);
-    document.getElementsByClassName("courses")[1].appendChild(course);
+    document.getElementsByClassName("courses")[2].appendChild(course);
   }
 };
 
@@ -166,3 +184,26 @@ const signOut = (event) => {
   localStorage.removeItem("user_id");
   window.location.href = "./";
 };
+
+// const sendMessage = async (event) => {
+//   const access_token = localStorage.getItem("access_token");
+
+//   if (access_token !== null) {
+//     const searchParams = new URLSearchParams(window.location.search);
+//     const receiver_id = parseInt(searchParams.get("id"));
+//     localStorage.setItem("receiver_id", receiver_id);
+
+//     const checkId = await fetch(`/api/1.0/messages/newroom`, {
+//       method: "POST",
+//       headers: new Headers({
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+//       }),
+//       body: JSON.stringify({ receiverId: receiver_id }),
+//     });
+
+//     window.location.href = "./messenger.html";
+//   } else {
+//     window.location.href = "/signin.html";
+//   }
+// };

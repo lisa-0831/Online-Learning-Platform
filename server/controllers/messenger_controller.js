@@ -1,5 +1,18 @@
 const Message = require("../models/messenger_model");
 
+const saveRoomId = async (req, res) => {
+  const authorization = req.headers.authorization;
+  let token = "";
+  if (authorization !== undefined) {
+    token = authorization.split(" ")[1];
+  }
+
+  const receiverId = req.body.receiverId;
+  const checkId = await Message.addRoom(token, receiverId);
+
+  res.send({ checkId });
+};
+
 const saveMessage = async (req, res) => {
   const data = req.body;
   if (!data.room) {
@@ -56,4 +69,5 @@ const getMessages = async (req, res) => {
 module.exports = {
   saveMessage,
   getMessages,
+  saveRoomId,
 };
