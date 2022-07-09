@@ -9,9 +9,9 @@ window.onload = async function () {
   const chatMessages = document.querySelector(".chat-messages");
 
   // Output message to DOM
-  const outputMessage = (playload) => {
+  const outputMessage = (payload) => {
     const messageDiv = document.createElement("div");
-    if (playload.userId == userId) {
+    if (payload.userId == userId) {
       messageDiv.setAttribute("class", "message right");
     } else {
       messageDiv.setAttribute("class", "message");
@@ -19,11 +19,11 @@ window.onload = async function () {
 
     let contentHtml = `
         <p class="meta">
-          ${playload.message.username}
-           <span> ${playload.message.time} </span>
+          ${payload.message.username}
+           <span> ${payload.message.time} </span>
         </p>
         <p class="text">
-          ${playload.message.text}
+          ${payload.message.text}
         </p>`;
 
     const contentDiv = document.createElement("div");
@@ -249,7 +249,7 @@ window.onload = async function () {
     } else {
       // Get message text
       const msg = e.target.elements.msg.value;
-      const playload = {
+      const payload = {
         room: currentRoom,
         userId: userId,
         message: {
@@ -259,7 +259,7 @@ window.onload = async function () {
       };
 
       // Emit message to server
-      socket.emit("send_message", playload);
+      socket.emit("send_message", payload);
 
       // Clear input
       e.target.elements.msg.value = "";
@@ -272,7 +272,7 @@ window.onload = async function () {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         }),
-        body: JSON.stringify(playload),
+        body: JSON.stringify(payload),
       });
     }
 
@@ -285,9 +285,9 @@ window.onload = async function () {
   });
 
   // Message from server
-  socket.on("receive_message", async (playload) => {
-    if (playload.room == currentRoom) {
-      outputMessage(playload);
+  socket.on("receive_message", async (payload) => {
+    if (payload.room == currentRoom) {
+      outputMessage(payload);
     }
     // Scroll down
     chatMessages.scrollTop = chatMessages.scrollHeight;

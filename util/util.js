@@ -46,7 +46,7 @@ const checkToken = (req, res, next) => {
         userId: decoded.userId,
       },
     };
-    // Store playload (user's information) into request
+    // Store payload (user's information) into request
     req.userInfo = payload;
     next();
   } catch (err) {

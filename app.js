@@ -36,18 +36,48 @@ const io = require("socket.io")(server, {
   },
 });
 const formatMessage = require("./util/messages");
+const teacherSocketId = {}; // {courseId: socket.id}
 
 io.on("connection", (socket) => {
   console.log(`New Connection: ${socket.id} ...`);
 
-  // User Join the Room
+  // Messenger
   socket.on("user_join", (user) => {
     socket.join(user.room);
   });
 
-  // Listen for Message
-  socket.on("send_message", (playload) => {
-    io.to(playload.room).emit("receive_message", formatMessage(playload));
+  socket.on("send_message", (payload) => {
+    io.to(payload.room).emit("receive_message", formatMessage(payload));
+  });
+
+  // Live Stream
+  socket.on("teacher_join", (courseId) => {
+    teacherSocketId[courseId] = socket.id;
+    socket.join(courseId);
+  });
+
+  socket.on("student_join", (courseId) => {
+    socket.join(courseId);
+  });
+
+  socket.on("broadcaster", (courseId) => {
+    io.to(courseId).emit("broadcaster");
+  });
+
+  socket.on("viewer", (courseId) => {
+    socket.to(teacherSocketId[courseId]).emit("viewer", socket.id);
+  });
+
+  socket.on("candidate", (id, candidate) => {
+    socket.to(id).emit("candidate", socket.id, candidate);
+  });
+
+  socket.on("offer", (id, description) => {
+    socket.to(id).emit("offer", socket.id, description);
+  });
+
+  socket.on("answer", (id, description) => {
+    socket.to(id).emit("answer", socket.id, description);
   });
 
   socket.on("disconnet", () => {
