@@ -3,20 +3,32 @@ const { TOKEN_SECRET } = process.env;
 
 const multer = require("multer");
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "./public/assets/");
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  }),
+  limits: {
+    fileSize: 500000, // Maximum is 500MB
+  },
 });
 
 const cpUpload = upload.fields([
-  { name: "cover", maxCount: 1 },
-  { name: "video", maxCount: 1 },
+  { name: "newCover", maxCount: 1 },
+  { name: "newVideo", maxCount: 1 },
 ]);
+
+// const multer = require("multer");
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, "./public/assets/");
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname);
+//     },
+//   }),
+// });
+
+// const cpUpload = upload.fields([
+//   { name: "cover", maxCount: 1 },
+//   { name: "video", maxCount: 1 },
+// ]);
 
 const errorHandler = (fn) => {
   return function (req, res, next) {
