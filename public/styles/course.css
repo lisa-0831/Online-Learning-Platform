@@ -1,57 +1,80 @@
 .course-context {
-    background-color: rgba(233, 233, 233, 0.912);
+  background-color: rgba(233, 233, 233, 0.912);
 	margin: 100px 0px;
 	padding: 50px 0px;
 }
 
-.video {
+.video-player {
     display: flex;
     justify-content: center; 
+}
+
+.video-list-container{
+  height: 720px;
+  width: 300px;
+  overflow-y: scroll;
+  background-color: #f6f6f6; /* Add a grey background color */
+}
+
+.video-list-container > ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+.video-list-container > ul li {
+  border: 1px solid #ddd; /* Add a thin border to each list item */
+  margin-top: -1px; /* Prevent double borders */
+  padding: 24px; /* Add some padding */
+}
+
+.selected{
+  background-color: gray;
 }
 
 .course-all-info {
-    display: flex;
-    justify-content: center; 
-    padding: 0px 250px;
-    margin: 20px 0px;
-    background-color: white;
-    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center; 
+  padding: 0px 250px;
+  margin: 20px 0px;
+  background-color: white;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
 }
 
 .course-info{
-    text-align: center;
-    display: inline-block;
-    padding: 10px;
-    margin: 10px;
+  text-align: center;
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
 }
 
 /* Style tab links */
 .course-tabs{
-    padding: 20px 250px;
+  padding: 20px 250px;
 }
 
 .course-tab {
-    background-color: #555;
-    color: white;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    font-size: 17px;
-    width: 25%;
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
 }
 
 .course-tab:hover {
-    background-color: #777;
+  background-color: #777;
 }
   
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-    color: black;
-    display: none;
-    padding: 100px 20px;
-    height: 100%;
+  color: black;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
 }
   
 #detail {background-color: rgb(178, 178, 178);}

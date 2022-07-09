@@ -208,6 +208,14 @@ window.onload = async function () {
         .appendChild(containerDiv);
     }
   }
+
+  // Episode
+  const videoParent = document.getElementById("videoParent");
+  videoParent.addEventListener("click", function (e) {
+    e.preventDefault();
+    let videoEp = e.target.dataset.type;
+    console.log(videoEp);
+  });
 };
 
 // Change Course Information
