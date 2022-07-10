@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>π</title>
+    <title>PI COURSE</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/header.css" />
@@ -21,15 +21,15 @@
         <div class="tag-line"></div>
         <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
         <div class="tag-line"></div>
-        <a class="tag tag-messenger" onclick="checkMessenger()">訊息</a>
       </div>
       <input class="search" />
+      <div class="messenger" onclick="checkMessenger()">我的訊息</div>
       <div class="cart" onclick="checkLogin()">
-        <img src="./images/cart.png" height="35" />
+        <img src="./images/cart-mobile.png" height="35" />
         <div class="count"></div>
       </div>
       <div class="member" onclick="checkIdentity()">
-        <img src="./images/member.png" height="35" />
+        <img src="./images/member-mobile.png" height="35" />
       </div>
     </div>
     <div class="mobile-header">
@@ -47,11 +47,11 @@
       <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="44" />
         <div class="count"></div>
-        Cart
+        購物車
       </div>
       <div class="member" onclick="checkIdentity()">
         <img src="./images/member-mobile.png" height="44" />
-        Member
+        個人資訊
       </div>
     </div>
 
@@ -299,20 +299,7 @@
       </div>
     </main>
     <footer>
-      <nav>
-        <ul>
-          <li>About Us</li>
-          <li>TBC</li>
-          <li>TBC</li>
-          <li>Contact Us</li>
-          <li>FAQ</li>
-        </ul>
-      </nav>
-      <div class="links">
-        <img src="./images/line.png" />
-        <img src="./images/twitter.png" />
-        <img src="./images/facebook.png" />
-      </div>
+      <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
       <div class="rights">© 2022. All rights reserved.</div>
     </footer>
     <script src="/socket.io/socket.io.js"></script>
