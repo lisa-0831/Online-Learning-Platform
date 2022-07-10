@@ -26,6 +26,11 @@
   border: 1px solid #ddd; /* Add a thin border to each list item */
   margin-top: -1px; /* Prevent double borders */
   padding: 24px; /* Add some padding */
+  cursor: pointer;
+}
+
+.video-list-container > ul li:hover {
+  background-color: lightgray;
 }
 
 .selected{
@@ -48,13 +53,21 @@
   margin: 10px;
 }
 
+.course-cart-btn{
+  cursor: pointer;
+}
+
+.course-favorites-btn{
+  cursor: pointer;
+}
+
 /* Style tab links */
 .course-tabs{
   padding: 20px 250px;
 }
 
 .course-tab {
-  background-color: #555;
+  background-color: #313538;
   color: white;
   float: left;
   border: none;
@@ -66,7 +79,7 @@
 }
 
 .course-tab:hover {
-  background-color: #777;
+  background-color: #e8b563
 }
   
 /* Style the tab content (and add height:100% for full page content) */
@@ -77,11 +90,11 @@
   height: 100%;
 }
   
-#detail {background-color: rgb(178, 178, 178);}
-#question {background-color: rgb(178, 178, 178);}
-#discussion {background-color: rgb(178, 178, 178);}
-#rating {background-color: rgb(178, 178, 178);}
-
+#detail {background-color: #ffffff;
+line-height: 33px;}
+#question {background-color: #ffffff;}
+#discussion {background-color: #ffffff;}
+#rating {background-color: #ffffff}
 
 /* Q&A and Discussion */
 

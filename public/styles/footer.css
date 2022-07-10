@@ -58,6 +58,7 @@ footer {
     height: 208px;
     padding: 23px 0 80px;
     flex-wrap: wrap;
+    z-index: 100;
 }
 
 footer > nav {

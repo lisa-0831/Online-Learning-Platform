@@ -187,16 +187,31 @@ const getCourse = async (courseId, token) => {
       }
     }
 
-    let sql =
-      "SELECT course.title, course.description, course.price, course.upload_time, \
-            course.video, user.name FROM course INNER JOIN user \
-     ON course.user_id=user.id \
-     WHERE course.id = ?";
-    const [[details]] = await conn.query(sql, courseId);
-
+    let sql;
     if (status == "course_before_pay") {
-      details.video = "lock.mp4";
+      sql =
+        "SELECT course.title, course.description, course.price, \
+          course.upload_time, course.video, user.name, \
+          JSON_ARRAYAGG(JSON_OBJECT('title', course_video.title)) AS videoList \
+        FROM course \
+        INNER JOIN user \
+        ON course.user_id=user.id \
+        LEFT JOIN course_video \
+        ON course.id=course_video.course_id \
+        WHERE course.id = ?";
+    } else if (status == "course_after_pay") {
+      sql =
+        "SELECT course.title, course.description, course.price, \
+          course.upload_time, course.video, user.name, \
+          JSON_ARRAYAGG(JSON_OBJECT('title', course_video.title, 'video', course_video.video)) AS videoList \
+        FROM course \
+        INNER JOIN user \
+        ON course.user_id=user.id \
+        LEFT JOIN course_video \
+        ON course.id=course_video.course_id \
+        WHERE course.id = ?";
     }
+    const [[details]] = await conn.query(sql, courseId);
 
     // Q&A
     const [[course_before_pay_type_id]] = await conn.query(

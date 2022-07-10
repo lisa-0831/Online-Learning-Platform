@@ -66,36 +66,14 @@
               id="video-controls"
             ></video>
           </div>
-          <div class="video-list-container" id="videoParent">
-            <ul>
-              <li class="video-item selected" data-type="intro">課程介紹</li>
-              <li class="video-item" data-type="0">
-                第二堂：jiaofjlij alkjdflf ;km
+          <div class="video-list-container">
+            <ul id="videoParent">
+              <li class="video-item selected" data-type="-1" id="-1">
+                試聽間：課程介紹
               </li>
-              <li class="video-item" data-type="1">
-                第一堂：jiaofjlij alkjdflf ;km
-              </li>
-              <li class="video-item" data-type="2">
-                第二堂：jiaofjlij alkjdflf ;km
-              </li>
-              <li class="video-item" data-type="3">
-                第一堂：jiaofjlij alkjdflf ;km
-              </li>
-              <li class="video-item" data-type="4">
-                第二堂：jiaofjlij alkjdflf ;km
-              </li>
-              <li class="video-item" data-type="5">
-                第一堂：jiaofjlij alkjdflf ;km
-              </li>
-              <li class="video-item" data-type="6">
-                第二堂：jiaofjlij alkjdflf ;km
-              </li>
-              <li class="video-item" data-type="7">
-                第一堂：jiaofjlij alkjdflf ;km
-              </li>
-              <li class="video-item" data-type="8">
-                第二堂：jiaofjlij alkjdflf ;km
-              </li>
+              <!-- <li class="video-item" data-type="0" id="0">
+                第 1 堂：測試版面
+              </li> -->
             </ul>
           </div>
         </div>
@@ -108,36 +86,44 @@
             <h2>NT$2,000</h2>
           </div> -->
           <div class="course-info course-cart">
-            <button type="button" onclick="addToCart()">加入購物車</button>
+            <button class="course-cart-btn" type="button" onclick="addToCart()">
+              加入購物車
+            </button>
           </div>
           <div class="course-info course-favorites">
-            <button type="button" onclick="addToFavorites()">收藏</button>
+            <button
+              class="course-favorites-btn"
+              type="button"
+              onclick="addToFavorites()"
+            >
+              收藏
+            </button>
           </div>
         </div>
 
         <div class="course-tabs">
           <button
             class="course-tab"
-            onclick="openPage('detail', this, 'rgb(178, 178, 178)')"
+            onclick="openPage('detail', this, '#c19052')"
             id="defaultOpen"
           >
             課程簡介
           </button>
           <button
             class="course-tab"
-            onclick="openPage('question', this, 'rgb(178, 178, 178)')"
+            onclick="openPage('question', this, '#c19052')"
           >
             購買前Q&A
           </button>
           <button
             class="course-tab"
-            onclick="openPage('rating', this, 'rgb(178, 178, 178)')"
+            onclick="openPage('rating', this, '#c19052')"
           >
             課程評價
           </button>
           <button
             class="course-tab"
-            onclick="openPage('discussion', this, 'rgb(178, 178, 178)')"
+            onclick="openPage('discussion', this, '#c19052')"
           >
             課堂討論
           </button>
