@@ -7,7 +7,7 @@
     overflow: hidden;
     font-family: 'Open Sans', Arial, sans-serif;
     position: relative;
-    margin: 10px;
+    margin: 30px;
     min-width: 295px;
     max-width: 380px;
     width: 100%;
@@ -79,6 +79,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 14px;
   }
 
   .pagination a {
@@ -86,6 +87,7 @@
     padding: 8px 16px;
     text-decoration: none;
     transition: background-color .3s;
+    cursor: pointer;
   }
   
   .pagination a.active {

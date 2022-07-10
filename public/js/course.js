@@ -27,6 +27,50 @@ window.onload = async function () {
   courseVideo.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${detailsObj["video"]}`;
   courseVideo.type = "video/mp4";
   document.getElementById("video-controls").appendChild(courseVideo);
+  // Video List
+  let nowSelect = "-1";
+  const videoList = detailsObj.videoList;
+
+  for (let i = 0; i < videoList.length; i++) {
+    if (!videoList[i]["title"]) {
+      break;
+    }
+
+    const videoListLi = document.createElement("li");
+    videoListLi.setAttribute("class", "video-item");
+    videoListLi.setAttribute("data-type", i);
+    videoListLi.setAttribute("id", i);
+    videoListLi.innerText = `第 ${i + 1} 堂：${videoList[i]["title"]}`;
+    document.getElementById("videoParent").appendChild(videoListLi);
+  }
+  // Episode
+  const videoParent = document.getElementById("videoParent");
+  videoParent.addEventListener("click", function (e) {
+    e.preventDefault();
+    let videoEp = e.target.dataset.type;
+
+    // Change the video
+    const currentVideo = document.getElementsByTagName("source")[0];
+    if (videoEp === "-1") {
+      currentVideo.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${detailsObj["video"]}`;
+    } else if (status === "course_after_pay") {
+      currentVideo.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${
+        videoList[parseInt(videoEp)]["video"]
+      }`;
+    } else if (status === "course_before_pay") {
+      currentVideo.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/lock.mp4`;
+    }
+    const videoControls = document.getElementById("video-controls");
+    videoControls.load();
+
+    // Change the selected tag
+    const changeSelectedVideo = (beforeId, afterId) => {
+      document.getElementById(beforeId).classList.remove("selected");
+      document.getElementById(afterId).classList.add("selected");
+    };
+    changeSelectedVideo(nowSelect, videoEp);
+    nowSelect = videoEp;
+  });
 
   // Course Information
 
