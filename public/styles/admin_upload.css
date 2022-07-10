@@ -11,6 +11,14 @@
     margin: 20px 0px;
     padding: 20px 0px;
   }
+
+  input[type=datetime-local], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
   
   input[type=text], select, textarea {
     width: 100%;
