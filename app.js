@@ -25,6 +25,7 @@ app.use("/api/" + API_VERSION, [
   require("./server/routes/favorites_route"),
   require("./server/routes/order_route"),
   require("./server/routes/messenger_route"),
+  require("./server/routes/livestream_route"),
 ]);
 
 // Socketio
