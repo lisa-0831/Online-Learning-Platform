@@ -3,51 +3,213 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Upload Course</title>
-    <link rel="stylesheet" href="../styles/admin_course.css" />
+    <title>PI COURSE</title>
+    <link rel="icon" href="../images/icon.png" />
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <link rel="stylesheet" href="../styles/admin_upload.css" />
   </head>
   <body>
-    <h2>Upload New Course</h2>
-    <form
-      method="post"
-      action="/api/1.0/admin/course"
-      enctype="multipart/form-data"
-    >
-      <h3>Basic Information:</h3>
-      Title <input type="text" name="title" /><br />
-      Description<br /><textarea name="description"></textarea><br />
-      Price <input type="number" name="price" />
-      <br />
-      <!-- Teacher <input type="text" name="user_id" /><br /> -->
-      <p>
-        Category
-        <select name="category">
-          <option value="humanities">Humanities</option>
-          <option value="investment">Investment</option>
-          <option value="language">Language</option>
-          <option value="marketing" selected="selected">Marketing</option>
-          <option value="music">Music</option>
-          <option value="programming">Programming</option>
-          <option value="others">Others</option>
-        </select>
-      </p>
-      <hr />
-      <h3>Hashtags:</h3>
-      <section id="hashtagCols">
-        <div id="hashtagCol">
-          <input type="text" name="hashtag" placeholder="#DigitalMarketing" />
-        </div>
-      </section>
-      <button type="button" onclick="addHashtagCol()">
-        Add another Hashtag
-      </button>
-      <hr />
-      <h3>Upload Cover and Video:</h3>
-      Cover <input type="file" name="newCover" /><br />
-      Video <input type="file" name="newVideo" /><br />
-      <br />
-      <input type="submit" />
-    </form>
+    <div class="desktop-header">
+      <a class="logo" href="../">
+        <img src="../images/logo.png" height="48" />
+      </a>
+      <div class="nav">
+        <a href="../courses.html" class="tag tag-courses">課程</a>
+        <div class="tag-line"></div>
+        <a href="../livestreams.html" class="tag tag-livestreams">直播</a>
+        <div class="tag-line"></div>
+      </div>
+      <input class="search" />
+      <div class="messenger" onclick="checkMessenger()">我的訊息</div>
+      <div class="cart" onclick="checkLogin()">
+        <img src="../images/cart-mobile.png" height="35" />
+        <div class="count"></div>
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="../images/member-mobile.png" height="35" />
+      </div>
+    </div>
+    <div class="mobile-header">
+      <a class="logo" href="./">
+        <img src="../images/logo.png" height="20" />
+      </a>
+      <input class="search" />
+    </div>
+    <div class="mobile-nav">
+      <a href="../courses.html" class="tag tag-courses">課程</a>
+      <a href="../livestreams.html" class="tag tag-livestreams">直播</a>
+      <a class="tag tag-messenger" onclick="checkMessenger()">訊息</a>
+    </div>
+    <div class="mobile-footer">
+      <div class="cart" onclick="checkLogin()">
+        <img src="../images/cart-mobile.png" height="44" />
+        <div class="count"></div>
+        購物車
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="../images/member-mobile.png" height="44" />
+        個人資訊
+      </div>
+    </div>
+    <div class="main-content">
+      <h2>上傳新課程！</h2>
+
+      <div class="container">
+        <form
+          method="post"
+          action="/api/1.0/admin/course"
+          enctype="multipart/form-data"
+        >
+          <div class="row">
+            <div class="col-25">
+              <label for="title">課程標題：</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="title" name="title" placeholder="Title" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="price">價格：</label>
+            </div>
+            <div class="col-75">
+              <input
+                type="number"
+                id="price"
+                name="price"
+                placeholder="Price"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="category">課程類別：</label>
+            </div>
+            <div class="col-75">
+              <select id="category" name="category">
+                <option value="humanities" selected="selected">人文社會</option>
+                <option value="investment">投資理財</option>
+                <option value="language">語言學習</option>
+                <option value="marketing">市場行銷</option>
+                <option value="music">樂器演奏</option>
+                <option value="programming">程式語言</option>
+                <option value="others">其他類別</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="learn">學生可以學到：</label>
+            </div>
+            <div class="col-75">
+              <textarea
+                id="learn"
+                name="learn"
+                placeholder="Write something.."
+                style="height: 200px"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="description">課程詳情：</label>
+            </div>
+            <div class="col-75">
+              <textarea
+                id="description"
+                name="description"
+                placeholder="Write something.."
+                style="height: 200px"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="preparation">學生上課前需準備：</label>
+            </div>
+            <div class="col-75">
+              <textarea
+                id="preparation"
+                name="preparation"
+                placeholder="Write something.."
+                style="height: 200px"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="row" id="hashtagCols">
+            <div class="col-25">
+              <label for="hashtag">課程標籤（可以增加課程曝光機會）：</label>
+            </div>
+            <div class="col-75" id="hashtagCol">
+              <input
+                type="text"
+                name="hashtag"
+                placeholder="#DigitalMarketing"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <button type="button" onclick="addHashtagCol()">
+              新增另一個標籤
+            </button>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="newCover">課程封面圖：</label>
+            </div>
+            <div class="col-75">
+              <input type="file" id="newCover" name="newCover" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="newVideo">課程介紹短片：</label>
+            </div>
+            <div class="col-75">
+              <input type="file" id="newVideo" name="newVideoㄋ" />
+            </div>
+          </div>
+
+          <div class="row" id="videoCols">
+            <div class="col-25">
+              <label for="videoList">課程正片：</label>
+            </div>
+            <div class="col-75" id="videoCol">
+              <input type="text" name="chapterTitle" placeholder="章節標題" />
+              <input type="file" name="videoList" />
+            </div>
+            <!-- <div class="col-75" id="videoCol">
+              <input type="text" name="chapterTitle" placeholder="章節標題" />
+              <input type="file" name="videoList" />
+            </div> -->
+          </div>
+          <div class="row">
+            <button type="button" onclick="addVideoCol()">
+              新增另一個影片
+            </button>
+          </div>
+
+          <div class="row">
+            <input type="submit" value="確認提交" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
+      <div class="rights">© 2022. All rights reserved.</div>
+    </footer>
     <script src="../js/admin_course.js"></script>
+    <script src="../util/util.js"></script>
   </body>
 </html>

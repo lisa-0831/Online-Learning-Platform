@@ -62,6 +62,9 @@ window.onload = async function () {
     }
     const videoControls = document.getElementById("video-controls");
     videoControls.load();
+    if (status === "course_before_pay") {
+      videoControls.play();
+    }
 
     // Change the selected tag
     const changeSelectedVideo = (beforeId, afterId) => {
