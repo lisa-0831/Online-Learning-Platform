@@ -1,4 +1,4 @@
-pageSize = 9;
+pageSize = 12;
 pages = 1;
 currentPage = 1;
 

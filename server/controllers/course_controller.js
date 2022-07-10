@@ -1,6 +1,6 @@
 const uploadToS3 = require("../../util/s3");
 const Course = require("../models/course_model");
-pageSize = 9;
+pageSize = 12;
 hashtagSize = 20;
 
 const createCourse = async (req, res) => {
