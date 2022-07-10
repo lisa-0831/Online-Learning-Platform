@@ -1,17 +1,25 @@
+const uploadToS3 = require("../../util/s3");
 const Course = require("../models/course_model");
 pageSize = 9;
 hashtagSize = 20;
 
 const createCourse = async (req, res) => {
   const body = req.body;
+
+  // upload Image
+  const coverUrl = await uploadToS3(req.files, "cover");
+  const videoUrl = await uploadToS3(req.files, "video");
+
   const course = {
     title: body.title,
     description: body.description,
     user_id: 1, // Didn't get user id
     category: body.category,
     price: body.price,
-    cover: req.files.cover[0].filename,
-    video: req.files.video[0].filename,
+    // cover: req.files.cover[0].filename,
+    // video: req.files.video[0].filename,
+    cover: coverUrl,
+    video: videoUrl,
     upload_time: Date.now(),
   };
 
