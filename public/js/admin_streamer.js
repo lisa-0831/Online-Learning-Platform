@@ -164,65 +164,63 @@ let p = document.createElement("p");
 subtitleContainer.appendChild(p);
 recognition.start();
 
-const startLivestream = (event) => {
-  socket.emit("broadcaster", courseId);
+socket.emit("broadcaster", courseId);
 
-  socket.on("viewer", (id) => {
-    const peerConnection = new RTCPeerConnection(config);
-    peerConnections[id] = peerConnection;
+socket.on("viewer", (id) => {
+  const peerConnection = new RTCPeerConnection(config);
+  peerConnections[id] = peerConnection;
 
-    let stream = videostream;
-    stream.getTracks().forEach((track) => {
-      peerConnection.addTrack(track, stream);
-    });
-
-    peerConnection
-      .createOffer()
-      .then((sdp) => peerConnection.setLocalDescription(sdp))
-      .then(() => {
-        socket.emit("offer", id, peerConnection.localDescription);
-      })
-      .catch((e) => console.log(e));
-
-    // event is called when receive an ICE candidate
-    peerConnection.onicecandidate = (event) => {
-      if (event.candidate) {
-        socket.emit("candidate", id, event.candidate);
-      }
-    };
-
-    // Subtitle
-    let content;
-    let previousContent;
-    recognition.addEventListener("result", (e) => {
-      p.textContent = e.results[0][0].transcript;
-      content = p.textContent;
-      if (e.results[0].isFinal) {
-        p = document.createElement("p");
-        subtitleContainer.appendChild(p);
-      }
-    });
-
-    // We need to restart the api after the user finish a sentence
-    recognition.addEventListener("end", (e) => {
-      recognizing ? recognition.start() : recognition.stop();
-      if (previousContent !== content) {
-        const subtitleContainer = document.querySelector(".subtitle");
-        subtitleContainer.textContent = content;
-        socket.emit("message", id, content);
-        previousContent = content;
-      }
-    });
+  let stream = videostream;
+  stream.getTracks().forEach((track) => {
+    peerConnection.addTrack(track, stream);
   });
 
-  socket.on("answer", (id, description) => {
-    peerConnections[id].setRemoteDescription(description);
+  peerConnection
+    .createOffer()
+    .then((sdp) => peerConnection.setLocalDescription(sdp))
+    .then(() => {
+      socket.emit("offer", id, peerConnection.localDescription);
+    })
+    .catch((e) => console.log(e));
+
+  // event is called when receive an ICE candidate
+  peerConnection.onicecandidate = (event) => {
+    if (event.candidate) {
+      socket.emit("candidate", id, event.candidate);
+    }
+  };
+
+  // Subtitle
+  let content;
+  let previousContent;
+  recognition.addEventListener("result", (e) => {
+    p.textContent = e.results[0][0].transcript;
+    content = p.textContent;
+    if (e.results[0].isFinal) {
+      p = document.createElement("p");
+      subtitleContainer.appendChild(p);
+    }
   });
 
-  socket.on("candidate", (id, candidate) => {
-    peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
+  // We need to restart the api after the user finish a sentence
+  recognition.addEventListener("end", (e) => {
+    recognizing ? recognition.start() : recognition.stop();
+    if (previousContent !== content) {
+      const subtitleContainer = document.querySelector(".subtitle");
+      subtitleContainer.textContent = content;
+      socket.emit("message", id, content);
+      previousContent = content;
+    }
   });
-};
+});
+
+socket.on("answer", (id, description) => {
+  peerConnections[id].setRemoteDescription(description);
+});
+
+socket.on("candidate", (id, candidate) => {
+  peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
+});
 
 // socket.on("disconnectPeer", (id) => {
 //   peerConnections[id].close();
