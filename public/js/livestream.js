@@ -120,16 +120,27 @@ const addBooking = (event) => {
   const searchParams = new URLSearchParams(window.location.search);
   const body = { id: parseInt(searchParams.get("id")) };
 
-  fetch("/api/1.0/livestreams/book", {
-    method: "POST",
-    headers: new Headers({
-      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      "content-type": "application/json",
-    }),
-    body: JSON.stringify(body),
-  })
-    .then((res) => {
-      alert(res.statusText);
+  const access_token = localStorage.getItem("access_token");
+  if (!access_token) {
+    alert("請先登入。");
+  } else {
+    fetch("/api/1.0/livestreams/book", {
+      method: "POST",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        "content-type": "application/json",
+      }),
+      body: JSON.stringify(body),
     })
-    .catch((error) => console.log("Error:", error));
+      .then((res) => {
+        if (res.status == 200) {
+          alert("成功預約");
+        } else if (res.status == 403) {
+          alert("你之前已經預約過囉");
+        } else {
+          alert("系統錯誤");
+        }
+      })
+      .catch((error) => console.log("Error:", error));
+  }
 };

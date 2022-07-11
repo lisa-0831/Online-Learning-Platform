@@ -12,7 +12,9 @@ const addFavorites = async (req, res) => {
 
   const favoritiesId = await Favorites.addFavorites(id, token);
   if (favoritiesId == -1) {
-    return res.status(500);
+    return res.status(500).json({ Error: "Server Error" });
+  } else if (favoritiesId == -2) {
+    return res.status(403).json({ Error: "Added Before" });
   } else {
     return res.status(200).json({ "Favorites added": favoritiesId });
   }

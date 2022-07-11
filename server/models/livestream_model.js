@@ -33,7 +33,7 @@ const bookLivestream = async (body, token) => {
       return result.insertId;
     } else {
       await conn.query("COMMIT");
-      return -1;
+      return -2;
     }
   } catch (error) {
     await conn.query("ROLLBACK");

@@ -235,7 +235,7 @@ function checkout(event) {
     }).then((response) => {
       if (response.status == 200) {
         localStorage.removeItem("list");
-        window.location.href = `/thankyou.html`;
+        window.location.href = `/courses.html`; // redirect to thankyou.html page
       }
     });
   });

@@ -58,7 +58,6 @@ const nativeSignIn = async (email, password) => {
 
 const signIn = async (req, res) => {
   const data = req.body;
-  console.log(61, data);
 
   switch (data.provider) {
     case "native":

@@ -161,12 +161,14 @@ const getCourse = async (courseId, token) => {
     await conn.query("START TRANSACTION");
 
     let status = "course_after_pay";
+    let userInfo;
     if (!token) {
       status = "course_before_pay";
     } else {
       try {
         // Verify token
         const decoded = jwt.verify(token, TOKEN_SECRET);
+        userInfo = decoded;
 
         const [[getUserStatus]] = await conn.query(
           "SELECT user.id, user.email, course_student.course_id \
@@ -272,6 +274,7 @@ const getCourse = async (courseId, token) => {
       rating: rating,
       discussion: discussion,
       status: status,
+      userInfo: userInfo,
     };
   } catch (error) {
     await conn.query("ROLLBACK");

@@ -17,17 +17,10 @@ window.onload = async function () {
   document.getElementsByClassName("value")[0].innerText = user.bought.length;
   document.getElementsByClassName("value")[1].innerText = user.teach.length;
   const imgNode = document.createElement("img");
-  if (user.picture !== null) {
-    imgNode.setAttribute(
-      "src",
-      `https://d1wan10jjr4v2x.cloudfront.net/profile/${user.picture}`
-    );
-  } else {
-    imgNode.setAttribute(
-      "src",
-      `https://d1wan10jjr4v2x.cloudfront.net/profile/profile.png`
-    );
-  }
+  imgNode.setAttribute(
+    "src",
+    `https://d1wan10jjr4v2x.cloudfront.net/profile/${user.picture}`
+  );
   imgNode.setAttribute("width", "170");
   imgNode.setAttribute("height", "170");
   document.getElementsByClassName("image")[0].appendChild(imgNode);

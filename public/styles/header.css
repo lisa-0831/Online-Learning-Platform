@@ -54,7 +54,7 @@
     height: 35px;
     padding: 8px 48px 8px 20px;
     border: solid 1px #979797;
-    border-radius: 20px;
+    border-radius: 8px;
     outline: none;
     font-size: 15px;
     background-image: url('../images/search.png');
@@ -145,7 +145,7 @@ main {
       height: 40px;
       padding: 20px;
       border: none;
-      border-radius: 20px;
+      border-radius: 8px;
       outline: none;
       font-size: 16px;
       background-image: url('../images/search.png');

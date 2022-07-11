@@ -1,3 +1,11 @@
+let detailsObj;
+let questionsArr;
+let ratingArr;
+let discussionArr;
+let userInfo;
+let questionsArrLength;
+let discussionArrLength;
+
 window.onload = async function () {
   let params = new URL(document.location).searchParams;
   let courseId = params.get("id");
@@ -11,16 +19,18 @@ window.onload = async function () {
   });
   const courseObj = await courseRes.json();
 
-  const detailsObj = courseObj.details;
+  detailsObj = courseObj.details;
   console.log(detailsObj);
-  const questionsArr = courseObj.questions;
+  questionsArr = courseObj.questions;
   console.log(questionsArr);
-  const ratingArr = courseObj.rating;
+  ratingArr = courseObj.rating;
   console.log(19, ratingArr);
-  const discussionArr = courseObj.discussion;
+  discussionArr = courseObj.discussion;
   console.log(discussionArr);
   const status = courseObj.status;
   console.log(status);
+  userInfo = courseObj.userInfo;
+  console.log(userInfo);
 
   // Course Video
   let courseVideo = document.createElement("source");
@@ -35,7 +45,6 @@ window.onload = async function () {
     if (!videoList[i]["title"]) {
       break;
     }
-
     const videoListLi = document.createElement("li");
     videoListLi.setAttribute("class", "video-item");
     videoListLi.setAttribute("data-type", i);
@@ -115,10 +124,48 @@ window.onload = async function () {
   courseDescription.innerText = detailsObj["description"];
   document.getElementById("detail").appendChild(courseDescription);
 
+  if (userInfo !== undefined) {
+    // User Info
+    document.getElementsByClassName(
+      "containers"
+    )[0].innerHTML = `<div class="container">
+    <div class="avatar user-avatar">
+      <a href="./profile.html?id=${userInfo["userId"]}">
+       <img src="./profile/${userInfo["picture"]}" style="width: 100%" />
+      </a>
+    </div>
+    <div class="input-area">
+      <div class="text">
+        <h3 class="user-name">${userInfo["name"]}</h3>
+        <hr />
+        <textarea class="comment-area"> </textarea>
+      </div>
+      <button
+        type="button"
+        class="comment-btn"
+        onclick="sendQuestion()"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+  <h4 id="questions-num"></h4>`;
+
+    document.getElementsByClassName(
+      "user-avatar"
+    )[1].innerHTML = `<a href="./profile.html?id=${userInfo["userId"]}">
+<img src="./profile/${userInfo["picture"]}" style="width: 100%" />
+</a>`;
+
+    document.getElementsByClassName("user-name")[0].innerText =
+      userInfo["name"];
+  }
+
   // Questions
+  questionsArrLength = questionsArr.length;
   document.getElementById(
     "questions-num"
-  ).innerText = `${questionsArr.length} 則 Q&A`;
+  ).innerText = `${questionsArrLength} 則 Q&A`;
 
   for (let i = 0; i < questionsArr.length; i++) {
     const date = new Date(questionsArr[i]["create_time"]);
@@ -128,8 +175,8 @@ window.onload = async function () {
 
     const containerDiv = document.createElement("div");
     containerDiv.setAttribute("class", "container");
-    containerDiv.innerHTML = `<div class="avatar">
-    <img href="/profile.html?id=${questionsArr[i]["id"]}" src="https://d1wan10jjr4v2x.cloudfront.net/profile/${questionsArr[i]["picture"]}" style="width: 100%" />
+    containerDiv.innerHTML = `<div class="avatar"><a href="./profile.html?id=${questionsArr[i]["id"]}">
+    <img src="https://d1wan10jjr4v2x.cloudfront.net/profile/${questionsArr[i]["picture"]}" style="width: 100%" /></a>
   </div>
   <div class="text">
     <h3>${questionsArr[i]["name"]} <span class="time-right">${createDate}</span></h3>
@@ -139,7 +186,7 @@ window.onload = async function () {
     </p>
   </div>`;
 
-    document.getElementsByClassName("containers")[0].appendChild(containerDiv);
+    document.getElementsByClassName("containers")[1].appendChild(containerDiv);
   }
 
   // Rating
@@ -170,8 +217,8 @@ window.onload = async function () {
 
     const containerDiv = document.createElement("div");
     containerDiv.setAttribute("class", "container");
-    containerDiv.innerHTML = `<div class="avatar">
-    <img href="/profile.html?id=${ratingArr[i]["id"]}" src="https://d1wan10jjr4v2x.cloudfront.net/profile/${ratingArr[i]["picture"]}" style="width: 100%" />
+    containerDiv.innerHTML = `<div class="avatar"><a href="./profile.html?id=${ratingArr[i]["id"]}"> 
+    <img src="https://d1wan10jjr4v2x.cloudfront.net/profile/${ratingArr[i]["picture"]}" style="width: 100%" /></a>
   </div>
   <div class="text">
     <h3>${ratingArr[i]["name"]} <span class="time-right">${createDate}</span></h3>
@@ -188,30 +235,31 @@ window.onload = async function () {
     </p>
   </div>`;
 
-    document.getElementsByClassName("containers")[1].appendChild(containerDiv);
+    document.getElementsByClassName("containers")[2].appendChild(containerDiv);
   }
 
   const avgP = document.createElement("p");
-  console.log(avgP);
-  avgP.innerText = `平均：${total / ratingArr.length} ；總共 ${
-    ratingArr.length
-  } 人評分`;
+  if (ratingArr.length > 0) {
+    avgP.innerText = `平均 ${(total / ratingArr.length).toFixed(1)}`;
+  }
   document.getElementsByClassName("rating-avg")[0].appendChild(avgP);
 
   // Discussion
   if (status == "course_before_pay") {
-    document.getElementsByClassName("containers")[2].innerText =
+    document.getElementsByClassName("containers")[3].innerText =
       "請先購買才可以看到上課討論哦～ 感謝 :)";
   } else {
     const inputDiv = document.createElement("div");
     inputDiv.setAttribute("class", "container");
     inputDiv.innerHTML = `
     <div class="avatar">
-      <img src="./profile/a.jpg" style="width: 100%" />
+    <a href="./profile.html?id=${userInfo["userId"]}">
+  <img src="./profile/${userInfo["picture"]}" style="width: 100%" />
+</a>
     </div>
     <div class="input-area">
       <div class="text">
-        <h3>Amy</h3>
+        <h3>${userInfo["name"]}</h3>
         <hr />
         <textarea class="comment-area"> </textarea>
       </div>
@@ -225,7 +273,8 @@ window.onload = async function () {
     </div>
   `;
 
-    document.getElementsByClassName("containers")[2].prepend(inputDiv);
+    document.getElementsByClassName("containers")[3].prepend(inputDiv);
+    discussionArrLength = discussionArr.length;
 
     document.getElementById(
       "discussion-num"
@@ -239,8 +288,8 @@ window.onload = async function () {
 
       const containerDiv = document.createElement("div");
       containerDiv.setAttribute("class", "container");
-      containerDiv.innerHTML = `<div class="avatar">
-      <img href="/profile.html?id=${discussionArr[i]["id"]}" src="https://d1wan10jjr4v2x.cloudfront.net/profile/${discussionArr[i]["picture"]}" style="width: 100%" />
+      containerDiv.innerHTML = `<div class="avatar"><a href="/profile.html?id=${discussionArr[i]["id"]}">
+      <img  src="https://d1wan10jjr4v2x.cloudfront.net/profile/${discussionArr[i]["picture"]}" style="width: 100%" /></a>
     </div>
     <div class="text">
       <h3>${discussionArr[i]["name"]} <span class="time-right">${createDate}</span></h3>
@@ -251,7 +300,7 @@ window.onload = async function () {
     </div>`;
 
       document
-        .getElementsByClassName("containers")[2]
+        .getElementsByClassName("containers")[4]
         .appendChild(containerDiv);
     }
   }
@@ -281,6 +330,37 @@ const sendQuestion = (event) => {
   const searchParams = new URLSearchParams(window.location.search);
   const id = searchParams.get("id");
 
+  // Render
+  questionsArrLength += 1;
+  document.getElementById(
+    "questions-num"
+  ).innerText = `${questionsArrLength} 則 Q&A`;
+
+  const date = new Date();
+  const createDate = `${date.getFullYear()} / ${
+    date.getMonth() + 1
+  } / ${date.getDate()}`;
+
+  const containerDiv = document.createElement("div");
+  containerDiv.setAttribute("class", "container");
+  containerDiv.innerHTML = `<div class="avatar"><a href="./profile.html?id=${userInfo["id"]}">
+    <img src="https://d1wan10jjr4v2x.cloudfront.net/profile/${userInfo["picture"]}" style="width: 100%" /></a>
+  </div>
+  <div class="text">
+    <h3>${userInfo["name"]} <span class="time-right">${createDate}</span></h3>
+    <hr />
+    <p>
+      ${content}
+    </p>
+  </div>`;
+
+  document.getElementsByClassName("containers")[1].prepend(containerDiv);
+
+  // Clear Input
+  document.getElementsByClassName("comment-area")[0].value = "";
+
+  // Store into Database
+
   const comment = {
     commentedId: id,
     content: content,
@@ -296,7 +376,9 @@ const sendQuestion = (event) => {
     body: JSON.stringify(comment),
   })
     .then((res) => {
-      history.go(0);
+      if (res.status == 200) {
+        alert("已送出購買前Q&A :)");
+      }
     })
     .catch((error) => console.log("Error:", error));
 };
@@ -337,6 +419,36 @@ const sendDiscussion = (event) => {
   const searchParams = new URLSearchParams(window.location.search);
   const id = searchParams.get("id");
 
+  // Frontend Render
+  discussionArrLength += 1;
+  document.getElementById(
+    "discussion-num"
+  ).innerText = `${discussionArrLength} 則 討論`;
+
+  const date = new Date();
+  const createDate = `${date.getFullYear()} / ${
+    date.getMonth() + 1
+  } / ${date.getDate()}`;
+
+  const containerDiv = document.createElement("div");
+  containerDiv.setAttribute("class", "container");
+  containerDiv.innerHTML = `<div class="avatar"><a href="/profile.html?id=${userInfo["id"]}">
+    <img  src="https://d1wan10jjr4v2x.cloudfront.net/profile/${userInfo["picture"]}" style="width: 100%" /></a>
+  </div>
+  <div class="text">
+    <h3>${userInfo["name"]} <span class="time-right">${createDate}</span></h3>
+    <hr />
+    <p>
+      ${content}
+    </p>
+  </div>`;
+
+  document.getElementsByClassName("containers")[4].prepend(containerDiv);
+
+  // Clear Input
+  document.getElementsByClassName("comment-area")[2].value = "";
+
+  // Store into Database
   const comment = {
     commentedId: id,
     content: content,
@@ -352,7 +464,9 @@ const sendDiscussion = (event) => {
     body: JSON.stringify(comment),
   })
     .then((res) => {
-      history.go(0);
+      if (res.status == 200) {
+        alert("已送出課堂討論 :)");
+      }
     })
     .catch((error) => console.log("Error:", error));
 };
@@ -361,19 +475,29 @@ const sendDiscussion = (event) => {
 const addToFavorites = (event) => {
   const searchParams = new URLSearchParams(window.location.search);
   const body = { id: parseInt(searchParams.get("id")) };
-
-  fetch("/api/1.0/favorites", {
-    method: "POST",
-    headers: new Headers({
-      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      "content-type": "application/json",
-    }),
-    body: JSON.stringify(body),
-  })
-    .then((res) => {
-      alert(res.statusText);
+  const access_token = localStorage.getItem("access_token");
+  if (!access_token) {
+    alert("請先登入。");
+  } else {
+    fetch("/api/1.0/favorites", {
+      method: "POST",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        "content-type": "application/json",
+      }),
+      body: JSON.stringify(body),
     })
-    .catch((error) => console.log("Error:", error));
+      .then((res) => {
+        if (res.status == 200) {
+          alert("成功加入收藏");
+        } else if (res.status == 403) {
+          alert("你之前已經加過囉");
+        } else {
+          alert("系統錯誤");
+        }
+      })
+      .catch((error) => console.log("Error:", error));
+  }
 };
 
 // Add to Cart
