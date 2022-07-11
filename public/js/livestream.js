@@ -94,6 +94,9 @@ window.onload = async function () {
 
     // Find the distance between now and the count down date
     let distance = countDownDate - now;
+    if (distance > 0) {
+      document.getElementById("timer-title").innerHTML = "距離直播開始還剩";
+    }
 
     // Time calculations for days, hours, minutes and seconds
     let days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -110,7 +113,7 @@ window.onload = async function () {
     // If the count down is over, write some text
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("demo").innerHTML = "直播已經開始囉";
+      document.getElementById("demo").innerHTML = detailsObj.title;
     }
   }, 1000);
 };
