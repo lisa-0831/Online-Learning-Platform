@@ -89,6 +89,12 @@
   
   button[type=button]:hover {
     background-color: #c19052;
+    cursor: pointer;
+  }
+
+  .start-button{
+    display: flex;
+    justify-content: center;
   }
 
 

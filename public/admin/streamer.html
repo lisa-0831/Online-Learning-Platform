@@ -58,255 +58,54 @@
 
     <main>
       <div class="course-context">
-        <div class="video" id="video-grid"></div>
-        <div class="subtitle"></div>
-
-        <div class="course-all-info">
-          <!-- <div class="course-info course-title">
-            <h1>動畫互動網頁程式入門 (HTML/CSS/JS)</h1>
-          </div> -->
-          <!-- <div class="course-info course-price">
-            <p>課程售價</p>
-            <h2>NT$2,000</h2>
-          </div> -->
-          <div class="course-info course-cart">
-            <button type="button" onclick="addVideoStream()">加入購物車</button>
-          </div>
-          <div class="course-info course-favorites">
-            <button type="button" onclick="addToFavorites()">收藏</button>
+        <div class="video-player">
+          <div class="video" id="video-grid">
+            <!-- <video
+              controls
+              width="1280"
+              height="720"
+              id="video-controls"
+            ></video> -->
           </div>
           <div class="subtitle"></div>
-          <button class="chat-button"></button>
+        </div>
+        <div class="start-button">
+          <button type="button" onclick="startLivestream()">開始直播</button>
+        </div>
+        <div class="course-timer">
+          <div class="course-timer-title">距離直播開始還剩</div>
+          <br />
+          <div class="course-timer-time" id="demo"></div>
         </div>
 
-        <div class="course-tabs">
-          <button
-            class="course-tab"
-            onclick="openPage('detail', this, 'rgb(178, 178, 178)')"
-            id="defaultOpen"
-          >
-            課程簡介
-          </button>
-          <button
-            class="course-tab"
-            onclick="openPage('question', this, 'rgb(178, 178, 178)')"
-          >
-            購買前Q&A
-          </button>
-          <button
-            class="course-tab"
-            onclick="openPage('rating', this, 'rgb(178, 178, 178)')"
-          >
-            課程評價
-          </button>
-          <button
-            class="course-tab"
-            onclick="openPage('discussion', this, 'rgb(178, 178, 178)')"
-          >
-            課堂討論
-          </button>
-
-          <div id="detail" class="tabcontent"></div>
-
-          <div id="question" class="tabcontent">
-            <div class="containers">
-              <div class="container">
-                <div class="avatar">
-                  <img src="../profile/a.jpg" style="width: 100%" />
-                </div>
-                <div class="input-area">
-                  <div class="text">
-                    <h3>Amy</h3>
-                    <hr />
-                    <textarea class="comment-area"> </textarea>
-                  </div>
-                  <button
-                    type="button"
-                    class="comment-btn"
-                    onclick="sendQuestion()"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-              <h4 id="questions-num"></h4>
-
-              <!-- <div class="container">
-                <div class="avatar">
-                  <img src="./profile/a.jpg" style="width: 100%" />
-                </div>
-                <div class="text">
-                  <h3>Amy <span class="time-right">11:00</span></h3>
-                  <hr />
-                  <p>
-                    Hello. How are you today?Hello. How are you today? Hello.
-                    How are you today?Hello. How are you today?Hello. How are
-                    you today?Hello. How are you today?Hello. How are you
-                    today?Hello. How are you today?
-                  </p>
-                </div>
-              </div> -->
+        <div class="course-all-info">
+          <div class="course-info">
+            <div class="course-introduction">
+              <h2 class="course-subtitle">你可以學到 //</h2>
+            </div>
+            <div class="course-description">
+              <h2 class="course-subtitle">課程詳情 //</h2>
+            </div>
+            <div class="course-preparation">
+              <h2 class="course-subtitle">觀看直播前的準備 //</h2>
             </div>
           </div>
 
-          <div id="rating" class="tabcontent">
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-              <!-- Modal content -->
-              <div class="modal-content">
-                <span class="close">&times;</span>
-                <div class="container">
-                  <div class="avatar">
-                    <img src="../profile/a.jpg" style="width: 100%" />
-                  </div>
-                  <div class="input-area">
-                    <div class="text">
-                      <h3>Amy</h3>
-                      <hr />
-                      <p>
-                        星星數：
-                        <select name="comment-star" id="comment-star">
-                          <option value="1" selected="selected">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </p>
-                      <textarea class="comment-area"> </textarea>
-                    </div>
-                    <button
-                      type="button"
-                      class="comment-btn"
-                      onclick="sendRating()"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="containers">
-              <button id="myBtn">前往評論</button>
-
-              <!-- <div class="rating-container">
-                <div class="inner">
-                  <div class="rating">
-                    <span class="rating-num">4.0</span>
-                    <div class="rating-users">
-                      <i class="icon-user"></i> 1,014,004 total
-                    </div>
-                  </div>
-
-                  <div class="histo">
-                    <div class="five histo-rate">
-                      <span class="histo-star">
-                        <i class="active icon-star"></i> 5
-                      </span>
-                      <span class="bar-block">
-                        <span id="bar-five" class="bar">
-                          <span>566,784</span>&nbsp;
-                        </span>
-                      </span>
-                    </div>
-
-                    <div class="four histo-rate">
-                      <span class="histo-star">
-                        <i class="active icon-star"></i> 4
-                      </span>
-                      <span class="bar-block">
-                        <span id="bar-four" class="bar">
-                          <span>171,298</span>&nbsp;
-                        </span>
-                      </span>
-                    </div>
-
-                    <div class="three histo-rate">
-                      <span class="histo-star">
-                        <i class="active icon-star"></i> 3
-                      </span>
-                      <span class="bar-block">
-                        <span id="bar-three" class="bar">
-                          <span>94,940</span>&nbsp;
-                        </span>
-                      </span>
-                    </div>
-
-                    <div class="two histo-rate">
-                      <span class="histo-star">
-                        <i class="active icon-star"></i> 2
-                      </span>
-                      <span class="bar-block">
-                        <span id="bar-two" class="bar">
-                          <span>44,525</span>&nbsp;
-                        </span>
-                      </span>
-                    </div>
-
-                    <div class="one histo-rate">
-                      <span class="histo-star">
-                        <i class="active icon-star"></i> 1
-                      </span>
-                      <span class="bar-block">
-                        <span id="bar-one" class="bar">
-                          <span>136,457</span>&nbsp;
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-              <div class="rating-avg"></div>
-              <h4 id="rating-num"></h4>
-              <!-- <div class="container">
-                <div class="avatar">
-                  <img src="./profile/a.jpg" style="width: 100%" />
-                </div>
-                <div class="text">
-                  <h3>Amy <span class="time-right">11:00</span></h3>
-                  <div class="user-rating">
-                    <link
-                      rel="stylesheet"
-                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-                    />
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                  </div>
-                  <hr />
-                  <p>
-                    Hello. How are you today?Hello. How are you today? Hello.
-                    How are you today?Hello. How are you today?Hello. How are
-                    you today?Hello. How are you today?Hello. How are you
-                    today?Hello. How are you today?
-                  </p>
-                </div>
-              </div> -->
-            </div>
-          </div>
-
-          <div id="discussion" class="tabcontent">
-            <div class="containers">
-              <h4 id="discussion-num"></h4>
+          <div class="course-action">
+            <div class="course-action-content">
+              <div class="course-title"></div>
             </div>
           </div>
         </div>
       </div>
     </main>
+
     <footer>
       <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
       <div class="rights">© 2022. All rights reserved.</div>
     </footer>
     <script src="/socket.io/socket.io.js"></script>
-
-    <!-- Before streamer start -->
-    <script src="../js/livestream_teaser.js"></script>
-    <!-- After streamer start (WebRTC) -->
     <script src="../js/admin_streamer.js"></script>
-
     <script src="../util/util.js"></script>
   </body>
 </html>
