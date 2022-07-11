@@ -48,31 +48,44 @@ io.on("connection", (socket) => {
 
   // Live Stream
   socket.on("teacher_join", (courseId) => {
+    console.log(51, courseId);
+    console.log(51);
     teacherSocketId[courseId] = socket.id;
     socket.join(courseId);
   });
 
   socket.on("student_join", (courseId) => {
+    console.log(57, courseId);
+    console.log(57);
     socket.join(courseId);
   });
 
   socket.on("broadcaster", (courseId) => {
+    console.log(62);
     io.to(courseId).emit("broadcaster");
   });
 
   socket.on("viewer", (courseId) => {
+    console.log(67);
+
     socket.to(teacherSocketId[courseId]).emit("viewer", socket.id);
   });
 
   socket.on("candidate", (id, candidate) => {
+    console.log(73);
+
     socket.to(id).emit("candidate", socket.id, candidate);
   });
 
   socket.on("offer", (id, description) => {
+    console.log(79);
+
     socket.to(id).emit("offer", socket.id, description);
   });
 
   socket.on("answer", (id, description) => {
+    console.log(85);
+
     socket.to(id).emit("answer", socket.id, description);
   });
 
