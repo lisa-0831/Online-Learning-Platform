@@ -111,21 +111,21 @@ window.onload = async function () {
   }, 1000);
 };
 
-// // Add Favorites
-// const addToFavorites = (event) => {
-//   const searchParams = new URLSearchParams(window.location.search);
-//   const body = { id: parseInt(searchParams.get("id")) };
+// Add Favorites
+const addBooking = (event) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const body = { id: parseInt(searchParams.get("id")) };
 
-//   fetch("/api/1.0/favorites", {
-//     method: "POST",
-//     headers: new Headers({
-//       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-//       "content-type": "application/json",
-//     }),
-//     body: JSON.stringify(body),
-//   })
-//     .then((res) => {
-//       alert(res.statusText);
-//     })
-//     .catch((error) => console.log("Error:", error));
-// };
+  fetch("/api/1.0/livestreams/book", {
+    method: "POST",
+    headers: new Headers({
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      "content-type": "application/json",
+    }),
+    body: JSON.stringify(body),
+  })
+    .then((res) => {
+      alert(res.statusText);
+    })
+    .catch((error) => console.log("Error:", error));
+};

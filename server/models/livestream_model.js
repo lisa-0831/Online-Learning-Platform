@@ -4,6 +4,46 @@ const { pool } = require("./mysqlcon");
 const { TOKEN_SECRET } = process.env;
 const jwt = require("jsonwebtoken");
 
+const bookLivestream = async (body, token) => {
+  const livestreamId = body.id;
+  const conn = await pool.getConnection();
+  try {
+    await conn.query("START TRANSACTION");
+
+    // Verify token
+    const decoded = jwt.verify(token, TOKEN_SECRET);
+
+    const [[checkHistory]] = await conn.query(
+      "SELECT * FROM livestream_student WHERE user_id=? && livestream_id=?",
+      [decoded.userId, livestreamId]
+    );
+
+    if (!checkHistory) {
+      const booking = {
+        user_id: decoded.userId,
+        livestream_id: livestreamId,
+      };
+
+      const [result] = await conn.query(
+        "INSERT INTO livestream_student SET ?",
+        booking
+      );
+
+      await conn.query("COMMIT");
+      return result.insertId;
+    } else {
+      await conn.query("COMMIT");
+      return -1;
+    }
+  } catch (error) {
+    await conn.query("ROLLBACK");
+    console.log(error);
+    return -1;
+  } finally {
+    conn.release();
+  }
+};
+
 const getLivestreams = async (pageSize, paging = 0, requirement = {}) => {
   const conn = await pool.getConnection();
   try {
@@ -103,4 +143,5 @@ module.exports = {
   //   createLivestream,
   getLivestreams,
   getLivestream,
+  bookLivestream,
 };
