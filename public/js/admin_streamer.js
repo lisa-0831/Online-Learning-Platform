@@ -138,7 +138,7 @@ const constraints = {
   audio: true,
 };
 
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect("http://35.87.175.209");
 socket.emit("teacher_join", courseId);
 
 let recognizing = true;
