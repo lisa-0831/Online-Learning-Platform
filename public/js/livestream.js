@@ -1,4 +1,5 @@
-const courseId = 10;
+const params = new URL(document.location).searchParams;
+const courseId = params.get("id");
 
 let peerConnection;
 

@@ -69,84 +69,26 @@ const getLivestreams = async (pageSize, paging = 0, requirement = {}) => {
   }
 };
 
-const getLivestream = async (courseId, token) => {
+const getLivestream = async (livestreamId) => {
   const conn = await pool.getConnection();
   try {
     await conn.query("START TRANSACTION");
-
-    let status = "course_after_pay";
-    if (!token) {
-      status = "course_before_pay";
-    } else {
-      try {
-        // Verify token
-        const decoded = jwt.verify(token, TOKEN_SECRET);
-
-        const [[getUserStatus]] = await conn.query(
-          "SELECT user.id, user.email, course_student.course_id \
-            FROM user \
-            LEFT JOIN course_student \
-            ON user.id=course_student.user_id \
-            WHERE email= ? && course_id=?",
-          [decoded.email, courseId]
-        );
-
-        if (!getUserStatus) {
-          status = "course_before_pay";
-        }
-      } catch (error) {
-        status = "course_before_pay";
-        console.log("Happened when showing the Course Page", error);
-      }
-    }
-
-    let sql;
-    if (status == "course_before_pay") {
-      sql =
-        "SELECT course.title, course.description, course.price, \
-            course.upload_time, course.video, user.name, \
-            JSON_ARRAYAGG(JSON_OBJECT('title', course_video.title)) AS videoList \
-          FROM course \
-          INNER JOIN user \
-          ON course.user_id=user.id \
-          LEFT JOIN course_video \
-          ON course.id=course_video.course_id \
-          WHERE course.id = ?";
-    } else if (status == "course_after_pay") {
-      sql =
-        "SELECT course.title, course.description, course.price, \
-            course.upload_time, course.video, user.name, \
-            JSON_ARRAYAGG(JSON_OBJECT('title', course_video.title, 'video', course_video.video)) AS videoList \
-          FROM course \
-          INNER JOIN user \
-          ON course.user_id=user.id \
-          LEFT JOIN course_video \
-          ON course.id=course_video.course_id \
-          WHERE course.id = ?";
-    }
-    const [[details]] = await conn.query(sql, courseId);
-
-    // Q&A
-    const [[course_before_pay_type_id]] = await conn.query(
-      "SELECT id FROM commented_type WHERE type= ? ",
-      ["course_before_pay"]
-    );
-
-    const [questions] = await conn.query(
-      "SELECT comment.content, comment.create_time, user.name, user.picture, user.id \
-       FROM comment \
-       LEFT JOIN user \
-       ON comment.user_id=user.id \
-       WHERE comment.commented_id= ? and comment.commented_type_id= ? \
-       ORDER BY comment.create_time DESC",
-      [courseId, course_before_pay_type_id.id]
-    );
+    // Verify token
+    let sql =
+      "SELECT livestream.id, livestream.title, livestream.introduction, livestream.description, \
+      livestream.preparation, livestream.cover, livestream.teaser, livestream.start_time, \
+      COUNT(livestream_student.user_id) AS students_num, user.name AS teacher_name \
+      FROM livestream \
+      LEFT JOIN livestream_student \
+      ON livestream.id=livestream_student.livestream_id \
+      LEFT JOIN user \
+      ON livestream.user_id=user.id \
+      WHERE livestream.id=?";
+    const [[details]] = await conn.query(sql, livestreamId);
 
     await conn.query("COMMIT");
     return {
       details: details,
-      questions: questions,
-      status: status,
     };
   } catch (error) {
     await conn.query("ROLLBACK");

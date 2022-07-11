@@ -38,7 +38,7 @@ const getLivestreams = async (req, res) => {
       case "details": {
         const livestreamId = parseInt(req.query.id);
         if (Number.isInteger(livestreamId)) {
-          return await Livestream.getLivestream(livestreamId, token);
+          return await Livestream.getLivestream(livestreamId);
         }
       }
     }
