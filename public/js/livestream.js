@@ -144,7 +144,7 @@ const config = {
   iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }],
 };
 
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect("http://35.87.175.209");
 socket.emit("student_join", courseId);
 
 socket.emit("viewer", courseId);
@@ -169,6 +169,7 @@ socket.on("offer", (id, description) => {
     });
 
   peerConnection.ontrack = (event) => {
+    video.src = null;
     video.srcObject = event.streams[0];
   };
   peerConnection.onicecandidate = (event) => {
