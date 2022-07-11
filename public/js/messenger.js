@@ -56,7 +56,6 @@ window.onload = async function () {
 
   // SideBar
   const renderSidebar = async () => {
-    console.log(59, "render sidebar");
     const sidebarRes = await fetch(`/api/1.0/messages/all`, {
       method: "GET",
       headers: new Headers({

@@ -119,8 +119,6 @@ window.onload = async function () {
     }
   }
 
-  console.log(117, pageArr);
-
   for (let i = 0; i < pageArr.length; i++) {
     let aTag = document.createElement("a");
 

@@ -1,1 +1,3 @@
-window.onload = async function () {};
+(window.onload = async function () {
+  window.location.href = "/courses.html";
+})();
