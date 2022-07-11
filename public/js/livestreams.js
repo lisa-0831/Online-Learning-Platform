@@ -5,7 +5,6 @@ currentPage = 1;
 window.onload = async function () {
   // Courses
   let order = "trending";
-  let hashtag = null;
   let category = "all";
   let paging = null;
 
@@ -16,26 +15,28 @@ window.onload = async function () {
   if (params.get("order") !== null) {
     order = params.get("order");
   }
-  let url = `/api/1.0/courses/${category}?order=${order}`;
-
-  hashtag = params.get("hashtag");
-  if (hashtag !== null) {
-    url += `&hashtag=${hashtag}`;
-  }
+  let url = `/api/1.0/livestreams/${category}?order=${order}`;
 
   paging = params.get("paging");
   if (paging !== null) {
     url += `&paging=${paging - 1}`;
   }
 
-  const coursesAllRes = await fetch(url);
-  const coursesAllObj = await coursesAllRes.json();
+  const livestreamsAllRes = await fetch(url);
+  const livestreamsAllObj = await livestreamsAllRes.json();
 
-  const coursesObj = coursesAllObj.products;
-  const hashtagsObj = coursesAllObj.hashtags;
-  const courseNum = coursesAllObj.courseNum[0]["COUNT(*)"];
+  const livestreamsObj = livestreamsAllObj.products;
+  const livestreamNum = livestreamsAllObj.livestreamNum[0]["COUNT(*)"];
+  console.log(livestreamsObj);
+  console.log(livestreamNum);
 
-  for (let i = 0; i < coursesObj.length; i++) {
+  // Timestamp To Date
+  const timestamp2Date = (timestamp) => {
+    const date = new Date(timestamp);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  };
+
+  for (let i = 0; i < livestreamsObj.length; i++) {
     // Course Div
     let course = document.createElement("figure");
     course.setAttribute("class", "course");
@@ -43,14 +44,17 @@ window.onload = async function () {
     // Course a Tag
     let courseTag = document.createElement("a");
     courseTag.setAttribute("class", "course-detail");
-    courseTag.setAttribute("href", `/course.html?id=${coursesObj[i].id}`);
+    courseTag.setAttribute(
+      "href",
+      `/livestream.html?id=${livestreamsObj[i].id}`
+    );
 
     // Course Cover
     let imgDiv = document.createElement("div");
     imgDiv.setAttribute("class", "course-image");
 
     let courseImg = document.createElement("img");
-    courseImg.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${coursesObj[i]["cover"]}`;
+    courseImg.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${livestreamsObj[i]["cover"]}`;
     // courseImg.width = "300";
     // courseImg.height = "186";
     imgDiv.appendChild(courseImg);
@@ -62,38 +66,30 @@ window.onload = async function () {
     // Course Title
     let courseTitle = document.createElement("h3");
     // courseTitle.setAttribute("class", "course-title");
-    courseTitle.innerText = coursesObj[i]["title"];
+    courseTitle.innerText = livestreamsObj[i]["title"];
     figcaption.appendChild(courseTitle);
 
     // Course Students Num
     let courseStudent = document.createElement("h4");
     // courseStudent.setAttribute("class", "course-student");
-    courseStudent.innerText = `學生 ${coursesObj[i]["students_num"]} 人`;
+    courseStudent.innerText = `預約人數 ${livestreamsObj[i]["students_num"]} 人`;
     figcaption.appendChild(courseStudent);
 
-    // Course Price
-    let coursePrice = document.createElement("p");
+    // Course Time
+    let courseTime = document.createElement("p");
     // coursePrice.setAttribute("class", "course-price");
-    coursePrice.innerText = `NT$ ${coursesObj[i]["price"]}`;
-    figcaption.appendChild(coursePrice);
+    courseTime.innerText = `直播時間 ${timestamp2Date(
+      livestreamsObj[i]["start_time"]
+    )}`;
+    figcaption.appendChild(courseTime);
 
     courseTag.appendChild(figcaption);
     course.appendChild(courseTag);
     document.getElementById("courses").appendChild(course);
   }
 
-  // Top Hashtags
-  for (let i = 0; i < hashtagsObj.length; i++) {
-    let aTag = document.createElement("a");
-    aTag.setAttribute("class", "sidebar-tag");
-    aTag.setAttribute("data-type", hashtagsObj[i]["name"]);
-
-    aTag.innerText = hashtagsObj[i]["name"];
-    document.getElementById("tagParent").appendChild(aTag);
-  }
-
   // Paging
-  pages = Math.ceil(courseNum / pageSize);
+  pages = Math.ceil(livestreamNum / pageSize);
   currentPage = parseInt(paging) || 1;
 
   const pageArr = [];
@@ -151,19 +147,7 @@ window.onload = async function () {
   orderParent.addEventListener("click", function (e) {
     e.preventDefault();
     let order = e.target.dataset.type;
-    let url = `./courses.html?category=${category}&order=${order}`;
-    if (hashtag !== null) {
-      url += `&hashtag=${hashtag}`;
-    }
-    window.location.href = url;
-  });
-
-  const tagParent = document.getElementById("tagParent");
-  tagParent.addEventListener("click", function (e) {
-    e.preventDefault();
-    let hashtag = e.target.dataset.type;
-    hashtag = hashtag.substring(1);
-    let url = `./courses.html?category=all&order=${order}&hashtag=${hashtag}`;
+    let url = `./livestreams.html?category=${category}&order=${order}`;
     window.location.href = url;
   });
 
@@ -184,12 +168,7 @@ window.onload = async function () {
         paging = currentPage + 1;
       }
     }
-    let url = "";
-    if (!hashtag) {
-      url = `./courses.html?category=${category}&order=${order}&paging=${paging}`;
-    } else {
-      url = `./courses.html?category=all&order=${order}&hashtag=${hashtag}&paging=${paging}`;
-    }
+    let url = `./livestreams.html?category=all&order=${order}&paging=${paging}`;
     console.log(url);
 
     window.location.href = url;

@@ -1,0 +1,127 @@
+.course-context {
+    background-color: rgba(233, 233, 233, 0.912);
+      margin: 100px 0px;
+      padding: 50px 0px;
+  }
+  
+  .video-player {
+      display: flex;
+      justify-content: center; 
+  }
+  
+  .chatroom{
+    height: 720px;
+    width: 400px;
+    overflow-y: scroll;
+    background-color: #f6f6f6; /* Add a grey background color */
+  }
+  
+  .selected{
+    background-color: gray;
+  }
+
+  .course-all-info {
+    display: flex;
+  }
+
+  .course-info {
+    width: 1000px;
+    margin: 50px;
+    padding: 20px 20px 60px 20px;
+    background-color: white;
+    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3); 
+  }
+
+  .course-info-detail{
+    line-height: 28px;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border-left: 2px #e8b563 solid;
+  }
+
+  .course-subtitle{
+    font-size: 24px;
+    color:#e8b563;
+    padding: 10px 5px;
+    margin: 30px 5px;
+  }
+
+  /* Right */
+
+  .course-action {
+    width: 500px;
+    height: 500px;
+    margin: 50px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 100px;
+    border-top: 8px #e8b563 solid;
+  }
+
+  .course-title{
+    font-size: 36px;
+    line-height: 50px;
+    padding: 10px 5px;
+    margin: 10px 5px;
+  }
+
+  .course-action-detail{
+    line-height: 20px;
+    font-size: 18px;
+    padding: 10px 10px;
+    margin: 10px 5px;
+  }
+
+  button[type=button] {
+    background-color: #e8b563;
+    color: white;
+    margin: 20px 0px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 440px;
+    font-size: 24px;
+  }
+  
+  button[type=button]:hover {
+    background-color: #c19052;
+    cursor: pointer;
+  }
+
+  .start-button{
+    display: flex;
+    justify-content: center;
+  }
+
+
+/* Timer */
+
+.course-timer {
+  padding: 0px 250px;
+  margin: 20px 0px;
+  background-color: #313538;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+  height: 200px;
+}
+
+.course-timer-title{
+  line-height: 28px;
+  font-size: 26px;
+  color: #ffffff;
+  padding: 20px 30px 0px 70px;
+  margin: 15px 5px 0px 5px;
+}
+
+.course-timer-time{
+  text-align: center;
+  font-size: 60px;
+  color: #ffffff;
+}
+
+
+
+  

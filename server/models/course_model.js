@@ -57,7 +57,6 @@ const createCourse = async (course, hashtags) => {
       courseToTagCondition.sql,
       courseToTagCondition.binding
     );
-    console.log(45, courseToTag);
 
     await conn.query("COMMIT");
     return result.insertId;

@@ -3,6 +3,7 @@ let courseId;
 window.onload = async function () {
   let params = new URL(document.location).searchParams;
   courseId = params.get("id");
+  console.log(courseId);
 
   const livestreamRes = await fetch(
     `/api/1.0/livestreams/details?id=${courseId}`,
@@ -16,18 +17,14 @@ window.onload = async function () {
   );
   const livestreamObj = await livestreamRes.json();
   const detailsObj = livestreamObj.details;
+  console.log(livestreamObj);
+  console.log(detailsObj);
 
   // Timestamp To Date
   const timestamp2Date = (timestamp) => {
     const date = new Date(timestamp);
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
   };
-
-  // Course Video
-  let courseVideo = document.createElement("source");
-  courseVideo.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${detailsObj["teaser"]}`;
-  courseVideo.type = "video/mp4";
-  document.getElementById("video-controls").appendChild(courseVideo);
 
   // Course Information - Left
 
@@ -117,70 +114,119 @@ window.onload = async function () {
   }, 1000);
 };
 
-// Add Favorites
-const addBooking = (event) => {
-  const searchParams = new URLSearchParams(window.location.search);
-  const body = { id: parseInt(searchParams.get("id")) };
-
-  fetch("/api/1.0/livestreams/book", {
-    method: "POST",
-    headers: new Headers({
-      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      "content-type": "application/json",
-    }),
-    body: JSON.stringify(body),
-  })
-    .then((res) => {
-      alert(res.statusText);
-    })
-    .catch((error) => console.log("Error:", error));
+const peerConnections = {};
+const config = {
+  iceServers: [
+    {
+      urls: ["stun:stun.l.google.com:19302"],
+    },
+  ],
 };
 
-let peerConnection;
+const videoGrid = document.getElementById("video-grid");
+const video = document.createElement("video");
+// video.setAttribute("controls");
+// video.setAttribute("width", "1280");
+// video.setAttribute("height", "720");
+// video.setAttribute("id", "video-controls");
 
-const video = document.querySelector("video");
-
-const config = {
-  iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }],
+const constraints = {
+  video: {
+    width: { min: 1024, ideal: 1280, max: 1920 },
+    height: { min: 576, ideal: 720, max: 1080 },
+  },
+  audio: true,
 };
 
 const socket = io.connect("http://localhost:3000");
-socket.emit("student_join", courseId);
+socket.emit("teacher_join", courseId);
 
-socket.emit("viewer", courseId);
-socket.on("broadcaster", () => {
-  socket.emit("viewer", courseId);
-});
+let recognizing = true;
+let recognition = new webkitSpeechRecognition();
 
-socket.on("candidate", (id, candidate) => {
-  peerConnection
-    .addIceCandidate(new RTCIceCandidate(candidate))
-    .catch((e) => console.error(e));
-});
+recognition.interimResults = true; // 講話的當下即時辨識
+recognition.lang = "cmn-Hant-TW"; // 要辨識的語言
+recognition.continuous = false; // 持續辨識，不會自動結束
 
-socket.on("offer", (id, description) => {
-  peerConnection = new RTCPeerConnection(config);
-  peerConnection
-    .setRemoteDescription(description)
-    .then(() => peerConnection.createAnswer())
-    .then((sdp) => peerConnection.setLocalDescription(sdp))
-    .then(() => {
-      socket.emit("answer", id, peerConnection.localDescription);
+let videostream;
+navigator.mediaDevices
+  .getUserMedia(constraints)
+  .then((stream) => {
+    videostream = stream;
+    video.srcObject = stream;
+    addVideoStream(video, stream);
+  })
+  .catch((error) => console.error(error));
+
+// Subtitle
+const subtitleContainer = document.querySelector(".subtitle");
+let p = document.createElement("p");
+subtitleContainer.appendChild(p);
+recognition.start();
+
+const startLivestream = (event) => {
+  socket.emit("broadcaster", courseId);
+
+  socket.on("viewer", (id) => {
+    const peerConnection = new RTCPeerConnection(config);
+    peerConnections[id] = peerConnection;
+
+    let stream = videostream;
+    stream.getTracks().forEach((track) => {
+      peerConnection.addTrack(track, stream);
     });
 
-  peerConnection.ontrack = (event) => {
-    video.srcObject = event.streams[0];
-  };
-  peerConnection.onicecandidate = (event) => {
-    if (event.candidate) {
-      socket.emit("candidate", id, event.candidate);
-    }
-  };
-});
+    peerConnection
+      .createOffer()
+      .then((sdp) => peerConnection.setLocalDescription(sdp))
+      .then(() => {
+        socket.emit("offer", id, peerConnection.localDescription);
+      })
+      .catch((e) => console.log(e));
 
-// socket.on("message", (message) => {
-//   const subtitleContainer = document.querySelector(".subtitle");
-//   subtitleContainer.innerHTML = message;
+    // event is called when receive an ICE candidate
+    peerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        socket.emit("candidate", id, event.candidate);
+      }
+    };
+
+    // Subtitle
+    let content;
+    let previousContent;
+    recognition.addEventListener("result", (e) => {
+      p.textContent = e.results[0][0].transcript;
+      content = p.textContent;
+      if (e.results[0].isFinal) {
+        p = document.createElement("p");
+        subtitleContainer.appendChild(p);
+      }
+    });
+
+    // We need to restart the api after the user finish a sentence
+    recognition.addEventListener("end", (e) => {
+      recognizing ? recognition.start() : recognition.stop();
+      if (previousContent !== content) {
+        const subtitleContainer = document.querySelector(".subtitle");
+        subtitleContainer.textContent = content;
+        socket.emit("message", id, content);
+        previousContent = content;
+      }
+    });
+  });
+
+  socket.on("answer", (id, description) => {
+    peerConnections[id].setRemoteDescription(description);
+  });
+
+  socket.on("candidate", (id, candidate) => {
+    peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
+  });
+};
+
+// socket.on("disconnectPeer", (id) => {
+//   peerConnections[id].close();
+//   delete peerConnections[id];
 // });
 
 // let chatButton = document.querySelector("button.chat-button");
@@ -193,18 +239,21 @@ socket.on("offer", (id, description) => {
 // });
 
 // socket.on("chat-room", (content) => {
+//   console.log(content);
 //   let chatContent = document.createElement("p");
 //   chatContent.textContent = content;
 //   let chatDiv = document.querySelector(".chat");
 //   chatDiv.append(chatContent);
 // });
 
-window.onunload = () => {
+window.onunload = window.onbeforeunload = () => {
   socket.close();
-  peerConnection.close();
 };
 
-window.onbeforeunload = () => {
-  socket.close();
-  peerConnection.close();
-};
+function addVideoStream(video, stream) {
+  video.srcObject = stream;
+  video.addEventListener("loadedmetadata", () => {
+    video.play();
+  });
+  videoGrid.append(video);
+}
