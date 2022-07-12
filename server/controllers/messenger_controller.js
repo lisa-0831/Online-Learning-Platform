@@ -40,13 +40,14 @@ const getMessages = async (req, res) => {
   if (authorization !== undefined) {
     token = authorization.split(" ")[1];
   }
+  const receiverId = req.body.receiverId;
 
   const category = req.params.category || "all";
 
   async function findMessage(category) {
     switch (category) {
       case "all": {
-        return await Message.getMessages(token);
+        return await Message.getMessages(token, receiverId);
       }
       case "details": {
         const otherSideId = parseInt(req.query.id);

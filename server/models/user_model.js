@@ -37,7 +37,7 @@ const signUp = async (name, roleId, email, password) => {
       email: email,
       password: bcrypt.hashSync(password, salt),
       name: name,
-      picture: null,
+      picture: "profile.png",
       login_at: new Date(),
     };
 

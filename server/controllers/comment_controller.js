@@ -24,7 +24,7 @@ const createComment = async (req, res) => {
 
   const commentId = await Comment.createComment(comment, token);
   if (commentId == -1) {
-    return res.status(500);
+    return res.status(500).json({ Error: "Server Error" });
   } else {
     return res.status(200).json({ "Comment created": commentId });
   }

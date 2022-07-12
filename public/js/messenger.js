@@ -57,16 +57,25 @@ window.onload = async function () {
   // SideBar
   const renderSidebar = async () => {
     const sidebarRes = await fetch(`/api/1.0/messages/all`, {
-      method: "GET",
+      method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      }),
+      body: JSON.stringify({
+        receiverId: localStorage.getItem("receiver_id"),
       }),
     });
     const sidebarObj = await sidebarRes.json();
     const messagesArr = sidebarObj.messages;
     const countObj = sidebarObj.count;
     const userObj = sidebarObj.user;
+    const receiverObj = sidebarObj.receiver;
+
+    if (messagesArr.length == 0 && !receiver) {
+      alert("目前無任何聊天記錄，可以到他人頁面開始聊天唷～");
+    }
+
     userId = userObj.id; // Update userId
     username = userObj.name; // Update username
 
@@ -150,6 +159,50 @@ window.onload = async function () {
         room: messagesArr[i]["room"],
       });
     }
+
+    if (receiverObj !== undefined) {
+      const groupDiv = document.createElement("a");
+      groupDiv.setAttribute("class", "group");
+      groupDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
+
+      const imageDiv = document.createElement("div");
+      imageDiv.setAttribute("class", "image");
+      imageDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
+      const image = document.createElement("img");
+      image.setAttribute("class", "profile");
+      image.setAttribute(
+        "src",
+        `https://d1wan10jjr4v2x.cloudfront.net/profile/${receiverObj.receiverInfo.picture}`
+      );
+      image.setAttribute("alt", "profile piture");
+      image.setAttribute("width", "50px");
+      image.setAttribute("height", "50px");
+      imageDiv.appendChild(image);
+
+      const nameDiv = document.createElement("div");
+      nameDiv.setAttribute("class", "group-name");
+      nameDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
+      nameDiv.innerHTML = `
+        <p class="title">
+          ${receiverObj.receiverInfo.name}
+          <span class="date"></span>
+        </p>
+        <p>
+        </p>`;
+      groupDiv.appendChild(imageDiv);
+      groupDiv.appendChild(nameDiv);
+
+      document.getElementById("roomParent").prepend(groupDiv);
+
+      // Connect Socket
+      socket.emit("user_join", {
+        room: receiverObj.clickRoom,
+      });
+
+      currentRoom = receiverObj.clickRoom;
+
+      localStorage.removeItem("receiver_id");
+    }
   };
 
   await renderSidebar();
@@ -170,7 +223,6 @@ window.onload = async function () {
   roomParent.addEventListener("click", async function (e) {
     e.preventDefault();
     const otherSideId = e.target.dataset.type;
-    console.log(94, otherSideId);
 
     // Remove Messages
     const messagesElement = document.getElementById("chat-messages"); // will return element
@@ -180,7 +232,7 @@ window.onload = async function () {
     const chatroomRes = await fetch(
       `/api/1.0/messages/details?id=${otherSideId}`,
       {
-        method: "GET",
+        method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,

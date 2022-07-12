@@ -57,7 +57,7 @@ const addMessage = async (data) => {
   }
 };
 
-const getMessages = async (token) => {
+const getMessages = async (token, receiverId) => {
   const decoded = jwt.verify(token, TOKEN_SECRET);
   const userId = decoded.userId;
   const username = decoded.name;
@@ -105,7 +105,33 @@ const getMessages = async (token) => {
       name: username,
     };
 
-    return { messages: messages, count: roomToMsgNum, user: user };
+    let receiver;
+    if (receiverId !== null) {
+      receiver = parseInt(receiver);
+      const [[receiverInfo]] = await conn.query(
+        "SELECT user.id, user.picture, user.name FROM user WHERE id=?",
+        [receiverId]
+      );
+      console.log(receiverInfo);
+
+      let room = [userId, receiverId];
+      room.sort(function (a, b) {
+        return a - b;
+      });
+      room = room.toString();
+
+      receiver = {
+        receiverInfo: receiverInfo,
+        clickRoom: room,
+      };
+    }
+
+    return {
+      messages: messages,
+      count: roomToMsgNum,
+      user: user,
+      receiver: receiver,
+    };
   } catch (error) {
     await conn.query("ROLLBACK");
     console.log(error);

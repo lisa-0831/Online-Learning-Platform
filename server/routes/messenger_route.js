@@ -7,7 +7,7 @@ const {
   saveRoomId,
 } = require("../controllers/messenger_controller");
 
-router.route("/messages/:category").get(errorHandler(getMessages));
+router.route("/messages/:category").post(errorHandler(getMessages));
 router.route("/messages").post(errorHandler(saveMessage));
 router.route("/messages/newroom").post(errorHandler(saveRoomId));
 
