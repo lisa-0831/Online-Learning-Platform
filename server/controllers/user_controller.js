@@ -127,17 +127,20 @@ const getUserStatus = async (req, res) => {
 
 const getUserInfo = async (req, res) => {
   const authorization = req.headers.authorization;
-  let token = "";
-  if (authorization !== undefined) {
-    token = authorization.split(" ")[1];
+  if (!authorization) {
+    return res.status(401).send("User does not sign in.");
   }
+  const token = authorization.split(" ")[1];
 
   // const details = req.params.category || "details";
   const userId = parseInt(req.query.id);
   if (Number.isInteger(userId)) {
-    // return await User.getUserDetail(userId, token);
     const user = await User.getUserDetail(userId, token);
-    return res.send({ user });
+
+    if (user == -1) {
+      return res.status(403).send("TokenExpired. User should sign in again.");
+    }
+    return res.status(200).send({ user });
   }
 };
 

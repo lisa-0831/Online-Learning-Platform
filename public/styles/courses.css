@@ -16,10 +16,12 @@
     line-height: 1.4em;
     font-size: 14px;
     box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
   }
   
   .course:hover {
-    transform:scale(1.1,1.1);
+    transform:scale(1.05,1.05);
+    transition: all ease 0.5s;
   }
   
   .course * {

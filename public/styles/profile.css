@@ -2,6 +2,8 @@
     height: 100vh;
     width: 400px;
     float: left;
+    position: sticky;
+    top: 120px;
 }
 
 
@@ -13,16 +15,18 @@
   top: 100px;
   left: 80px;
   width: 280px;
-  height: 550px;
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 .profile {
-  float: left;
+  /* float: left;
   width: 280px;
-  height: 450px;
+  height: 450px; */
   text-align: center;
 }
 .profile .image {
@@ -56,9 +60,9 @@
   border-radius: 50%;
   background: #f5e8df;
 }
-.profile .image:hover {
+/* .profile .image:hover {
   cursor: pointer;
-}
+} */
 .profile .image:hover .circle-1, .profile .image:hover .image .circle-2, .profile .image .image:hover .circle-2 {
   transform: rotate(360deg);
 }
@@ -66,13 +70,18 @@
   transform: rotate(-360deg);
 }
 .profile .name {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 .profile .email {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 45px;
+}
+.profile .self-intro{
+  line-height: 28px;
+  font-size: 16px;
+  margin: 20px 20px;
 }
 .profile .actions {
   margin-top: 15px;
@@ -81,23 +90,25 @@
   display: block;
   width: 120px;
   height: 30px;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 20px auto;
   background: none;
-  border: 1px solid #786450;
+  border: 1px solid #313538;
   border-radius: 15px;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 450;
   box-sizing: border-box;
   transition: all 0.3s ease-in-out;
-  color: #786450;
+  color: #313538;
+  cursor: pointer;
 }
 .profile .actions .btn:hover {
-  background: #786450;
+  background: #313538;
   color: #fff;
 }
 .stats {
   float: left;
   display: flex;
+  margin-top: auto;
 }
 .stats .box {
   width: 140px;
@@ -108,7 +119,7 @@
 }
 .stats .box:hover {
   background: #F2F2F2;
-  cursor: pointer;
+  cursor: default;
 }
 .stats span {
   display: block;
@@ -126,7 +137,28 @@
 
 .content{
   width: 80vw;
-  margin-left: 400px;
+  margin-left: 450px;
+  margin-top: 120px;
+  margin-bottom: 120px;
+}
+
+.content-title{
+  font-size: 24px;
+  color: #e8b563;
+  padding: 15px 18px;
+  margin: 0px 5px;
+  border-left: 5px #e8b563 solid;
+}
+
+.course-redirect{
+  font-size: 20px;
+  padding: 20px;
+  margin: 20px;
+  color: #313538;
+}
+
+.course-redirect:hover{
+  color: #F2F2F2;
 }
 
 .courses {
@@ -135,10 +167,11 @@
 }
 
 .course {
+  cursor: pointer;
   overflow: hidden;
   font-family: 'Open Sans', Arial, sans-serif;
   position: relative;
-  margin: 10px;
+  margin: 30px;
   min-width: 295px;
   max-width: 380px;
   width: 100%;
@@ -150,7 +183,8 @@
 }
 
 .course:hover {
-  transform:scale(1.1,1.1);
+  transform:scale(1.05,1.05);
+  transition: all ease 0.5s;
 }
 
 .course * {

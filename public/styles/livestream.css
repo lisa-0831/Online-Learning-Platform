@@ -1,12 +1,12 @@
 .course-context {
     background-color: rgba(233, 233, 233, 0.912);
-      margin: 100px 0px;
-      padding: 50px 0px;
+    /* margin: 100px 0px; */
+    padding: 50px 0px;
   }
   
   .video-player {
-      display: flex;
-      justify-content: center; 
+    display: flex;
+    justify-content: center; 
   }
   
   .chatroom{
@@ -35,8 +35,8 @@
   .course-info-detail{
     line-height: 28px;
     font-size: 16px;
-    padding: 10px 20px;
-    margin: 10px 5px;
+    padding: 10px 70px;
+    margin: 10px 45px;
     border-left: 2px #e8b563 solid;
   }
 
@@ -45,6 +45,31 @@
     color:#e8b563;
     padding: 10px 5px;
     margin: 30px 5px;
+  }
+
+  .detail-teacher-info{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
+
+  .detail-teacher-name{
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+  
+  .detail-teacher-info-words{
+    margin: 15px;
+  }
+  
+  .detail-teacher-pic{
+    border-radius: 50%;
+    padding: 5px 5px;
+    margin-right: 50px;
+  }
+  
+  .detail-teacher-info-a{
+    border-radius: 50%;
   }
 
   /* Right */

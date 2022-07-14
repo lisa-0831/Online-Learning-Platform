@@ -117,7 +117,8 @@ const getLivestream = async (livestreamId) => {
     let sql =
       "SELECT livestream.id, livestream.title, livestream.introduction, livestream.description, \
       livestream.preparation, livestream.cover, livestream.teaser, livestream.start_time, \
-      COUNT(livestream_student.user_id) AS students_num, user.name AS teacher_name \
+      COUNT(livestream_student.user_id) AS students_num, user.name AS teacher_name, \
+      user.picture AS teacher_pic, user.self_intro AS teacher_intro, user.id AS teacher_id \
       FROM livestream \
       LEFT JOIN livestream_student \
       ON livestream.id=livestream_student.livestream_id \

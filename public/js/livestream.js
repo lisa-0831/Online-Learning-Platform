@@ -53,6 +53,17 @@ window.onload = async function () {
     .getElementsByClassName("course-preparation")[0]
     .appendChild(preparationDiv);
 
+  // Course Teacher
+  teacherInfo = `<a href="./profile.html?id=${detailsObj["teacher_id"]}" class="detail-teacher-info-a"><img src="https://d1wan10jjr4v2x.cloudfront.net/profile/${detailsObj["teacher_pic"]}" width="130px" height="130px" class="detail-teacher-pic" /></a>
+  <div class="detail-teacher-info-words">
+    <p class="detail-teacher-name">${detailsObj["teacher_name"]}</p>`;
+  if (detailsObj["teacher_intro"] !== null) {
+    teacherInfo += `<p> ${detailsObj["teacher_intro"]}</p>`;
+  }
+  teacherInfo += "</div>";
+  document.getElementsByClassName("detail-teacher-info")[0].innerHTML =
+    teacherInfo;
+
   // Course Information - Right
 
   // Course Title
