@@ -1,6 +1,6 @@
 /* #region Desktop Header */
 .desktop-header {
-    height: 60px;
+    height: 70px;
     width: 100vw;
     display: flex;
     align-items: flex-start;
@@ -118,7 +118,7 @@
 }
   
 main {
-    margin-top: 100px;  /* The height of the header */
+    margin-top: 70px;  /* The height of the header */
     min-height: calc(100vh - 255px);
 }
   

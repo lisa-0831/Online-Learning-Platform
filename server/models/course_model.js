@@ -188,31 +188,36 @@ const getCourse = async (courseId, token) => {
       }
     }
 
-    let sql;
+    let sql = [
+      "SELECT info.id, info.title, info.introduction, info.description, info.preparation, info.price, info.upload_time, info.video, \
+    info.name, info.picture, info.self_intro, info.user_id, info.videoList, COUNT(course_student.user_id) AS student_num \
+    FROM (SELECT course.id, course.title, course.introduction, course.description, course.preparation, course.price, course.upload_time, course.video, \
+          user.name, user.picture, user.self_intro, user.id AS user_id, ",
+      " FROM course \
+    INNER JOIN user \
+    ON course.user_id=user.id \
+    LEFT JOIN course_video \
+    ON course.id=course_video.course_id \
+    WHERE course.id = ? ) AS info \
+    LEFT JOIN course_student \
+    ON info.id=course_student.course_id \
+    WHERE info.id = ?",
+    ];
     if (status == "course_before_pay") {
-      sql =
-        "SELECT course.title, course.description, course.price, \
-          course.upload_time, course.video, user.name, \
-          JSON_ARRAYAGG(JSON_OBJECT('title', course_video.title)) AS videoList \
-        FROM course \
-        INNER JOIN user \
-        ON course.user_id=user.id \
-        LEFT JOIN course_video \
-        ON course.id=course_video.course_id \
-        WHERE course.id = ?";
+      sql.splice(
+        1,
+        0,
+        "JSON_ARRAYAGG(JSON_OBJECT('title', course_video.title)) AS videoList"
+      );
     } else if (status == "course_after_pay") {
-      sql =
-        "SELECT course.title, course.description, course.price, \
-          course.upload_time, course.video, user.name, \
-          JSON_ARRAYAGG(JSON_OBJECT('title', course_video.title, 'video', course_video.video)) AS videoList \
-        FROM course \
-        INNER JOIN user \
-        ON course.user_id=user.id \
-        LEFT JOIN course_video \
-        ON course.id=course_video.course_id \
-        WHERE course.id = ?";
+      sql.splice(
+        1,
+        0,
+        "JSON_ARRAYAGG(JSON_OBJECT('title', course_video.title, 'video', course_video.video)) AS videoList"
+      );
     }
-    const [[details]] = await conn.query(sql, courseId);
+    sql = sql.join("");
+    const [[details]] = await conn.query(sql, [courseId, courseId]);
 
     // Q&A
     const [[course_before_pay_type_id]] = await conn.query(
@@ -237,12 +242,12 @@ const getCourse = async (courseId, token) => {
     );
 
     const [rating] = await conn.query(
-      "SELECT comment.content, comment.create_time, user.name, user.picture, user.id, course_rating.star  \
+      "SELECT comment.content, comment.create_time, user.name, user.picture, user.id, course_rating.star \
      FROM comment \
      LEFT JOIN user \
      ON comment.user_id=user.id \
      LEFT JOIN course_rating \
-	   ON comment.user_id=course_rating.user_id and comment.commented_id=course_rating.course_id \
+	   ON comment.id=course_rating.comment_id \
      WHERE comment.commented_id= ? and comment.commented_type_id= ? \
      ORDER BY comment.create_time DESC",
       [courseId, rating_type_id.id]
