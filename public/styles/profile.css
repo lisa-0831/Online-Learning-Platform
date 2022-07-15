@@ -155,6 +155,8 @@
   padding: 20px;
   margin: 20px;
   color: #313538;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .course-redirect:hover{

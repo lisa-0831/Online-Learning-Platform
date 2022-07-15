@@ -207,10 +207,15 @@ window.onload = async function () {
     ).innerHTML = `<h1 class="content-title">開設的課程</h1>`;
   }
   if (user.auth == 1 && user.role == "teacher" && user.teach.length == 0) {
-    document.getElementsByClassName(
-      "courses"
-    )[3].innerHTML = `<a href="./admin/course.html" class="course-redirect"> 目前無開設任何課程，前往新增 >> </a>`;
+    document.getElementById(
+      "content-teach-link"
+    ).innerHTML = `<a href="./admin/course.html" class="course-redirect"> 目前無開設任何課程，前往新增 >> </a>`;
+  } else if (user.auth == 1 && user.role == "teacher") {
+    document.getElementById(
+      "content-teach-link"
+    ).innerHTML = `<a href="./admin/course.html" class="course-redirect"> 前往新增 >> </a>`;
   }
+
   for (let i = 0; i < user.teach.length; i++) {
     // Course Div
     let course = document.createElement("figure");
@@ -265,10 +270,15 @@ window.onload = async function () {
     ).innerHTML = `<h1 class="content-title">開設的直播</h1>`;
   }
   if (user.auth == 1 && user.role == "teacher" && user.streamer.length == 0) {
-    document.getElementsByClassName(
-      "courses"
-    )[4].innerHTML = `<a href="./admin/livestream.html" class="course-redirect"> 目前無舉辦任何直播，前往新增 >> </a>`;
+    document.getElementById(
+      "content-streamer-link"
+    ).innerHTML = `<a href="./admin/livestream.html" class="course-redirect"> 目前無舉辦任何直播，前往新增 >> </a>`;
+  } else if (user.auth == 1 && user.role == "teacher") {
+    document.getElementById(
+      "content-streamer-link"
+    ).innerHTML = `<a href="./admin/livestream.html" class="course-redirect"> 前往新增 >> </a>`;
   }
+
   for (let i = 0; i < user.streamer.length; i++) {
     // Course Div
     let course = document.createElement("figure");

@@ -2,8 +2,9 @@ let total_amount = 0;
 let order = [];
 
 window.onload = async function () {
-  let shoppingList = localStorage.getItem("list");
-  let data = JSON.parse(shoppingList);
+  const shoppingList = localStorage.getItem("list");
+  const dataOrigin = JSON.parse(shoppingList);
+  const data = [...new Set(dataOrigin)];
 
   let list = [];
   if (data !== null) {
@@ -18,6 +19,7 @@ window.onload = async function () {
       .then((res) => res.json())
       .then((response) => {
         list = response.data;
+        console.log(list);
 
         for (let i = 0; i < list.length; i++) {
           let item = document.createElement("div");

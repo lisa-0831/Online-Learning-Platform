@@ -4,10 +4,12 @@
     <meta charset="UTF-8" />
     <title>PI COURSE</title>
     <link rel="icon" href="./images/icon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/footer.css" />
-    <link rel="stylesheet" href="./styles/profile.css" />
+    <link rel="stylesheet" href="./styles/course.css" />
+    <link rel="stylesheet" href="./styles/404.css" />
     <link rel="stylesheet" href="./styles/fontawesome/css/all.css" />
   </head>
 
@@ -56,76 +58,34 @@
     </div>
 
     <main>
-      <div class="sidebar">
-        <div class="center">
-          <div class="profile">
-            <div class="image">
-              <div class="circle-1"></div>
-              <div class="circle-2"></div>
-              <!-- <img
-                src="https://d1wan10jjr4v2x.cloudfront.net/profile/shiba.jpg"
-                width="170"
-                height="170"
-              /> -->
-            </div>
+      <section class="page_404">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-sm-10 col-sm-offset-1 text-center">
+                <div class="four_zero_four_bg">
+                  <h1 class="text-center">404</h1>
+                </div>
 
-            <div class="name"></div>
-            <div class="email"></div>
-            <div class="self-intro"></div>
+                <div class="contant_box_404">
+                  <h3 class="h2">Look like you're lost</h3>
 
-            <div class="actions">
-              <!-- <button class="btn">Follow</button>
-              <button class="btn">Message</button>
-              <button class="btn" onclick="signOut()">Sign Out</button> -->
-            </div>
-          </div>
+                  <p>the page you are looking for not avaible!</p>
 
-          <div class="stats">
-            <div class="box">
-              <span class="parameter">已購買</span>
-              <span class="value"></span>
-            </div>
-            <div class="box">
-              <span class="parameter">已開課</span>
-              <span class="value"></span>
+                  <a href="" class="link_404">Go to Home</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="content">
-        <div id="content-title-bought">
-          <!-- <h1 class="content-title">選修的課程</h1> -->
-        </div>
-        <div class="courses"></div>
-
-        <div id="content-title-favorites">
-          <!-- <h1 class="content-title">收藏的課程</h1> -->
-        </div>
-        <div class="courses"></div>
-
-        <div id="content-title-reserve">
-          <!-- <h1 class="content-title">預約的直播</h1> -->
-        </div>
-        <div class="courses"></div>
-
-        <div id="content-title-teach">
-          <!-- <h1 class="content-title">開設的課程</h1> -->
-        </div>
-        <div id="content-teach-link"></div>
-        <div class="courses"></div>
-
-        <div id="content-title-streamer">
-          <!-- <h1 class="content-title">開設的直播</h1> -->
-        </div>
-        <div id="content-streamer-link"></div>
-        <div class="courses"></div>
-      </div>
+      </section>
     </main>
     <footer>
       <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
       <div class="rights">© 2022. All rights reserved.</div>
     </footer>
-    <script src="./js/profile.js"></script>
+    <script src="./js/course.js"></script>
+    <script src="./js/rating.js"></script>
     <script src="./util/util.js"></script>
   </body>
 </html>
