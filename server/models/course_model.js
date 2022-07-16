@@ -88,41 +88,80 @@ const getCourses = async (
       ],
       binding: [],
     };
+
     const pagingCondition = {
       sql: ["SELECT COUNT(*) FROM pi.course "],
       binding: [],
     };
 
-    // Category
-    if (requirement.category !== "all") {
-      let categorySql =
-        "LEFT JOIN category \
+    if (requirement.order == "recommend" && requirement.token !== undefined) {
+      const decoded = jwt.verify(requirement.token, TOKEN_SECRET);
+
+      recommendSql =
+        "WHERE course.id IN (SELECT user_favorites.favorites_id \
+        FROM ( SELECT course_favorites.course_id AS favorites_id FROM course_favorites WHERE user_id=?) AS user_favorites \
+        LEFT JOIN (SELECT course_student.course_id AS bought_id FROM course_student WHERE user_id=?) AS user_bought \
+        ON user_favorites.favorites_id=user_bought.bought_id WHERE user_bought.bought_id IS NULL) \
+        OR course.id IN (SELECT user_recommend.course_id \
+        FROM (SELECT DISTINCT course_student.course_id FROM pi.course_student \
+        WHERE course_student.user_id IN (SELECT DISTINCT course_student.user_id \
+        FROM pi.course_student WHERE course_student.user_id != ? \
+        AND course_student.course_id IN (SELECT course_student.course_id \
+        FROM course_student WHERE course_student.user_id=?))) AS user_recommend \
+        LEFT JOIN (SELECT course_student.course_id AS bought_id \
+        FROM course_student WHERE user_id=?) AS user_bought \
+        ON user_recommend.course_id=user_bought.bought_id WHERE user_bought.bought_id IS NULL \
+        )GROUP BY course.id ";
+
+      condition.sql.push(recommendSql);
+      condition.binding = [
+        decoded.userId,
+        decoded.userId,
+        decoded.userId,
+        decoded.userId,
+        decoded.userId,
+      ];
+
+      pagingCondition.sql.push(recommendSql);
+      pagingCondition.binding = [
+        decoded.userId,
+        decoded.userId,
+        decoded.userId,
+        decoded.userId,
+        decoded.userId,
+      ];
+    } else {
+      // Category
+      if (requirement.category !== "all") {
+        let categorySql =
+          "LEFT JOIN category \
       ON course.category_id=category.id \
       WHERE category.name= ? ";
 
-      condition.sql.push(categorySql);
-      condition.binding = [requirement.category];
-      pagingCondition.sql.push(categorySql);
-      pagingCondition.binding = [requirement.category];
-    } else if (requirement.hashtag !== undefined) {
-      let hashtagSql =
-        "LEFT JOIN course_tag \
+        condition.sql.push(categorySql);
+        condition.binding = [requirement.category];
+        pagingCondition.sql.push(categorySql);
+        pagingCondition.binding = [requirement.category];
+      } else if (requirement.hashtag !== undefined) {
+        let hashtagSql =
+          "LEFT JOIN course_tag \
       ON course.id=course_tag.course_id \
       LEFT JOIN tag \
       ON course_tag.tag_id=tag.id \
       WHERE tag.name=? ";
 
-      condition.sql.push(hashtagSql);
-      condition.binding = [`#${requirement.hashtag}`];
-      pagingCondition.sql.push(hashtagSql);
-      pagingCondition.binding = [`#${requirement.hashtag}`];
-    }
+        condition.sql.push(hashtagSql);
+        condition.binding = [`#${requirement.hashtag}`];
+        pagingCondition.sql.push(hashtagSql);
+        pagingCondition.binding = [`#${requirement.hashtag}`];
+      }
 
-    // Order
-    if (requirement.order == "trending") {
-      condition.sql.push("GROUP BY course.id ORDER by students_num DESC ");
-    } else if (requirement.order == "latest") {
-      condition.sql.push("GROUP BY course.id ORDER by upload_time DESC ");
+      // Order
+      if (requirement.order == "trending") {
+        condition.sql.push("GROUP BY course.id ORDER by students_num DESC ");
+      } else if (requirement.order == "latest") {
+        condition.sql.push("GROUP BY course.id ORDER by upload_time DESC ");
+      }
     }
 
     const limit = {
@@ -132,7 +171,7 @@ const getCourses = async (
 
     const courseQuery = condition.sql.join("") + limit.sql;
     const courseBindings = condition.binding.concat(limit.binding);
-    const [products] = await conn.query(courseQuery, courseBindings);
+    let [products] = await conn.query(courseQuery, courseBindings);
 
     const hashtagQuery =
       "SELECT * FROM pi.tag ORDER BY (views + create_time*0.00000001) DESC LIMIT 0, ?";
@@ -142,7 +181,23 @@ const getCourses = async (
     await conn.query(hashtagUpdate, `#${requirement.hashtag}`);
 
     const pagingQuery = pagingCondition.sql.join("");
-    const [courseNum] = await conn.query(pagingQuery, pagingCondition.binding);
+    let [courseNum] = await conn.query(pagingQuery, pagingCondition.binding);
+
+    // Add some products if courses recommended are not enough
+    if (products.length < pageSize) {
+      const [productsPlus] = await conn.query(
+        "SELECT course.id, course.cover, course.title, course.price, \
+      course.upload_time, COUNT(course_student.user_id) AS students_num \
+      FROM course \
+      LEFT JOIN course_student \
+      ON course.id=course_student.course_id \
+      GROUP BY course.id LIMIT 0, ?",
+        [pageSize - products.length]
+      );
+      products = products.concat(productsPlus);
+      // Paging
+      courseNum = [{ "COUNT(*)": 12 }];
+    }
 
     await conn.query("COMMIT");
     return { products: products, hashtags: hashtags, courseNum: courseNum };

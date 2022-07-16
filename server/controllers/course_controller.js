@@ -67,6 +67,7 @@ const getCourses = async (req, res) => {
           hashtag,
           order,
           paging,
+          token,
         });
       case "search": {
         const keyword = req.query.keyword;

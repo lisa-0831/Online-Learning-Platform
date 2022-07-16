@@ -5,6 +5,20 @@ currentPage = 1;
 window.onload = async function () {
   showCartNum();
 
+  // Check Log In
+  token = localStorage.getItem("access_token");
+  if (token !== null) {
+    let recommendTag = document.createElement("a");
+    recommendTag.setAttribute("class", "top-bar-selection");
+    recommendTag.setAttribute("data-type", "recommend");
+    recommendTag.setAttribute("id", "recommend");
+    recommendTag.innerText = "個人推薦";
+
+    document
+      .getElementsByClassName("top-bar-selections")[0]
+      .appendChild(recommendTag);
+  }
+
   // Courses
   let order = "trending";
   let hashtag = null;
@@ -15,10 +29,14 @@ window.onload = async function () {
   if (params.get("category") !== null) {
     category = params.get("category");
   }
+  document.getElementById(category).classList.add("selected");
+
   if (params.get("order") !== null) {
     order = params.get("order");
   }
   let url = `/api/1.0/courses/${category}?order=${order}`;
+  console.log(order);
+  document.getElementById(order).classList.add("selected");
 
   hashtag = params.get("hashtag");
   if (hashtag !== null) {
@@ -30,12 +48,19 @@ window.onload = async function () {
     url += `&paging=${paging - 1}`;
   }
 
-  const coursesAllRes = await fetch(url);
+  const coursesAllRes = await fetch(url, {
+    method: "GET",
+    headers: new Headers({
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      "content-type": "application/json",
+    }),
+  });
   const coursesAllObj = await coursesAllRes.json();
 
   const coursesObj = coursesAllObj.products;
   const hashtagsObj = coursesAllObj.hashtags;
   const courseNum = coursesAllObj.courseNum[0]["COUNT(*)"];
+  console.log(coursesObj);
 
   for (let i = 0; i < coursesObj.length; i++) {
     // Course Div
@@ -89,9 +114,15 @@ window.onload = async function () {
     let aTag = document.createElement("a");
     aTag.setAttribute("class", "sidebar-tag");
     aTag.setAttribute("data-type", hashtagsObj[i]["name"]);
+    hashtagsId = hashtagsObj[i]["name"].slice(1, hashtagsObj[i]["name"].length);
+    aTag.setAttribute("id", hashtagsId);
 
     aTag.innerText = hashtagsObj[i]["name"];
     document.getElementById("tagParent").appendChild(aTag);
+  }
+
+  if (hashtag !== null) {
+    document.getElementById(hashtag).classList.add("selected");
   }
 
   // Paging
@@ -153,7 +184,13 @@ window.onload = async function () {
   orderParent.addEventListener("click", function (e) {
     e.preventDefault();
     let order = e.target.dataset.type;
-    let url = `./courses.html?category=${category}&order=${order}`;
+    let url;
+    if (order == "recommend") {
+      url = `./courses.html?category=all&order=${order}`;
+    } else {
+      url = `./courses.html?category=${category}&order=${order}`;
+    }
+
     if (hashtag !== null) {
       url += `&hashtag=${hashtag}`;
     }
