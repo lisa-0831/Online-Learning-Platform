@@ -24,15 +24,15 @@ body {
 }
 .container {
 	background-color: white;
-	height: 45vw;
-	width: 85vw;
-	margin: 120px 0px 100px 0px;
+	height: 50vw;
+	width: 95vw;
+	margin: 40px 0px 100px 0px;
 	border: #313538 1px solid;
 	display: flex;
 	align-items: center;
 }
 .chat-left{
-	background-color: #d9534f;
+	background-color: white;
 	width: 30%;
 	height: 100%;
 }
@@ -51,7 +51,7 @@ body {
 	z-index: 100;
 }
 .chat-right{
-	background-color: #5cb85c;
+	background-color: white;
 	width: 70%;
 	height: 100%;
 	position: relative;
@@ -73,37 +73,50 @@ body {
 	height: 80px;
 	background: white;
 	margin: 5px 5px 5px 5px;
+	cursor: pointer;
+}
+.chats .group:hover {
+	background-color: #F2F2F2F2;
+}
+.chats .selected {
+	background-color: lightgray;
 }
 .chats .active {
-	border-left: 5px solid grey;
+	border-left: 10px solid grey;
 	border-bottom-left-radius: 0px;
 	border-top-left-radius: 0px;
+	font-weight:bold;
 }
 .chats .image {
 	margin: auto 15px;
+	pointer-events: none;
 }
 .profile {
 	border-radius: 50%;
 	margin: 10px -5px;
 	height: 50px;
 	width: 50px;
+	pointer-events: none;
 }
 .group-name {
-	background: white;
+	/* background: white; */
 	width: 100%;
 	padding: 0px 15px 0px 0px;
+	pointer-events: none;
 }
 .group-name p {
-	font-size: 15px;
+	/* font-size: 15px; */
 	color: gray;
 	margin: 15px;
+	pointer-events: none;
 }
 .group-name .title {
 	color: black;
-	font-size: 20px;
+	/* font-size: 20px; */
 	margin-bottom: -10px;
 	margin-top: 15px;
-	font-weight: bold;
+	/* font-weight: bold; */
+	pointer-events: none;
 }
 .group-name p .n {
 	background: grey;
@@ -111,6 +124,15 @@ body {
 	padding: 2px 6px;
 	float: right;
 	border-radius: 50%;
+	font-size: 14px;
+}
+.group-name p .n-selected {
+	background: grey;
+	color: white;
+	padding: 0px;
+	float: right;
+	border-radius: 50%;
+	font-size: 14px;
 }
 .group-name .title .date {
 	float: right;
@@ -118,8 +140,9 @@ body {
 .date {
 	text-align: center;
 	color: darkgray;
-	font-size: 15px;
+	/* font-size: 15px; */
 	font-family: "Open Sans", sans-serif;
+	pointer-events: none;
 }
 
 
@@ -216,8 +239,8 @@ body {
 .chat-messages .message {
 	padding: 10px;
 	margin-bottom: 15px;
-	background-color: var(--light-color);
-	border-radius: 5px;
+	background-color: #F2F2F2;
+	border-radius: 15px;
 	width: max-content;
   	max-width: 70%;
 }
@@ -234,7 +257,7 @@ body {
 
 .chat-messages .message .meta {
 	font-size: 15px;
-	font-weight: bold;
+	/* font-weight: bold; */
 	color: var(--dark-color-b);
 	opacity: 0.7;
 	margin-bottom: 7px;

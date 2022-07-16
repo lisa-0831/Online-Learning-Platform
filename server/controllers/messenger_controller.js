@@ -8,6 +8,7 @@ const saveRoomId = async (req, res) => {
   }
 
   const receiverId = req.body.receiverId;
+  console.log(11, receiverId);
   const checkId = await Message.addRoom(token, receiverId);
 
   res.send({ checkId });

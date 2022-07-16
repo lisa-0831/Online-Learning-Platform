@@ -13,11 +13,35 @@ const addRoom = async (token, receiverId) => {
   });
   room = room.toString();
 
-  const [result] = await pool.query(
-    "INSERT INTO message_check (room, user_id, last_time) VALUES (?, ?, ?)",
-    [room, userId, Date.now()]
-  );
-  return result.insertId;
+  const conn = await pool.getConnection();
+  try {
+    const [[roomExist]] = await conn.query(
+      "SELECT * FROM message_check WHERE room= ? AND user_id= ? ",
+      [room, userId]
+    );
+
+    let result;
+    if (!roomExist) {
+      [result] = await pool.query(
+        "INSERT INTO message_check (room, user_id, last_time) VALUES (?, ?, ?)",
+        [room, userId.toString(), Date.now()]
+      );
+    } else {
+      [result] = await conn.query(
+        "UPDATE message_check \
+        SET last_time=? \
+        WHERE room=? AND user_id=?",
+        [Date.now(), room, userId]
+      );
+    }
+    return result;
+  } catch (error) {
+    await conn.query("ROLLBACK");
+    console.log(error);
+    return -1;
+  } finally {
+    conn.release();
+  }
 };
 
 const addMessage = async (data) => {
@@ -39,6 +63,7 @@ const addMessage = async (data) => {
       create_time: Date.now(),
     };
 
+    console.log(Date.now(), data.room, data.userId);
     await conn.query(
       "UPDATE message_check \
       SET last_time=? \

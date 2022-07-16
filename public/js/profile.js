@@ -12,10 +12,8 @@ window.onload = async function () {
     }),
   });
   const userObj = await userRes.json();
-  console.log(15, userObj);
 
   const user = userObj.user.user;
-  console.log(18, user);
   document.getElementsByClassName("name")[0].innerText = user.name;
   document.getElementsByClassName("email")[0].innerText = user.email;
   document.getElementsByClassName("self-intro")[0].innerText = user.selfIntro;
@@ -341,18 +339,20 @@ const sendMessage = async (event) => {
   if (access_token !== null) {
     const searchParams = new URLSearchParams(window.location.search);
     const receiver_id = parseInt(searchParams.get("id"));
-    // localStorage.setItem("receiver_id", receiver_id);
+    localStorage.setItem("receiver_id", receiver_id);
 
-    const checkId = await fetch(`/api/1.0/messages/newroom`, {
+    const checkId = await fetch(`/api/1.0/messenger/room`, {
       method: "POST",
-      headers: new Headers({
+      headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      }),
+      },
       body: JSON.stringify({ receiverId: receiver_id }),
     });
 
-    window.location.href = `./messenger.html?receiver=${receiver_id}`;
+    console.log(checkId);
+
+    window.location.href = "/messenger.html";
   } else {
     alert("請先登入。");
     window.location.href = "/signin.html";

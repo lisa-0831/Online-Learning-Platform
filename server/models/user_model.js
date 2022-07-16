@@ -132,7 +132,6 @@ const getUserDetail = async (userId, token) => {
   const conn = await pool.getConnection();
   try {
     await conn.query("START TRANSACTION");
-    console.log(135, typeof token);
 
     // Verify token
     let decoded;
