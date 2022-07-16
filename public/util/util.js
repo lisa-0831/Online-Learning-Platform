@@ -65,43 +65,33 @@ const checkMessenger = (event) => {
 };
 
 // Search
-const searchBar = document.getElementById("search-bar");
-console.log(searchBar);
+const searchBar = document.getElementById("search");
+const mobileSearchBar = document.getElementById("search-mobile");
 
-searchBar.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  console.log(72);
-
-  // Get message text
-  const searchInput = e.target.elements.search.value;
-
-  if (input.length == 0) {
-    alert("請先輸入欲搜尋的字。");
-  } else {
-    console.log("here");
+searchBar.addEventListener("keypress", (event) => {
+  if (event.key == "Enter") {
+    event.preventDefault();
+    const searchInput = document.querySelector("input").value;
     console.log(searchInput);
 
-    // const payload = {
-    //   room: currentRoom,
-    //   userId: userId,
-    //   message: {
-    //     text: msg,
-    //     username: username,
-    //   },
-    // };
+    // Clear input
+    searchBar.value = "";
+    searchBar.focus();
 
-    // // Clear input
-    // e.target.elements.search.value = "";
-    // e.target.elements.search.focus();
+    window.location.href = `./search.html?keyword=${searchInput}`;
+  }
+});
 
-    // // Store Message API
-    // const searchId = await fetch(`/api/1.0/courses/search?keyword=${input}`, {
-    //   method: "POST",
-    //   headers: new Headers({
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-    //   }),
-    //   body: JSON.stringify(payload),
-    // });
+mobileSearchBar.addEventListener("keypress", (event) => {
+  console.log(86);
+  if (event.key == "Enter") {
+    event.preventDefault();
+    const searchInput = document.getElementById("search-mobile").value;
+
+    // Clear input
+    searchBar.value = "";
+    searchBar.focus();
+
+    window.location.href = `./search.html?keyword=${searchInput}`;
   }
 });

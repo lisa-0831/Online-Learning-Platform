@@ -3,8 +3,6 @@ pages = 1;
 currentPage = 1;
 
 window.onload = async function () {
-  const searchBar = document.getElementById("search-bar");
-  console.log(searchBar);
   // Courses
   let order = "trending";
   let hashtag = null;

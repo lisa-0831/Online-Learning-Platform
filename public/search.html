@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/footer.css" />
-    <link rel="stylesheet" href="./styles/profile.css" />
-    <link rel="stylesheet" href="./styles/fontawesome/css/all.css" />
+    <link rel="stylesheet" href="./styles/search.css" />
   </head>
 
   <body>
@@ -68,76 +67,63 @@
     </div>
 
     <main>
-      <div class="sidebar">
-        <div class="center">
-          <div class="profile">
-            <div class="image">
-              <div class="circle-1"></div>
-              <div class="circle-2"></div>
-              <!-- <img
-                src="https://d1wan10jjr4v2x.cloudfront.net/profile/shiba.jpg"
-                width="170"
-                height="170"
-              /> -->
-            </div>
-
-            <div class="name"></div>
-            <div class="email"></div>
-            <div class="self-intro"></div>
-
-            <div class="actions">
-              <!-- <button class="btn">Follow</button>
-              <button class="btn">Message</button>
-              <button class="btn" onclick="signOut()">Sign Out</button> -->
-            </div>
+      <div class="main-content">
+        <h1 class="search-result-title" id="search-result-title">
+          <!-- Procreate 電繪 共有
+          <p class="search-result-title-hightlight">10</p>
+          筆結果 -->
+        </h1>
+        <div class="main-result">
+          <div class="search-category-title" id="search-category-courses">
+            <!-- 和
+            <p class="search-category-title-hightlight">英文</p>
+            相關的 影音課程 (146) -->
           </div>
-
-          <div class="stats">
-            <div class="box">
-              <span class="parameter">已購買</span>
-              <span class="value"></span>
-            </div>
-            <div class="box">
-              <span class="parameter">已開課</span>
-              <span class="value"></span>
-            </div>
+          <div id="courses">
+            <!-- <figure class="course">
+            <a class="course-detail" href="/"></a>
+              <div class="course-image">
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample47.jpg"
+                  alt="sample47"
+                />
+              </div>
+              <figcaption>
+                <h3>自動理財：不記帳的無痛存錢課</h3>
+                <h4>學生 360 人</h4>
+                <p>NT$ 2800</p>
+              </figcaption>
+            </a>
+          </figure> -->
           </div>
+          <div class="search-category-title" id="search-category-livestreams">
+            <!-- 和
+            <p class="search-category-title-hightlight">英文</p>
+            相關的 直播 (146) -->
+          </div>
+          <div id="livestreams"></div>
+          <!-- <div class="pagination">
+          <div id="pagingParent">
+            <a data-type="last">&laquo;</a>
+            <div id="pagingNum">
+            <a data-type="1">1</a>
+            <a class="active" data-type="2">2</a>
+            <a data-type="3">3</a>
+            <a data-type="4">4</a>
+            <a data-type="5">5</a>
+            <a data-type="...">...</a>
+            </div>
+            <a data-type="next">&raquo;</a>
+          </div>
+        </div> -->
         </div>
-      </div>
-      <div class="content">
-        <div id="content-title-bought">
-          <!-- <h1 class="content-title">選修的課程</h1> -->
-        </div>
-        <div class="courses"></div>
-
-        <div id="content-title-favorites">
-          <!-- <h1 class="content-title">收藏的課程</h1> -->
-        </div>
-        <div class="courses"></div>
-
-        <div id="content-title-reserve">
-          <!-- <h1 class="content-title">預約的直播</h1> -->
-        </div>
-        <div class="courses"></div>
-
-        <div id="content-title-teach">
-          <!-- <h1 class="content-title">開設的課程</h1> -->
-        </div>
-        <div id="content-teach-link"></div>
-        <div class="courses"></div>
-
-        <div id="content-title-streamer">
-          <!-- <h1 class="content-title">開設的直播</h1> -->
-        </div>
-        <div id="content-streamer-link"></div>
-        <div class="courses"></div>
       </div>
     </main>
     <footer>
       <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
       <div class="rights">© 2022. All rights reserved.</div>
     </footer>
-    <script src="./js/profile.js"></script>
+    <script src="./js/search.js"></script>
     <script src="./util/util.js"></script>
   </body>
 </html>

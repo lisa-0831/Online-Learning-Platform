@@ -1,0 +1,156 @@
+.main-content {
+    margin: 100px 50px 50px 50px;
+}
+
+.main-result{
+    margin: 5px 20px 5px;
+}
+
+.search-result-title {
+    font-size: 24px;
+    padding: 30px 8px 30px 8px;
+    display: flex;
+    align-items: center;
+}
+
+.search-result-title-hightlight{
+    color: #e8b563;
+    font-size: 36px;
+    padding: 0px 20px;
+}
+
+.search-category-title {
+    font-size: 16px;
+    padding: 5px 5px 5px 5px;
+    margin: 20px 8px 20px 8px;
+    display: flex;
+    align-items: center;
+    border-left: 4px #e8b563 solid;;
+}
+
+.search-category-title-hightlight{
+    color:#e8b563;
+    font-size: 20px;
+    padding: 0px 20px;
+}
+
+.top-bar {
+    padding: 8px 0px;
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.course-redirect{
+  font-size: 20px;
+  padding: 20px;
+  margin: 20px;
+  color: #313538;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.course-redirect:hover{
+  color: #F2F2F2;
+}
+
+#courses {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.course {
+    overflow: hidden;
+    font-family: 'Open Sans', Arial, sans-serif;
+    position: relative;
+    margin: 30px;
+    min-width: 295px;
+    max-width: 380px;
+    width: 100%;
+    color: #000000;
+    text-align: center;
+    line-height: 1.4em;
+    font-size: 14px;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+  
+.course:hover {
+    transform:scale(1.05,1.05);
+    transition: all ease 0.5s;
+}
+  
+.course * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+  
+.course .course-image {
+    display: inline-block;
+    width: 80%;
+    z-index: 1;
+    position: relative;
+    padding: 10px;
+    border: 2px solid #e8b563;
+}
+  
+.course .course-image img {
+    max-width: 100%;
+    vertical-align: top;
+}
+  
+.course figcaption {
+    height: 100%;
+    width: 100%;
+    background-color: #F2F2F2;
+    color: #555;
+    padding: 125px 25px 25px;
+    margin-top: -100px;
+    display: inline-block;
+}
+  
+  .course h3,
+  .course h4,
+  .course p {
+    margin: 0 0 5px;
+  }
+  
+  .course h3 {
+    font-weight: 600;
+    font-size: 1.3em;
+    font-family: 'Playfair Display', Arial, sans-serif;
+  }
+  
+  .course h4 {
+    color: #8c8c8c;
+    font-weight: 400;
+    letter-spacing: 2px;
+  }
+  
+  .course p {
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    opacity: 0.9;
+  }
+
+  #pagingParent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 28px 14px;
+  }
+
+  .pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    cursor: pointer;
+  }
+  
+  .pagination a.active {
+    background-color: rgb(145, 148, 150);
+    color: white;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}

@@ -22,7 +22,13 @@
         <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
         <div class="tag-line"></div>
       </div>
-      <input class="search" />
+      <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
       <div class="messenger" onclick="checkMessenger()">我的訊息</div>
       <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="35" />
@@ -36,7 +42,13 @@
       <a class="logo" href="./">
         <img src="./images/logo.png" height="20" />
       </a>
-      <input class="search" />
+      <input
+        id="search-mobile"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
     </div>
     <div class="mobile-nav">
       <a href="./courses.html" class="tag tag-courses">課程</a>
@@ -100,7 +112,7 @@
               >熱門直播</a
             >
             <a class="top-bar-selection" data-type="latest">最新發佈</a>
-            <a class="top-bar-selection" data-type="recommend">猜你喜歡</a>
+            <a class="top-bar-selection" data-type="recommend">個人推薦</a>
           </div>
         </div>
         <div id="courses">

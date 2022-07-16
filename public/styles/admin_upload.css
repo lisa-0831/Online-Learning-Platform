@@ -64,7 +64,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 1550px;
+    width: 100%;
   }
   
   input[type=submit]:hover {

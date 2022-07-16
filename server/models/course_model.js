@@ -155,6 +155,48 @@ const getCourses = async (
   }
 };
 
+const searchCourses = async (pageSize, paging = 0, keyword) => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.query("START TRANSACTION");
+    const courseSql = `SELECT course.id, course.cover, course.title, course.price, \
+    COUNT(course_student.user_id) AS students_num, user.name \
+    FROM course \
+    LEFT JOIN user \
+    ON user.id = course.user_id \
+    LEFT JOIN course_student \
+    ON course.id=course_student.course_id \
+    WHERE course.title LIKE ? OR user.name LIKE ? \
+    GROUP BY course.id `;
+
+    const livestreamSql = `SELECT livestream.id, livestream.cover, livestream.title, livestream.start_time, \
+    COUNT(livestream_student.user_id) AS students_num, user.name \
+    FROM livestream \
+    LEFT JOIN user \
+    ON user.id = livestream.user_id \
+    LEFT JOIN livestream_student \
+    ON livestream.id=livestream_student.livestream_id \
+    WHERE livestream.title LIKE ? OR user.name LIKE ? \
+    GROUP BY livestream.id `;
+
+    const searchResult = await Promise.all([
+      conn.query(courseSql, [`%${keyword}%`, `%${keyword}%`]),
+      conn.query(livestreamSql, [`%${keyword}%`, `%${keyword}%`]),
+    ]);
+
+    const courseResult = searchResult[0][0];
+    const livestreamResult = searchResult[1][0];
+
+    return { courses: courseResult, livestreams: livestreamResult };
+  } catch (error) {
+    await conn.query("ROLLBACK");
+    console.log("Get User's Information: ", error);
+    return -1;
+  } finally {
+    conn.release();
+  }
+};
+
 const getCourse = async (courseId, token) => {
   const conn = await pool.getConnection();
   try {
@@ -293,5 +335,6 @@ const getCourse = async (courseId, token) => {
 module.exports = {
   createCourse,
   getCourses,
+  searchCourses,
   getCourse,
 };
