@@ -1,6 +1,14 @@
 pageSize = 12;
 hashtagSize = 20;
 
+const showCartNum = () => {
+  cartNum = JSON.parse(localStorage.getItem("list"));
+  if (cartNum !== null) {
+    document.getElementsByClassName("count")[0].innerText = cartNum.length;
+    document.getElementsByClassName("count")[1].innerText = cartNum.length;
+  }
+};
+
 const checkLogin = (event) => {
   const access_token = localStorage.getItem("access_token");
   if (access_token !== null) {

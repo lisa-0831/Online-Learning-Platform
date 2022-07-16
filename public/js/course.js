@@ -9,6 +9,8 @@ let ratingSum;
 let discussionArrLength;
 
 window.onload = async function () {
+  showCartNum();
+
   let params = new URL(document.location).searchParams;
   let courseId = params.get("id");
 
@@ -231,8 +233,6 @@ window.onload = async function () {
   }
 
   // Other's Rating Title
-  console.log(232, ratingSum);
-  console.log(233, ratingArrLength);
   if (ratingArr.length > 0) {
     document.getElementById("rating-avg").innerText = `平均 ${(
       ratingSum / ratingArr.length
@@ -669,10 +669,13 @@ const addToCart = (event) => {
     list = [body.id];
   } else {
     var list = JSON.parse(shoppingList);
-    list.push(body.id);
+    if (!list.includes(body.id)) {
+      list.push(body.id);
+    }
   }
   localStorage.removeItem("list");
   localStorage.setItem("list", JSON.stringify(list));
+  showCartNum();
 
   alert("已加入購物車");
 };

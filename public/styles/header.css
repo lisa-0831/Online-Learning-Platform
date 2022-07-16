@@ -101,7 +101,7 @@
 .desktop-header .count {
     position: absolute;
     text-align: center;
-    background-color: #8b572a;
+    background-color: darkred;
     font-weight: bold;
     border-radius: 50%;
     color: #ffffff;
@@ -249,7 +249,7 @@ main {
     .mobile-footer .count {
       position: absolute;
       text-align: center;
-      background-color: #8b572a;
+      background-color: darkred;
       font-weight: bold;
       border-radius: 50%;
       color: #ffffff;

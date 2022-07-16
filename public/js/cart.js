@@ -2,6 +2,8 @@ let total_amount = 0;
 let order = [];
 
 window.onload = async function () {
+  showCartNum();
+
   const shoppingList = localStorage.getItem("list");
   const dataOrigin = JSON.parse(shoppingList);
   const data = [...new Set(dataOrigin)];

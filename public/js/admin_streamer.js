@@ -1,4 +1,6 @@
 window.onload = async function () {
+  showCartNum();
+
   let params = new URL(document.location).searchParams;
   let courseId = params.get("id");
   console.log(courseId);

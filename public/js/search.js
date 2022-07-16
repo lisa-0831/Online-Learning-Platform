@@ -3,6 +3,8 @@ pageSize = 12;
 // currentPage = 1;
 
 window.onload = async function () {
+  showCartNum();
+
   let params = new URL(document.location).searchParams;
   if (params.get("keyword") !== null) {
     keyword = params.get("keyword");

@@ -1,3 +1,7 @@
+window.onload() = async function(){
+  showCartNum()
+}
+
 const addHashtagCol = () => {
   // Create div
   const div = document.createElement("div");
