@@ -3,6 +3,8 @@ let userId = 0;
 let username = "";
 
 window.onload = async function () {
+  showCartNum();
+
   const socket = io();
 
   const chatForm = document.getElementById("chat-form");

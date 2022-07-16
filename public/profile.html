@@ -22,11 +22,17 @@
         <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
         <div class="tag-line"></div>
       </div>
-      <input class="search" />
+      <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
       <div class="messenger" onclick="checkMessenger()">我的訊息</div>
       <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="35" />
-        <!-- <div class="count"></div> -->
+        <div class="count"></div>
       </div>
       <div class="member" onclick="checkIdentity()">
         <img src="./images/member-mobile.png" height="35" />
@@ -36,7 +42,13 @@
       <a class="logo" href="./">
         <img src="./images/logo.png" height="20" />
       </a>
-      <input class="search" />
+      <input
+        id="search-mobile"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
     </div>
     <div class="mobile-nav">
       <a href="./courses.html" class="tag tag-courses">課程</a>
@@ -46,7 +58,7 @@
     <div class="mobile-footer">
       <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="44" />
-        <!-- <div class="count"></div> -->
+        <div class="count"></div>
         購物車
       </div>
       <div class="member" onclick="checkIdentity()">
@@ -71,6 +83,7 @@
 
             <div class="name"></div>
             <div class="email"></div>
+            <div class="self-intro"></div>
 
             <div class="actions">
               <!-- <button class="btn">Follow</button>
@@ -92,15 +105,32 @@
         </div>
       </div>
       <div class="content">
-        <h1>選修的課程</h1>
-        <div class="courses"></div>
-        <hr width="70%" />
-        <h1>收藏的課程</h1>
-        <div class="courses">
+        <div id="content-title-bought">
+          <!-- <h1 class="content-title">選修的課程</h1> -->
         </div>
-        <hr width="70%" />
-        <h1>開設的課程</h1>
-        <div class="courses">
+        <div class="courses"></div>
+
+        <div id="content-title-favorites">
+          <!-- <h1 class="content-title">收藏的課程</h1> -->
+        </div>
+        <div class="courses"></div>
+
+        <div id="content-title-reserve">
+          <!-- <h1 class="content-title">預約的直播</h1> -->
+        </div>
+        <div class="courses"></div>
+
+        <div id="content-title-teach">
+          <!-- <h1 class="content-title">開設的課程</h1> -->
+        </div>
+        <div id="content-teach-link"></div>
+        <div class="courses"></div>
+
+        <div id="content-title-streamer">
+          <!-- <h1 class="content-title">開設的直播</h1> -->
+        </div>
+        <div id="content-streamer-link"></div>
+        <div class="courses"></div>
       </div>
     </main>
     <footer>

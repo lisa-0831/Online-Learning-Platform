@@ -136,45 +136,58 @@ const getUserDetail = async (userId, token) => {
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
 
-    const [[userInfo]] = await conn.query(
-      "SELECT user.name, user.email, user.picture \
-    FROM user \
-    WHERE id=?",
-      [userId]
-    );
+    const userInfoSql =
+      "SELECT user.name, user.email, user.picture, user.self_intro, role.name AS role \
+      FROM user \
+      LEFT JOIN role \
+      ON user.role_id =role.id \
+      WHERE user.id=?";
 
-    const [bought] = await conn.query(
-      "SELECT course.id, course.cover, course.title, course.price \
-    FROM course_student \
-    LEFT JOIN course \
-    ON course.id=course_student.course_id \
-    WHERE course_student.user_id=?",
-      [userId]
-    );
+    const boughtSql =
+      "SELECT course.id, course.cover, course.title, course.price FROM course_student \
+      LEFT JOIN course ON course.id=course_student.course_id WHERE course_student.user_id=?";
 
-    const [favorites] = await conn.query(
-      "SELECT course.id, course.cover, course.title, course.price \
-    FROM course_favorites \
-    LEFT JOIN course \
-    ON course.id=course_favorites.course_id \
-    WHERE course_favorites.user_id=?",
-      [userId]
-    );
+    const favoritesSql =
+      "SELECT course.id, course.cover, course.title, course.price FROM course_favorites \
+      LEFT JOIN course ON course.id=course_favorites.course_id WHERE course_favorites.user_id=?";
 
-    const [teach] = await conn.query(
-      "SELECT course.id, course.cover, course.title, course.price \
-    FROM course \
-    WHERE course.user_id=?",
-      [userId]
-    );
+    const reserveSql =
+      "SELECT livestream.id, livestream.cover, livestream.title, livestream.start_time FROM livestream_student \
+    LEFT JOIN livestream ON livestream.id=livestream_student.livestream_id WHERE livestream_student.user_id=?";
+
+    const teachSql =
+      "SELECT course.id, course.cover, course.title, course.price FROM course WHERE course.user_id=?";
+
+    const streamerSql =
+      "SELECT livestream.id, livestream.cover, livestream.title, livestream.start_time FROM livestream WHERE livestream.user_id=?";
+
+    const userProfileInfo = await Promise.all([
+      conn.query(userInfoSql, [userId]),
+      conn.query(boughtSql, [userId]),
+      conn.query(favoritesSql, [userId]),
+      conn.query(reserveSql, [userId]),
+      conn.query(teachSql, [userId]),
+      conn.query(streamerSql, [userId]),
+    ]);
+
+    const [userInfo] = userProfileInfo[0][0];
+    const bought = userProfileInfo[1][0];
+    const favorites = userProfileInfo[2][0];
+    const reserve = userProfileInfo[3][0];
+    const teach = userProfileInfo[4][0];
+    const streamer = userProfileInfo[5][0];
 
     const user = {
       name: userInfo.name,
       email: userInfo.email,
       picture: userInfo.picture,
+      selfIntro: userInfo.self_intro,
+      role: userInfo.role,
       bought: bought,
       favorites: favorites,
+      reserve: reserve,
       teach: teach,
+      streamer: streamer,
     };
 
     if (decoded.userId == userId) {
@@ -186,8 +199,8 @@ const getUserDetail = async (userId, token) => {
     return { user };
   } catch (error) {
     await conn.query("ROLLBACK");
-    console.log(error);
-    return { error };
+    console.log("Get User's Information: ", error);
+    return -1;
   } finally {
     conn.release();
   }

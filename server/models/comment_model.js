@@ -49,6 +49,7 @@ const createComment = async (comment, token) => {
 
     if (comment.commentTypeId == 1) {
       const ratingWithId = {
+        comment_id: result.insertId,
         course_id: comment.commentedId,
         user_id: decoded.userId,
         star: comment.star,

@@ -3,6 +3,8 @@ pages = 1;
 currentPage = 1;
 
 window.onload = async function () {
+  showCartNum();
+
   // Courses
   let order = "trending";
   let category = "all";

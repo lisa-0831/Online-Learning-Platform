@@ -22,11 +22,17 @@
         <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
         <div class="tag-line"></div>
       </div>
-      <input class="search" />
+      <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
       <div class="messenger" onclick="checkMessenger()">我的訊息</div>
       <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="35" />
-        <!-- <div class="count"></div> -->
+        <div class="count"></div>
       </div>
       <div class="member" onclick="checkIdentity()">
         <img src="./images/member-mobile.png" height="35" />
@@ -36,7 +42,13 @@
       <a class="logo" href="./">
         <img src="./images/logo.png" height="20" />
       </a>
-      <input class="search" />
+      <input
+        id="search-mobile"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
     </div>
     <div class="mobile-nav">
       <a href="./courses.html" class="tag tag-courses">課程</a>
@@ -46,7 +58,7 @@
     <div class="mobile-footer">
       <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="44" />
-        <!-- <div class="count"></div> -->
+        <div class="count"></div>
         購物車
       </div>
       <div class="member" onclick="checkIdentity()">
@@ -58,25 +70,35 @@
     <main>
       <div class="sidebar">
         <div class="sidebar-categories">
-          <a href="./courses.html?category=all" class="sidebar-category"
+          <a href="./livestreams.html?category=all" class="sidebar-category"
             >所有直播</a
           >
-          <a href="./courses.html?category=humanities" class="sidebar-category"
+          <a
+            href="./livestreams.html?category=humanities"
+            class="sidebar-category"
             >人文社會</a
           >
-          <a href="./courses.html?category=investment" class="sidebar-category"
+          <a
+            href="./livestreams.html?category=investment"
+            class="sidebar-category"
             >投資理財</a
           >
-          <a href="./courses.html?category=language" class="sidebar-category"
+          <a
+            href="./livestreams.html?category=language"
+            class="sidebar-category"
             >語言學習</a
           >
-          <a href="./courses.html?category=marketing" class="sidebar-category"
+          <a
+            href="./livestreams.html?category=marketing"
+            class="sidebar-category"
             >市場行銷</a
           >
-          <a href="./courses.html?category=music" class="sidebar-category"
+          <a href="./livestreams.html?category=music" class="sidebar-category"
             >樂器演奏</a
           >
-          <a href="./courses.html?category=programming" class="sidebar-category"
+          <a
+            href="./livestreams.html?category=programming"
+            class="sidebar-category"
             >程式語言</a
           >
         </div>
@@ -90,7 +112,7 @@
               >熱門直播</a
             >
             <a class="top-bar-selection" data-type="latest">最新發佈</a>
-            <a class="top-bar-selection" data-type="recommend">猜你喜歡</a>
+            <a class="top-bar-selection" data-type="recommend">個人推薦</a>
           </div>
         </div>
         <div id="courses">

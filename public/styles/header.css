@@ -1,6 +1,6 @@
 /* #region Desktop Header */
 .desktop-header {
-    height: 60px;
+    height: 70px;
     width: 100vw;
     display: flex;
     align-items: flex-start;
@@ -49,10 +49,10 @@
     margin-right: 5px;
 }
   
-.desktop-header > .search {
+.desktop-header > .search  {
     width: 500px;
     height: 35px;
-    padding: 8px 48px 8px 20px;
+    padding: 8px 48px 8px 30px;
     border: solid 1px #979797;
     border-radius: 8px;
     outline: none;
@@ -64,6 +64,22 @@
     margin-right: auto;
     margin-top: 12px;
 }
+
+/* .input[type=text]  {
+  width: 500px;
+  height: 35px;
+  padding: 8px 48px 8px 30px;
+  border: solid 1px #979797;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
+  background-image: url('../images/search.png');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: left center;
+  margin-right: auto;
+  margin-top: 12px;
+} */
 
 .desktop-header .messenger {
   margin-top: 8px;
@@ -85,7 +101,7 @@
 .desktop-header .count {
     position: absolute;
     text-align: center;
-    background-color: #8b572a;
+    background-color: darkred;
     font-weight: bold;
     border-radius: 50%;
     color: #ffffff;
@@ -118,7 +134,7 @@
 }
   
 main {
-    margin-top: 100px;  /* The height of the header */
+    margin-top: 70px;  /* The height of the header */
     min-height: calc(100vh - 255px);
 }
   
@@ -233,7 +249,7 @@ main {
     .mobile-footer .count {
       position: absolute;
       text-align: center;
-      background-color: #8b572a;
+      background-color: darkred;
       font-weight: bold;
       border-radius: 50%;
       color: #ffffff;

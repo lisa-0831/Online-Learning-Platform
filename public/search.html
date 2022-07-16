@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/footer.css" />
-    <link rel="stylesheet" href="./styles/thankyou.css" />
+    <link rel="stylesheet" href="./styles/search.css" />
   </head>
 
   <body>
@@ -67,29 +67,63 @@
     </div>
 
     <main>
-      <section>
-        <h1 class="slogan">Thank you!</h1>
-        <div id="order_number"></div>
-      </section>
-      <hr />
-      <section>
-        <p class="slogan">錢沒有不見，只是變成你喜歡的樣子XD</p>
-      </section>
+      <div class="main-content">
+        <h1 class="search-result-title" id="search-result-title">
+          <!-- Procreate 電繪 共有
+          <p class="search-result-title-hightlight">10</p>
+          筆結果 -->
+        </h1>
+        <div class="main-result">
+          <div class="search-category-title" id="search-category-courses">
+            <!-- 和
+            <p class="search-category-title-hightlight">英文</p>
+            相關的 影音課程 (146) -->
+          </div>
+          <div id="courses">
+            <!-- <figure class="course">
+            <a class="course-detail" href="/"></a>
+              <div class="course-image">
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample47.jpg"
+                  alt="sample47"
+                />
+              </div>
+              <figcaption>
+                <h3>自動理財：不記帳的無痛存錢課</h3>
+                <h4>學生 360 人</h4>
+                <p>NT$ 2800</p>
+              </figcaption>
+            </a>
+          </figure> -->
+          </div>
+          <div class="search-category-title" id="search-category-livestreams">
+            <!-- 和
+            <p class="search-category-title-hightlight">英文</p>
+            相關的 直播 (146) -->
+          </div>
+          <div id="livestreams"></div>
+          <!-- <div class="pagination">
+          <div id="pagingParent">
+            <a data-type="last">&laquo;</a>
+            <div id="pagingNum">
+            <a data-type="1">1</a>
+            <a class="active" data-type="2">2</a>
+            <a data-type="3">3</a>
+            <a data-type="4">4</a>
+            <a data-type="5">5</a>
+            <a data-type="...">...</a>
+            </div>
+            <a data-type="next">&raquo;</a>
+          </div>
+        </div> -->
+        </div>
+      </div>
     </main>
     <footer>
       <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
       <div class="rights">© 2022. All rights reserved.</div>
     </footer>
-    <script src="./js/courses.js"></script>
+    <script src="./js/search.js"></script>
     <script src="./util/util.js"></script>
-    <!-- <script src="https://js.tappaysdk.com/tpdirect/v5.7.0"></script> -->
-
-    <!-- <script>
-      const searchParams = new URLSearchParams(window.location.search);
-      const order_number = searchParams.get("order");
-      document.getElementById(
-        "order_number"
-      ).innerText = `order number: ${order_number}`;
-    </script> -->
   </body>
 </html>

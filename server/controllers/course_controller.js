@@ -71,9 +71,7 @@ const getCourses = async (req, res) => {
       case "search": {
         const keyword = req.query.keyword;
         if (keyword) {
-          return await Course.getCourses(hashtagSize, pageSize, paging, {
-            keyword,
-          });
+          return await Course.searchCourses(pageSize, paging, keyword);
         }
         break;
       }

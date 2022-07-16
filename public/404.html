@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <title>PI COURSE</title>
     <link rel="icon" href="./images/icon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/footer.css" />
-    <link rel="stylesheet" href="./styles/thankyou.css" />
+    <link rel="stylesheet" href="./styles/course.css" />
+    <link rel="stylesheet" href="./styles/404.css" />
+    <link rel="stylesheet" href="./styles/fontawesome/css/all.css" />
   </head>
 
   <body>
@@ -67,29 +70,34 @@
     </div>
 
     <main>
-      <section>
-        <h1 class="slogan">Thank you!</h1>
-        <div id="order_number"></div>
-      </section>
-      <hr />
-      <section>
-        <p class="slogan">錢沒有不見，只是變成你喜歡的樣子XD</p>
+      <section class="page_404">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-sm-10 col-sm-offset-1 text-center">
+                <div class="four_zero_four_bg">
+                  <h1 class="text-center">404</h1>
+                </div>
+
+                <div class="contant_box_404">
+                  <h3 class="h2">Look like you're lost</h3>
+
+                  <p>the page you are looking for not avaible!</p>
+
+                  <a href="" class="link_404">Go to Home</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <footer>
       <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
       <div class="rights">© 2022. All rights reserved.</div>
     </footer>
-    <script src="./js/courses.js"></script>
+    <script src="./js/course.js"></script>
+    <script src="./js/rating.js"></script>
     <script src="./util/util.js"></script>
-    <!-- <script src="https://js.tappaysdk.com/tpdirect/v5.7.0"></script> -->
-
-    <!-- <script>
-      const searchParams = new URLSearchParams(window.location.search);
-      const order_number = searchParams.get("order");
-      document.getElementById(
-        "order_number"
-      ).innerText = `order number: ${order_number}`;
-    </script> -->
   </body>
 </html>

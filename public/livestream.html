@@ -23,11 +23,17 @@
         <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
         <div class="tag-line"></div>
       </div>
-      <input class="search" />
+      <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
       <div class="messenger" onclick="checkMessenger()">我的訊息</div>
       <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="35" />
-        <!-- <div class="count"></div> -->
+        <div class="count"></div>
       </div>
       <div class="member" onclick="checkIdentity()">
         <img src="./images/member-mobile.png" height="35" />
@@ -37,7 +43,13 @@
       <a class="logo" href="./">
         <img src="./images/logo.png" height="20" />
       </a>
-      <input class="search" />
+      <input
+        id="search-mobile"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
     </div>
     <div class="mobile-nav">
       <a href="./courses.html" class="tag tag-courses">課程</a>
@@ -47,7 +59,7 @@
     <div class="mobile-footer">
       <div class="cart" onclick="checkLogin()">
         <img src="./images/cart-mobile.png" height="44" />
-        <!-- <div class="count"></div> -->
+        <div class="count"></div>
         購物車
       </div>
       <div class="member" onclick="checkIdentity()">
@@ -86,6 +98,23 @@
             </div>
             <div class="course-preparation">
               <h2 class="course-subtitle">觀看直播前的準備 //</h2>
+            </div>
+            <div class="course-teacher">
+              <h2 class="course-subtitle">關於老師 //</h2>
+              <div class="course-info-detail">
+                <div class="detail-teacher-info">
+                  <!-- <img
+                    src="./images/playbutton.png"
+                    height="130px"
+                    weight="130px"
+                  />
+                  <div class="detail-teacher-info-words">
+                    <p class="detail-teacher-name">李湘美</p>
+                    <p> Self Introduction
+                    </p>
+                  </div> -->
+                </div>
+              </div>
             </div>
           </div>
 
