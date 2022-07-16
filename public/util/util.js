@@ -23,8 +23,12 @@ const checkLogin = (event) => {
       .then((response) => {
         window.location.href = "/cart.html";
       })
-      .catch((error) => (window.location.href = "/signin.html"));
+      .catch((error) => {
+        alert("請先登入。");
+        window.location.href = "/signin.html";
+      });
   } else {
+    alert("請先登入。");
     window.location.href = "/signin.html";
   }
 };
@@ -47,6 +51,7 @@ const checkIdentity = (event) => {
       })
       .catch((error) => (window.location.href = "/signin.html"));
   } else {
+    alert("請先登入。");
     window.location.href = "/signin.html";
   }
 };
@@ -68,6 +73,7 @@ const checkMessenger = (event) => {
       })
       .catch((error) => (window.location.href = "/signin.html"));
   } else {
+    alert("請先登入。");
     window.location.href = "/signin.html";
   }
 };
