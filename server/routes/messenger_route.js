@@ -9,6 +9,6 @@ const {
 
 router.route("/messages/:category").post(errorHandler(getMessages));
 router.route("/messages").post(errorHandler(saveMessage));
-router.route("/messages/newroom").post(errorHandler(saveRoomId));
+router.route("/messenger/room").post(errorHandler(saveRoomId));
 
 module.exports = router;

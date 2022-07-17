@@ -123,8 +123,8 @@ const getUserStatus = async (token) => {
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
     return { decoded };
-  } catch (err) {
-    return { error: "Error 403: Wrong token" };
+  } catch (error) {
+    return { error: "Error 401: Wrong token" };
   }
 };
 
@@ -134,7 +134,11 @@ const getUserDetail = async (userId, token) => {
     await conn.query("START TRANSACTION");
 
     // Verify token
-    const decoded = jwt.verify(token, TOKEN_SECRET);
+    let decoded;
+    if (token !== "null") {
+      // The case that user has logged in
+      decoded = jwt.verify(token, TOKEN_SECRET);
+    }
 
     const userInfoSql =
       "SELECT user.name, user.email, user.picture, user.self_intro, role.name AS role \
@@ -190,7 +194,7 @@ const getUserDetail = async (userId, token) => {
       streamer: streamer,
     };
 
-    if (decoded.userId == userId) {
+    if (token !== "null" && decoded.userId == userId) {
       user.auth = 1;
     } else {
       user.auth = 0;

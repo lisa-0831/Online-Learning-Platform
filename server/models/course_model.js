@@ -10,7 +10,6 @@ const createCourse = async (course, hashtags) => {
     await conn.query("START TRANSACTION");
     const [result] = await conn.query("INSERT INTO course SET ?", course);
 
-    console.log(13, hashtags);
     // Hashtags
     let insertSqlMark = "";
     let selectSqlMark = "";
@@ -184,14 +183,24 @@ const getCourses = async (
     let [courseNum] = await conn.query(pagingQuery, pagingCondition.binding);
 
     // Add some products if courses recommended are not enough
-    if (products.length < pageSize) {
+    if (
+      requirement.order == "recommend" &&
+      requirement.token !== undefined &&
+      products.length < pageSize
+    ) {
+      let productsArr = [];
+      for (let i = 0; i < products.length; i++) {
+        productsArr.push(products[i]["id"]);
+      }
+      const productStr = productsArr.toString();
       const [productsPlus] = await conn.query(
-        "SELECT course.id, course.cover, course.title, course.price, \
+        `SELECT course.id, course.cover, course.title, course.price, \
       course.upload_time, COUNT(course_student.user_id) AS students_num \
       FROM course \
       LEFT JOIN course_student \
       ON course.id=course_student.course_id \
-      GROUP BY course.id LIMIT 0, ?",
+      WHERE course.id NOT IN (${productStr}) \
+      GROUP BY course.id LIMIT 0, ?`,
         [pageSize - products.length]
       );
       products = products.concat(productsPlus);

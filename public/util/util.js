@@ -1,6 +1,3 @@
-pageSize = 12;
-hashtagSize = 20;
-
 const showCartNum = () => {
   cartNum = JSON.parse(localStorage.getItem("list"));
   if (cartNum !== null) {
@@ -23,8 +20,12 @@ const checkLogin = (event) => {
       .then((response) => {
         window.location.href = "/cart.html";
       })
-      .catch((error) => (window.location.href = "/signin.html"));
+      .catch((error) => {
+        alert("請先登入。");
+        window.location.href = "/signin.html";
+      });
   } else {
+    alert("請先登入。");
     window.location.href = "/signin.html";
   }
 };
@@ -47,6 +48,7 @@ const checkIdentity = (event) => {
       })
       .catch((error) => (window.location.href = "/signin.html"));
   } else {
+    alert("請先登入。");
     window.location.href = "/signin.html";
   }
 };
@@ -68,6 +70,7 @@ const checkMessenger = (event) => {
       })
       .catch((error) => (window.location.href = "/signin.html"));
   } else {
+    alert("請先登入。");
     window.location.href = "/signin.html";
   }
 };
@@ -80,7 +83,6 @@ searchBar.addEventListener("keypress", (event) => {
   if (event.key == "Enter") {
     event.preventDefault();
     const searchInput = document.querySelector("input").value;
-    console.log(searchInput);
 
     // Clear input
     searchBar.value = "";
@@ -91,7 +93,6 @@ searchBar.addEventListener("keypress", (event) => {
 });
 
 mobileSearchBar.addEventListener("keypress", (event) => {
-  console.log(86);
   if (event.key == "Enter") {
     event.preventDefault();
     const searchInput = document.getElementById("search-mobile").value;

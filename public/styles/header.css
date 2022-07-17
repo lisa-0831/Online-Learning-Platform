@@ -3,7 +3,7 @@
     height: 70px;
     width: 100vw;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     position: fixed;
     top: 0;
     border-bottom: 5px solid var(--charcoal-grey);
@@ -19,7 +19,6 @@
 
 .desktop-header > .nav {
     margin-left: auto;
-    margin-top: 10px;
     display: flex;
 }
 
@@ -62,7 +61,6 @@
     background-size: 30px;
     background-position: left center;
     margin-right: auto;
-    margin-top: 12px;
 }
 
 /* .input[type=text]  {
@@ -82,7 +80,6 @@
 } */
 
 .desktop-header .messenger {
-  margin-top: 8px;
   margin-left: 42px;
   position: relative;
   cursor: pointer;
@@ -92,7 +89,6 @@
 }
   
 .desktop-header .cart {
-    margin-top: 8px;
     margin-left: 42px;
     position: relative;
     cursor: pointer;
@@ -114,7 +110,6 @@
 }
   
 .desktop-header .member {
-    margin-top: 8px;
     margin-left: 42px;
     margin-right: 54px;
     cursor: pointer;
@@ -136,6 +131,8 @@
 main {
     margin-top: 70px;  /* The height of the header */
     min-height: calc(100vh - 255px);
+    height: 100%;
+    min-height: 100%;
 }
   
 @media only screen and (max-width: 1280px) {

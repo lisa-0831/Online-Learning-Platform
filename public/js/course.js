@@ -24,22 +24,13 @@ window.onload = async function () {
   const courseObj = await courseRes.json();
 
   detailsObj = courseObj.details;
-  console.log(detailsObj);
-
   questionsArr = courseObj.questions;
-  console.log(questionsArr);
-
   ratingArr = courseObj.rating;
-  console.log(19, ratingArr);
-
   discussionArr = courseObj.discussion;
-  console.log(discussionArr);
 
   const status = courseObj.status;
-  console.log(status);
 
   userInfo = courseObj.userInfo;
-  console.log(userInfo);
 
   // Course Video
   let courseVideo = document.createElement("source");
@@ -191,10 +182,8 @@ window.onload = async function () {
 
   // Other's Rating Content
   ratingArrLength = ratingArr.length;
-  console.log(ratingArr.length);
   ratingSum = 0;
   for (let i = 0; i < ratingArr.length; i++) {
-    console.log(192, i);
     const date = new Date(ratingArr[i]["create_time"]);
     const createDate = `${date.getFullYear()} / ${
       date.getMonth() + 1
@@ -478,8 +467,6 @@ const sendQuestion = (event) => {
 // Post Rating
 const sendRating = (event) => {
   const content = document.getElementsByTagName("textarea")[1].value;
-  console.log(document.getElementsByTagName("textarea")[1].value);
-  console.log(content);
   if (!content) {
     alert("請先輸入內容，謝謝。");
     return;
@@ -493,8 +480,6 @@ const sendRating = (event) => {
 
   // Frontend Render
   ratingSum += starNum;
-  console.log(492, ratingSum);
-  console.log(493, ratingArrLength);
   document.getElementById("rating-avg").innerText = `平均 ${(
     ratingSum / ratingArrLength
   ).toFixed(1)}`;

@@ -35,7 +35,6 @@ window.onload = async function () {
     order = params.get("order");
   }
   let url = `/api/1.0/courses/${category}?order=${order}`;
-  console.log(order);
   document.getElementById(order).classList.add("selected");
 
   hashtag = params.get("hashtag");
@@ -60,7 +59,6 @@ window.onload = async function () {
   const coursesObj = coursesAllObj.products;
   const hashtagsObj = coursesAllObj.hashtags;
   const courseNum = coursesAllObj.courseNum[0]["COUNT(*)"];
-  console.log(coursesObj);
 
   for (let i = 0; i < coursesObj.length; i++) {
     // Course Div
@@ -229,7 +227,6 @@ window.onload = async function () {
     } else {
       url = `./courses.html?category=all&order=${order}&hashtag=${hashtag}&paging=${paging}`;
     }
-    console.log(url);
 
     window.location.href = url;
   });

@@ -105,7 +105,7 @@ const getUserStatus = async (req, res) => {
     const { decoded } = await User.getUserStatus(token);
     if (decoded.error) {
       console.log(decoded.error);
-      const statusCode = decoded.status ? decoded.status : 403;
+      const statusCode = decoded.status ? decoded.status : 401;
       return res.status(statusCode).send({ error: decoded.error });
     }
 
@@ -127,19 +127,12 @@ const getUserStatus = async (req, res) => {
 
 const getUserInfo = async (req, res) => {
   const authorization = req.headers.authorization;
-  if (!authorization) {
-    return res.status(401).send("User does not sign in.");
-  }
   const token = authorization.split(" ")[1];
 
-  // const details = req.params.category || "details";
   const userId = parseInt(req.query.id);
   if (Number.isInteger(userId)) {
     const user = await User.getUserDetail(userId, token);
 
-    if (user == -1) {
-      return res.status(403).send("TokenExpired. User should sign in again.");
-    }
     return res.status(200).send({ user });
   }
 };

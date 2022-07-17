@@ -341,17 +341,18 @@ const sendMessage = async (event) => {
     const receiver_id = parseInt(searchParams.get("id"));
     localStorage.setItem("receiver_id", receiver_id);
 
-    const checkId = await fetch(`/api/1.0/messages/newroom`, {
+    const checkId = await fetch(`/api/1.0/messenger/room`, {
       method: "POST",
-      headers: new Headers({
+      headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      }),
+      },
       body: JSON.stringify({ receiverId: receiver_id }),
     });
 
-    window.location.href = "./messenger.html";
+    window.location.href = "/messenger.html";
   } else {
+    alert("請先登入。");
     window.location.href = "/signin.html";
   }
 };

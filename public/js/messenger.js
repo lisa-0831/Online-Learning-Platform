@@ -1,4 +1,5 @@
 let currentRoom = [];
+let currentSelected = -1;
 let userId = 0;
 let username = "";
 
@@ -72,19 +73,36 @@ window.onload = async function () {
     const messagesArr = sidebarObj.messages;
     const countObj = sidebarObj.count;
     const userObj = sidebarObj.user;
+
+    document.getElementsByClassName("chat-left-title")[0].innerText =
+      userObj.name;
     const receiverObj = sidebarObj.receiver;
 
-    if (messagesArr.length == 0 && !receiver) {
+    if (messagesArr.length == 0 && receiverObj == undefined) {
       alert("目前無任何聊天記錄，可以到他人頁面開始聊天唷～");
+    } else {
+      document.getElementById("chat-form").innerHTML = `<input
+      id="msg"
+      type="text"
+      placeholder="Enter Message"
+      required
+      autocomplete="off"
+      />
+      <button class="btn">
+        <i class="fas fa-paper-plane"></i> Send
+      </button>`;
     }
 
     userId = userObj.id; // Update userId
     username = userObj.name; // Update username
+    let allMessageRoom = [];
 
     for (let i = 0; i < messagesArr.length; i++) {
       let otherId = 0;
       let otherName = "";
       let otherPic = "";
+
+      allMessageRoom.push(messagesArr[i]["room"]);
 
       if (messagesArr[i]["sender_id"] !== userObj.id) {
         otherId = messagesArr[i]["sender_id"];
@@ -103,10 +121,10 @@ window.onload = async function () {
         groupDiv.setAttribute("class", "group");
       }
       groupDiv.setAttribute("data-type", otherId);
+      groupDiv.setAttribute("id", otherId);
 
       const imageDiv = document.createElement("div");
       imageDiv.setAttribute("class", "image");
-      imageDiv.setAttribute("data-type", otherId);
       const image = document.createElement("img");
       image.setAttribute("class", "profile");
       image.setAttribute(
@@ -120,34 +138,36 @@ window.onload = async function () {
 
       const nameDiv = document.createElement("div");
       nameDiv.setAttribute("class", "group-name");
-      nameDiv.setAttribute("data-type", otherId);
 
       let content = messagesArr[i]["content"];
       if (content.length > 30) {
         content = content.slice(0, 30) + "...";
       }
 
+      if (otherName.length > 10) {
+        otherName = otherName.slice(0, 10) + "...";
+      }
+
       if (messagesArr[i]["room"] in countObj) {
         nameDiv.innerHTML = `
         <p class="title">
           ${otherName}
-          <span class="date">${timestamp2Date(
-            messagesArr[i]["create_time"]
-          )}</span>
+          <span class="date" id="d${otherId}">${timestamp2Date(
+          messagesArr[i]["create_time"]
+        )}</span>
         </p>
-        <p>
+        <p id="p${otherId}">
           ${content}
-          <span class="n">${countObj[messagesArr[i]["room"]]["msg_num"]}</span>
         </p>`;
       } else {
         nameDiv.innerHTML = `
         <p class="title">
           ${otherName}
-          <span class="date">${timestamp2Date(
-            messagesArr[i]["create_time"]
-          )}</span>
+          <span class="date" id="d${otherId}">${timestamp2Date(
+          messagesArr[i]["create_time"]
+        )}</span>
         </p>
-        <p>
+        <p id="p${otherId}">
           ${content}
         </p>`;
       }
@@ -163,38 +183,48 @@ window.onload = async function () {
     }
 
     if (receiverObj !== undefined) {
-      const groupDiv = document.createElement("a");
-      groupDiv.setAttribute("class", "group");
-      groupDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
+      if (allMessageRoom.includes(receiverObj["clickRoom"])) {
+        const moveToTop = (toId) => {
+          // Update the sidebar
+          const sendToUser = document.getElementById(toId);
+          sendToUser.remove();
+          document.getElementsByClassName("group-list")[0].prepend(sendToUser);
+        };
 
-      const imageDiv = document.createElement("div");
-      imageDiv.setAttribute("class", "image");
-      imageDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
-      const image = document.createElement("img");
-      image.setAttribute("class", "profile");
-      image.setAttribute(
-        "src",
-        `https://d1wan10jjr4v2x.cloudfront.net/profile/${receiverObj.receiverInfo.picture}`
-      );
-      image.setAttribute("alt", "profile piture");
-      image.setAttribute("width", "50px");
-      image.setAttribute("height", "50px");
-      imageDiv.appendChild(image);
+        moveToTop(receiverObj.receiverInfo.id);
+      } else {
+        const groupDiv = document.createElement("a");
+        groupDiv.setAttribute("class", "group");
+        groupDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
+        groupDiv.setAttribute("id", receiverObj.receiverInfo.id);
 
-      const nameDiv = document.createElement("div");
-      nameDiv.setAttribute("class", "group-name");
-      nameDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
-      nameDiv.innerHTML = `
+        const imageDiv = document.createElement("div");
+        imageDiv.setAttribute("class", "image");
+        const image = document.createElement("img");
+        image.setAttribute("class", "profile");
+        image.setAttribute(
+          "src",
+          `https://d1wan10jjr4v2x.cloudfront.net/profile/${receiverObj.receiverInfo.picture}`
+        );
+        image.setAttribute("alt", "profile piture");
+        image.setAttribute("width", "50px");
+        image.setAttribute("height", "50px");
+        imageDiv.appendChild(image);
+
+        const nameDiv = document.createElement("div");
+        nameDiv.setAttribute("class", "group-name");
+        nameDiv.innerHTML = `
         <p class="title">
           ${receiverObj.receiverInfo.name}
-          <span class="date"></span>
+          <span class="date" id="d${receiverObj.receiverInfo.id}"></span>
         </p>
-        <p>
+        <p id="p${receiverObj.receiverInfo.id}">
         </p>`;
-      groupDiv.appendChild(imageDiv);
-      groupDiv.appendChild(nameDiv);
+        groupDiv.appendChild(imageDiv);
+        groupDiv.appendChild(nameDiv);
 
-      document.getElementById("roomParent").prepend(groupDiv);
+        document.getElementById("roomParent").prepend(groupDiv);
+      }
 
       // Connect Socket
       socket.emit("user_join", {
@@ -257,8 +287,10 @@ window.onload = async function () {
         contentHtml = `
         <p class="meta">
           ${userObj.name}
-           <span> ${timestamp2Time(messagesArr[i]["create_time"])} </span>
         </p>
+        <span class="meta"> ${timestamp2Time(
+          messagesArr[i]["create_time"]
+        )} </span>
         <p class="text">
           ${messagesArr[i]["content"]}
         </p>`;
@@ -286,22 +318,40 @@ window.onload = async function () {
     // Scroll down
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    // Remove SideBar
-    const sidebarElement = document.getElementById("roomParent"); // will return element
-    sidebarElement.innerHTML = "";
+    // Change the background
+    if (currentSelected !== -1) {
+      document.getElementById(currentSelected).classList.remove("selected");
+    }
+    document.getElementById(otherSideId).classList.add("selected");
+    document.getElementById(otherSideId).classList.remove("active");
 
-    // Put SideBar
-    await renderSidebar();
+    // if (document.getElementById(`n${otherSideId}`) !== null) {
+    //   document.getElementById(`n${otherSideId}`).classList.add("n-selected");
+    //   document.getElementById(`n${otherSideId}`).innerText = "";
+    // }
+
+    currentSelected = otherSideId;
+
+    // Update the last check time
+    await fetch(`/api/1.0/messenger/room`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      body: JSON.stringify({ receiverId: currentSelected }),
+    });
   });
 
   // Message submit
   chatForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    let msg;
     if (currentRoom.length == 0) {
       alert("請先選擇聊天室。");
     } else {
       // Get message text
-      const msg = e.target.elements.msg.value;
+      msg = e.target.elements.msg.value;
       const payload = {
         room: currentRoom,
         userId: userId,
@@ -329,27 +379,56 @@ window.onload = async function () {
       });
     }
 
-    // // Remove SideBar
-    // const sidebarElement = document.getElementById("roomParent"); // will return element
-    // sidebarElement.innerHTML = "";
+    // Update the sidebar
+    document.getElementById(`d${currentSelected}`).innerText = timestamp2Date(
+      Date.now()
+    );
 
-    // // Put SideBar
-    // await renderSidebar();
+    if (msg.length > 30) {
+      msg = msg.slice(0, 30);
+    }
+    document.getElementById(`p${currentSelected}`).innerText = msg;
+    const sendToUser = document.getElementById(currentSelected);
+    sendToUser.remove();
+    document.getElementsByClassName("group-list")[0].prepend(sendToUser);
+
+    // Update the last check time
+    await fetch(`/api/1.0/messenger/room`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      body: JSON.stringify({ receiverId: currentSelected }),
+    });
   });
 
   // Message from server
   socket.on("receive_message", async (payload) => {
+    const moveToTop = (toId) => {
+      // Update the sidebar
+      document.getElementById(`d${toId}`).innerText = timestamp2Date(
+        Date.now()
+      );
+      const message = payload.message.text;
+      if (message.length > 30) {
+        message = message.slice(0, 30);
+      }
+      document.getElementById(`p${toId}`).innerText = message;
+      const sendToUser = document.getElementById(toId);
+      sendToUser.remove();
+      document.getElementsByClassName("group-list")[0].prepend(sendToUser);
+    };
+
     if (payload.room == currentRoom) {
       outputMessage(payload);
+      // Scroll down
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      moveToTop(currentSelected);
+    } else {
+      moveToTop(payload.userId);
+      document.getElementById(payload.userId).classList.add("active");
     }
-    // Scroll down
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    // Remove SideBar
-    const sidebarElement = document.getElementById("roomParent"); // will return element
-    sidebarElement.innerHTML = "";
-
-    // Put SideBar
-    await renderSidebar();
   });
 };
