@@ -249,7 +249,7 @@ window.onload = async function () {
       "question-input-area"
     ).innerHTML = `<div class="container"><div class="avatar user-avatar">
     <a href="./profile.html?id=${userInfo["userId"]}">
-     <img src="./profile/${userInfo["picture"]}" style="width: 100%" />
+     <img src="https://d1wan10jjr4v2x.cloudfront.net/profile/${userInfo["picture"]}" style="width: 100%" />
     </a>
   </div>
   <div class="input-area">
@@ -279,7 +279,7 @@ window.onload = async function () {
       "rating-input-area"
     ).innerHTML = `<div class="container"><div class="avatar user-avatar">
     <a href="./profile.html?id=${userInfo["userId"]}">
-     <img src="./profile/${userInfo["picture"]}" style="width: 100%" />
+     <img src="https://d1wan10jjr4v2x.cloudfront.net/profile/${userInfo["picture"]}" style="width: 100%" />
     </a>
   </div>
   <div class="input-area">
@@ -319,7 +319,7 @@ window.onload = async function () {
     document.getElementById("discussion-input-area").innerHTML = `
     <div class="container"><div class="avatar">
           <a href="./profile.html?id=${userInfo["userId"]}">
-        <img src="./profile/${userInfo["picture"]}" style="width: 100%" />
+        <img src="https://d1wan10jjr4v2x.cloudfront.net/profile/${userInfo["picture"]}" style="width: 100%" />
       </a>
           </div>
           <div class="input-area">
