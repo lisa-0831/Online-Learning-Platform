@@ -31,7 +31,10 @@ window.onload = async function () {
   if (user.auth == 1) {
     document.getElementsByClassName(
       "actions"
-    )[0].innerHTML = `<button class="btn">Edit</button><button class="btn" onclick="signOut()">Sign Out</button>`;
+    )[0].innerHTML = `<button class="btn" onclick="signOut()">Sign Out</button>`;
+    // document.getElementsByClassName(
+    //   "actions"
+    // )[0].innerHTML = `<button class="btn">Edit</button><button class="btn" onclick="signOut()">Sign Out</button>`;
   } else {
     document.getElementsByClassName(
       "actions"
