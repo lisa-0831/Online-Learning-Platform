@@ -1,6 +1,3 @@
-pageSize = 12;
-hashtagSize = 20;
-
 const showCartNum = () => {
   cartNum = JSON.parse(localStorage.getItem("list"));
   if (cartNum !== null) {
@@ -86,7 +83,6 @@ searchBar.addEventListener("keypress", (event) => {
   if (event.key == "Enter") {
     event.preventDefault();
     const searchInput = document.querySelector("input").value;
-    console.log(searchInput);
 
     // Clear input
     searchBar.value = "";
@@ -97,7 +93,6 @@ searchBar.addEventListener("keypress", (event) => {
 });
 
 mobileSearchBar.addEventListener("keypress", (event) => {
-  console.log(86);
   if (event.key == "Enter") {
     event.preventDefault();
     const searchInput = document.getElementById("search-mobile").value;

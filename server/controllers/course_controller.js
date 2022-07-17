@@ -5,7 +5,6 @@ hashtagSize = 20;
 
 const createCourse = async (req, res) => {
   const body = req.body;
-  console.log(8, body);
 
   // // upload Image
   // const coverUrl = await uploadToS3(req.files, "cover");

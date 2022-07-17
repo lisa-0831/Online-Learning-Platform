@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/footer.css" />
-    <link rel="stylesheet" href="./styles/bar.css" />
-    <link rel="stylesheet" href="./styles/courses.css" />
+    <link rel="stylesheet" href="./styles/livestreams.css" />
   </head>
 
   <body>
@@ -68,55 +67,56 @@
     </div>
 
     <main>
-      <div class="sidebar">
-        <div class="sidebar-categories">
-          <a href="./livestreams.html?category=all" class="sidebar-category"
-            >所有直播</a
-          >
-          <a
-            href="./livestreams.html?category=humanities"
-            class="sidebar-category"
-            >人文社會</a
-          >
-          <a
-            href="./livestreams.html?category=investment"
-            class="sidebar-category"
-            >投資理財</a
-          >
-          <a
-            href="./livestreams.html?category=language"
-            class="sidebar-category"
-            >語言學習</a
-          >
-          <a
-            href="./livestreams.html?category=marketing"
-            class="sidebar-category"
-            >市場行銷</a
-          >
-          <a href="./livestreams.html?category=music" class="sidebar-category"
-            >樂器演奏</a
-          >
-          <a
-            href="./livestreams.html?category=programming"
-            class="sidebar-category"
-            >程式語言</a
-          >
-        </div>
-      </div>
-
-      <div class="main-content">
-        <div class="top-bar">
-          <h2 class="top-bar-title">所有課程直播</h2>
-          <div id="orderParent" class="top-bar-selections">
-            <a class="top-bar-selection selected" data-type="trending"
-              >熱門直播</a
+      <div class="main">
+        <div class="sidebar">
+          <div class="sidebar-categories">
+            <a href="./livestreams.html?category=all" class="sidebar-category"
+              >所有直播</a
             >
-            <a class="top-bar-selection" data-type="latest">最新發佈</a>
-            <a class="top-bar-selection" data-type="recommend">個人推薦</a>
+            <a
+              href="./livestreams.html?category=humanities"
+              class="sidebar-category"
+              >人文社會</a
+            >
+            <a
+              href="./livestreams.html?category=investment"
+              class="sidebar-category"
+              >投資理財</a
+            >
+            <a
+              href="./livestreams.html?category=language"
+              class="sidebar-category"
+              >語言學習</a
+            >
+            <a
+              href="./livestreams.html?category=marketing"
+              class="sidebar-category"
+              >市場行銷</a
+            >
+            <a href="./livestreams.html?category=music" class="sidebar-category"
+              >樂器演奏</a
+            >
+            <a
+              href="./livestreams.html?category=programming"
+              class="sidebar-category"
+              >程式語言</a
+            >
           </div>
         </div>
-        <div id="courses">
-          <!-- <figure class="course">
+
+        <div class="main-content">
+          <div class="top-bar">
+            <h2 class="top-bar-title">所有課程直播</h2>
+            <div id="orderParent" class="top-bar-selections">
+              <a class="top-bar-selection selected" data-type="trending"
+                >熱門直播</a
+              >
+              <a class="top-bar-selection" data-type="latest">最新發佈</a>
+              <!-- <a class="top-bar-selection" data-type="recommend">個人推薦</a> -->
+            </div>
+          </div>
+          <div id="courses">
+            <!-- <figure class="course">
             <a href="/livestream.html" class="course-detail"></a>
               <div class="course-image">
                 <img
@@ -131,19 +131,20 @@
               </figcaption>
             </a>
           </figure> -->
-        </div>
-        <div class="pagination">
-          <div id="pagingParent">
-            <a data-type="last">&laquo;</a>
-            <div id="pagingNum">
-              <!-- <a data-type="1">1</a>
+          </div>
+          <div class="pagination">
+            <div id="pagingParent">
+              <a data-type="last">&laquo;</a>
+              <div id="pagingNum">
+                <!-- <a data-type="1">1</a>
             <a class="active" data-type="2">2</a>
             <a data-type="3">3</a>
             <a data-type="4">4</a>
             <a data-type="5">5</a>
             <a data-type="...">...</a> -->
+              </div>
+              <a data-type="next">&raquo;</a>
             </div>
-            <a data-type="next">&raquo;</a>
           </div>
         </div>
       </div>

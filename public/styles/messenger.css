@@ -40,21 +40,28 @@ body {
 	height: 10%;
 	width: 100%;
 	background-color: white;
-	border: #313538 1px solid;
+	border-bottom: #313538 1px solid;
 	z-index: 100;
+	text-align: center;
+    line-height: 70px;
+	font-size: 28px;
 }
 .chat-right-title{
 	height: 10%;
 	width: 100%;
 	background-color: white;
-	border: #313538 1px solid;
+	border-bottom: #313538 1px solid;
 	z-index: 100;
+	text-align: center;
+    line-height: 70px;
+    font-size: 28px;
 }
 .chat-right{
 	background-color: white;
 	width: 70%;
 	height: 100%;
 	position: relative;
+	border-left: #313538 1px solid;
 }
 .chats {
 	padding: 0px 5px;

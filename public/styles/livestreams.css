@@ -1,0 +1,225 @@
+.main{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.sidebar{
+    height: 100vh;
+    position: sticky;
+    padding-left: 50px;
+    margin-top: 50px;
+    padding-bottom: 100px;
+    top: 100px;
+    width: 400px;
+}
+
+.main-content {
+    width: 80vw;
+    margin-top: 50px;
+}
+
+.sidebar-categories {
+    width: 150px;
+    overflow-x: hidden;
+    padding: 8px 0px 50px 0px;
+}
+  
+.sidebar-categories a {
+    padding: 12px 8px 12px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #313538;
+    display: block;
+}
+  
+.sidebar-categories a:hover {
+    color: #F2F2F2;
+}
+
+.sidebar-categories > .selected {
+    border-left: 5px #313538 solid;
+}
+  
+@media screen and (max-height: 450px) {
+    .sidebar-categories {padding-top: 15px;}
+    .sidebar-categories a {font-size: 18px;}
+}
+
+.sidebar-hot {
+    width: 250px;
+    overflow-x: hidden;
+    padding: 12px 8px 12px 16px;
+    background-color: #F2F2F2;
+    border-radius: 20px;
+    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-title {
+    font-size: 20px;
+    padding: 12px 8px 12px 0px;
+}
+
+.sidebar-tags {
+    font-size: 15px;
+    padding: 2px;
+    margin: 2px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sidebar-tags a:hover {
+    color: #ffffff;
+    background-color: #313538;
+}
+
+.sidebar-tags > .selected {
+    color: #ffffff;
+    background-color: #313538;
+}
+
+.sidebar-tag {
+    padding: 5px 10px;
+    margin: 5px;
+    background: #FAFAFA;
+    border: 1px solid #D9D9D9;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.top-bar {
+    padding: 8px 0px;
+    display: flex;
+}
+
+.top-bar-title {
+    font-size: 20px;
+    padding: 12px 8px 12px 8px;
+}
+
+.top-bar-selections {
+    font-size: 15px;
+    padding: 16px 8px 12px 30px;
+}
+
+.top-bar-selections a:hover {
+    color: #ffffff;
+    background-color: #313538;
+}
+
+.top-bar-selections > .selected {
+    color: #ffffff;
+    background-color: #313538;
+}
+
+.top-bar-selection {
+    padding: 3px 23px;
+    background: #FAFAFA;
+    border: 1px solid #D9D9D9;
+    border-radius: 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+
+#courses {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.course {
+    overflow: hidden;
+    font-family: 'Open Sans', Arial, sans-serif;
+    position: relative;
+    margin: 30px;
+    min-width: 295px;
+    max-width: 380px;
+    width: 100%;
+    color: #000000;
+    text-align: center;
+    line-height: 1.4em;
+    font-size: 14px;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  
+  .course:hover {
+    transform:scale(1.05,1.05);
+    transition: all ease 0.5s;
+  }
+  
+  .course * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .course .course-image {
+    display: inline-block;
+    width: 80%;
+    z-index: 1;
+    position: relative;
+    padding: 10px;
+    border: 2px solid #e8b563;
+  }
+  
+  .course .course-image img {
+    max-width: 100%;
+    vertical-align: top;
+  }
+  
+  .course figcaption {
+    height: 100%;
+    width: 100%;
+    background-color: #F2F2F2;
+    color: #555;
+    padding: 125px 25px 25px;
+    margin-top: -100px;
+    display: inline-block;
+  }
+  
+  .course h3,
+  .course h4,
+  .course p {
+    margin: 0 0 5px;
+  }
+  
+  .course h3 {
+    font-weight: 600;
+    font-size: 1.3em;
+    font-family: 'Playfair Display', Arial, sans-serif;
+  }
+  
+  .course h4 {
+    color: #8c8c8c;
+    font-weight: 400;
+    letter-spacing: 2px;
+  }
+  
+  .course p {
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    opacity: 0.9;
+  }
+
+  #pagingParent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 28px 14px;
+  }
+
+  .pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    cursor: pointer;
+  }
+  
+  .pagination a.active {
+    background-color: rgb(145, 148, 150);
+    color: white;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}

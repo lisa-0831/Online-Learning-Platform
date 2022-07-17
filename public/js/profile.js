@@ -350,8 +350,6 @@ const sendMessage = async (event) => {
       body: JSON.stringify({ receiverId: receiver_id }),
     });
 
-    console.log(checkId);
-
     window.location.href = "/messenger.html";
   } else {
     alert("請先登入。");

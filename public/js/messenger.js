@@ -71,16 +71,14 @@ window.onload = async function () {
     });
     const sidebarObj = await sidebarRes.json();
     const messagesArr = sidebarObj.messages;
-    console.log(73, messagesArr);
     const countObj = sidebarObj.count;
-    console.log(75, countObj);
     const userObj = sidebarObj.user;
-    console.log(77, userObj);
+
+    document.getElementsByClassName("chat-left-title")[0].innerText =
+      userObj.name;
     const receiverObj = sidebarObj.receiver;
-    console.log(79, receiverObj);
 
     if (messagesArr.length == 0 && receiverObj == undefined) {
-      console.log(83);
       alert("目前無任何聊天記錄，可以到他人頁面開始聊天唷～");
     } else {
       document.getElementById("chat-form").innerHTML = `<input
@@ -97,11 +95,14 @@ window.onload = async function () {
 
     userId = userObj.id; // Update userId
     username = userObj.name; // Update username
+    let allMessageRoom = [];
 
     for (let i = 0; i < messagesArr.length; i++) {
       let otherId = 0;
       let otherName = "";
       let otherPic = "";
+
+      allMessageRoom.push(messagesArr[i]["room"]);
 
       if (messagesArr[i]["sender_id"] !== userObj.id) {
         otherId = messagesArr[i]["sender_id"];
@@ -182,37 +183,48 @@ window.onload = async function () {
     }
 
     if (receiverObj !== undefined) {
-      const groupDiv = document.createElement("a");
-      groupDiv.setAttribute("class", "group");
-      groupDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
-      groupDiv.setAttribute("id", receiverObj.receiverInfo.id);
+      if (allMessageRoom.includes(receiverObj["clickRoom"])) {
+        const moveToTop = (toId) => {
+          // Update the sidebar
+          const sendToUser = document.getElementById(toId);
+          sendToUser.remove();
+          document.getElementsByClassName("group-list")[0].prepend(sendToUser);
+        };
 
-      const imageDiv = document.createElement("div");
-      imageDiv.setAttribute("class", "image");
-      const image = document.createElement("img");
-      image.setAttribute("class", "profile");
-      image.setAttribute(
-        "src",
-        `https://d1wan10jjr4v2x.cloudfront.net/profile/${receiverObj.receiverInfo.picture}`
-      );
-      image.setAttribute("alt", "profile piture");
-      image.setAttribute("width", "50px");
-      image.setAttribute("height", "50px");
-      imageDiv.appendChild(image);
+        moveToTop(receiverObj.receiverInfo.id);
+      } else {
+        const groupDiv = document.createElement("a");
+        groupDiv.setAttribute("class", "group");
+        groupDiv.setAttribute("data-type", receiverObj.receiverInfo.id);
+        groupDiv.setAttribute("id", receiverObj.receiverInfo.id);
 
-      const nameDiv = document.createElement("div");
-      nameDiv.setAttribute("class", "group-name");
-      nameDiv.innerHTML = `
+        const imageDiv = document.createElement("div");
+        imageDiv.setAttribute("class", "image");
+        const image = document.createElement("img");
+        image.setAttribute("class", "profile");
+        image.setAttribute(
+          "src",
+          `https://d1wan10jjr4v2x.cloudfront.net/profile/${receiverObj.receiverInfo.picture}`
+        );
+        image.setAttribute("alt", "profile piture");
+        image.setAttribute("width", "50px");
+        image.setAttribute("height", "50px");
+        imageDiv.appendChild(image);
+
+        const nameDiv = document.createElement("div");
+        nameDiv.setAttribute("class", "group-name");
+        nameDiv.innerHTML = `
         <p class="title">
           ${receiverObj.receiverInfo.name}
           <span class="date" id="d${receiverObj.receiverInfo.id}"></span>
         </p>
         <p id="p${receiverObj.receiverInfo.id}">
         </p>`;
-      groupDiv.appendChild(imageDiv);
-      groupDiv.appendChild(nameDiv);
+        groupDiv.appendChild(imageDiv);
+        groupDiv.appendChild(nameDiv);
 
-      document.getElementById("roomParent").prepend(groupDiv);
+        document.getElementById("roomParent").prepend(groupDiv);
+      }
 
       // Connect Socket
       socket.emit("user_join", {
@@ -243,7 +255,6 @@ window.onload = async function () {
   roomParent.addEventListener("click", async function (e) {
     e.preventDefault();
     const otherSideId = e.target.dataset.type;
-    console.log("otherSideId", otherSideId);
 
     // Remove Messages
     const messagesElement = document.getElementById("chat-messages"); // will return element
@@ -276,8 +287,10 @@ window.onload = async function () {
         contentHtml = `
         <p class="meta">
           ${userObj.name}
-           <span> ${timestamp2Time(messagesArr[i]["create_time"])} </span>
         </p>
+        <span class="meta"> ${timestamp2Time(
+          messagesArr[i]["create_time"]
+        )} </span>
         <p class="text">
           ${messagesArr[i]["content"]}
         </p>`;
@@ -318,7 +331,6 @@ window.onload = async function () {
     // }
 
     currentSelected = otherSideId;
-    console.log(320, currentSelected);
 
     // Update the last check time
     await fetch(`/api/1.0/messenger/room`, {
