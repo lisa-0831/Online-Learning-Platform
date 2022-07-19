@@ -1,5 +1,51 @@
+const { uploadToS3 } = require("../../util/s3");
 const Livestream = require("../models/livestream_model");
 pageSize = 12;
+
+const createLivestream = async (req, res) => {
+  const body = req.body;
+  // console.log(7, body);
+
+  // console.log(9, req.files);
+
+  // upload Image
+  const coverUrl = await uploadToS3(req.files, "cover");
+  const videoUrl = await uploadToS3(req.files, "video");
+
+  console.log("coverUrl", coverUrl);
+  console.log("videoUrl", videoUrl);
+  const categoryObj = {
+    humanities: 1,
+    investment: 2,
+    language: 3,
+    marketing: 4,
+    music: 5,
+    programming: 6,
+    others: 7,
+  };
+
+  const livestream = {
+    title: body.title,
+    introduction: body.learn,
+    description: body.description,
+    preparation: body.preparation,
+    user_id: 1, // Didn't get user id
+    category_id: categoryObj[body.category],
+    // cover: req.files.cover[0].filename,
+    // video: req.files.video[0].filename,
+    cover: coverUrl,
+    teaser: videoUrl,
+    start_time: new Date(body.startTime).getTime(),
+    upload_time: Date.now(),
+  };
+
+  const livestreamId = await Livestream.createLivestream(livestream);
+  if (livestreamId == -1) {
+    res.status(500);
+  } else {
+    res.status(200).send({ livestreamId });
+  }
+};
 
 const getLivestreams = async (req, res) => {
   const authorization = req.headers.authorization;
@@ -84,6 +130,6 @@ const bookLivestream = async (req, res) => {
 
 module.exports = {
   getLivestreams,
-  //   createLivestream,
+  createLivestream,
   bookLivestream,
 };

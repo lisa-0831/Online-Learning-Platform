@@ -1,39 +1,44 @@
 require("dotenv").config();
 const { TOKEN_SECRET } = process.env;
 
+const multer = require("multer");
+const upload = multer({
+  limits: {
+    fileSize: 500000000, // Maximum
+  },
+});
+
+const courseUpload = upload.fields([
+  { name: "cover", maxCount: 1 },
+  { name: "video", maxCount: 1 },
+  { name: "videoList", maxCount: 30 },
+]);
+
+const livestreamUpload = upload.fields([
+  { name: "cover", maxCount: 1 },
+  { name: "video", maxCount: 1 },
+]);
+
 // const multer = require("multer");
 // const upload = multer({
+//   storage: multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, "./public/assets/");
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname);
+//     },
+//   }),
 //   limits: {
 //     fileSize: 500000000, // Maximum
 //   },
 // });
 
 // const cpUpload = upload.fields([
-//   { name: "newCover", maxCount: 1 },
-//   { name: "newVideo", maxCount: 1 },
+//   { name: "cover", maxCount: 1 },
+//   { name: "video", maxCount: 1 },
 //   { name: "videoList", maxCount: 30 },
 // ]);
-
-const multer = require("multer");
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "./public/assets/");
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  }),
-  limits: {
-    fileSize: 500000000, // Maximum
-  },
-});
-
-const cpUpload = upload.fields([
-  { name: "newCover", maxCount: 1 },
-  { name: "newVideo", maxCount: 1 },
-  { name: "videoList", maxCount: 30 },
-]);
 
 const errorHandler = (fn) => {
   return function (req, res, next) {
@@ -82,7 +87,8 @@ const checkToken = (req, res, next) => {
 };
 
 module.exports = {
-  cpUpload,
+  courseUpload,
+  livestreamUpload,
   errorHandler,
   checkToken,
 };
