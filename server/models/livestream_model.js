@@ -44,6 +44,15 @@ const bookLivestream = async (body, token) => {
   }
 };
 
+const createLivestream = async (livestream) => {
+  const [livestreamId] = await pool.query(
+    "INSERT INTO livestream SET ?",
+    livestream
+  );
+
+  return livestreamId;
+};
+
 const getLivestreams = async (pageSize, paging = 0, requirement = {}) => {
   const conn = await pool.getConnection();
   try {
@@ -141,7 +150,7 @@ const getLivestream = async (livestreamId) => {
 };
 
 module.exports = {
-  //   createLivestream,
+  createLivestream,
   getLivestreams,
   getLivestream,
   bookLivestream,

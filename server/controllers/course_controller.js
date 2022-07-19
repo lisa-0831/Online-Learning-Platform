@@ -6,9 +6,11 @@ hashtagSize = 20;
 const createCourse = async (req, res) => {
   const body = req.body;
 
-  // // upload Image
-  // const coverUrl = await uploadToS3(req.files, "cover");
-  // const videoUrl = await uploadToS3(req.files, "video");
+  // upload Image
+  const coverUrl = await uploadToS3(req.files, "cover");
+  const videoUrl = await uploadToS3(req.files, "video");
+
+  // console.log(req.files);
 
   const course = {
     title: body.title,
@@ -18,10 +20,10 @@ const createCourse = async (req, res) => {
     preparation: body.preparation,
     category: body.category,
     price: body.price,
-    cover: req.files.cover[0].filename,
-    video: req.files.video[0].filename,
-    // cover: coverUrl,
-    // video: videoUrl,
+    // cover: req.files.cover[0].filename,
+    // video: req.files.video[0].filename,
+    cover: coverUrl,
+    video: videoUrl,
     upload_time: Date.now(),
   };
 

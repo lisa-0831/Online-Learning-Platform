@@ -13,7 +13,7 @@ const s3 = new aws.S3({
 });
 
 const uploadToS3 = async (files, imageFieldName) => {
-  console.log(16, files);
+  // console.log(16, files);
   let fileExtend = files[imageFieldName][0].originalname.split(".")[1];
   let uploadPath;
 
@@ -31,9 +31,10 @@ const uploadToS3 = async (files, imageFieldName) => {
   };
 
   const uploadedImage = await s3.upload(params).promise();
-  console.log(34, uploadedImage);
-  const uploadFilename = uploadedImage.key;
-  console.log(36, uploadFilename);
+  // console.log(34, uploadedImage);
+  const uploadFilenameWithFile = uploadedImage.Key;
+  const uploadFilename = uploadFilenameWithFile.split("/")[1];
+  // console.log(36, uploadFilename);
 
   return uploadFilename;
 };
