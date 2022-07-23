@@ -1,5 +1,6 @@
 require("dotenv").config();
-const { API_VERSION } = process.env;
+const { PORT_TEST, PORT, NODE_ENV, API_VERSION } = process.env;
+const port = NODE_ENV == "test" ? PORT_TEST : PORT;
 
 // Express Initialization
 const express = require("express");
@@ -94,6 +95,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT, () =>
-  console.log(`Server running on port ${process.env.PORT}!`)
-);
+server.listen(port, () => console.log(`Server running on port ${port}!`));
+
+module.exports = server;

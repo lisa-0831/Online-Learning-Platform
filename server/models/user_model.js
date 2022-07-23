@@ -128,7 +128,7 @@ const getUserStatus = async (token) => {
   }
 };
 
-const getUserDetail = async (userId, token) => {
+const getUserProfile = async (userId, token) => {
   const conn = await pool.getConnection();
   try {
     await conn.query("START TRANSACTION");
@@ -140,30 +140,37 @@ const getUserDetail = async (userId, token) => {
       decoded = jwt.verify(token, TOKEN_SECRET);
     }
 
-    const userInfoSql =
-      "SELECT user.name, user.email, user.picture, user.self_intro, role.name AS role \
-      FROM user \
-      LEFT JOIN role \
-      ON user.role_id =role.id \
-      WHERE user.id=?";
+    const userInfoSql = `SELECT user.name, user.email, user.picture, user.self_intro, role.name AS role 
+                         FROM user 
+                         LEFT JOIN role 
+                         ON user.role_id=role.id 
+                         WHERE user.id=?`;
 
-    const boughtSql =
-      "SELECT course.id, course.cover, course.title, course.price FROM course_student \
-      LEFT JOIN course ON course.id=course_student.course_id WHERE course_student.user_id=?";
+    const boughtSql = `SELECT course.id, course.cover, course.title, course.price 
+                       FROM course_student 
+                       LEFT JOIN course 
+                       ON course.id=course_student.course_id 
+                       WHERE course_student.user_id=?`;
 
-    const favoritesSql =
-      "SELECT course.id, course.cover, course.title, course.price FROM course_favorites \
-      LEFT JOIN course ON course.id=course_favorites.course_id WHERE course_favorites.user_id=?";
+    const favoritesSql = `SELECT course.id, course.cover, course.title, course.price 
+                          FROM course_favorites 
+                          LEFT JOIN course 
+                          ON course.id=course_favorites.course_id 
+                          WHERE course_favorites.user_id=?`;
 
-    const reserveSql =
-      "SELECT livestream.id, livestream.cover, livestream.title, livestream.start_time FROM livestream_student \
-    LEFT JOIN livestream ON livestream.id=livestream_student.livestream_id WHERE livestream_student.user_id=?";
+    const reserveSql = `SELECT livestream.id, livestream.cover, livestream.title, livestream.start_time 
+                        FROM livestream_student 
+                        LEFT JOIN livestream 
+                        ON livestream.id=livestream_student.livestream_id 
+                        WHERE livestream_student.user_id=?`;
 
-    const teachSql =
-      "SELECT course.id, course.cover, course.title, course.price FROM course WHERE course.user_id=?";
+    const teachSql = `SELECT course.id, course.cover, course.title, course.price 
+                      FROM course 
+                      WHERE course.user_id=?`;
 
-    const streamerSql =
-      "SELECT livestream.id, livestream.cover, livestream.title, livestream.start_time FROM livestream WHERE livestream.user_id=?";
+    const streamerSql = `SELECT livestream.id, livestream.cover, livestream.title, livestream.start_time 
+                         FROM livestream 
+                         WHERE livestream.user_id=?`;
 
     const userProfileInfo = await Promise.all([
       conn.query(userInfoSql, [userId]),
@@ -210,10 +217,30 @@ const getUserDetail = async (userId, token) => {
   }
 };
 
+const getUserDetail = async (email, roleId) => {
+  try {
+    if (roleId) {
+      const [users] = await pool.query(
+        "SELECT * FROM user WHERE email = ? AND role_id = ?",
+        [email, roleId]
+      );
+      return users[0];
+    } else {
+      const [users] = await pool.query("SELECT * FROM user WHERE email = ?", [
+        email,
+      ]);
+      return users[0];
+    }
+  } catch (e) {
+    return null;
+  }
+};
+
 module.exports = {
   USER_ROLE,
   signUp,
   nativeSignIn,
-  getUserStatus,
   getUserDetail,
+  getUserStatus,
+  getUserProfile,
 };
