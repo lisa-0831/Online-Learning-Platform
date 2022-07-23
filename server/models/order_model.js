@@ -1,28 +1,26 @@
 require("dotenv").config();
 
 const { pool } = require("./mysqlcon");
-const { TOKEN_SECRET } = process.env;
+const { TOKEN_SECRET, PARTNER_KEY, TAPPAY_URL } = process.env;
 const jwt = require("jsonwebtoken");
 
 const axios = require("axios").default;
-const partner_key =
-  "partner_PHgswvYEk4QY6oy3n8X3CwiQCVQmv91ZcFoD5VrkGFXo8N7BFiLUxzeG";
-const tappay_url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime";
-const merchant_id = "AppWorksSchool_CTBC";
 
 const getCartList = async (shoppingList, token) => {
   try {
     // Verify token
     const decoded = jwt.verify(token, TOKEN_SECRET);
     const [shoppingListWithDetail] = await pool.query(
-      `SELECT l.id, l.title, l.price, l.cover, \
-      CASE WHEN r.user_id IS NULL THEN 0 ELSE 1 END AS 'student_in_course' \
-       FROM \
-      ( \
-      SELECT * FROM course WHERE id IN (${shoppingList}) \
-      ) l \
-      LEFT JOIN (SELECT * FROM course_student WHERE user_id = ?) r \
-      on l.id = r.course_id`,
+      `SELECT l.id, l.title, l.price, l.cover, 
+      CASE WHEN r.user_id IS NULL THEN 0 ELSE 1 END AS 'student_in_course' 
+      FROM ( 
+        SELECT * FROM course 
+        WHERE id IN (${shoppingList})) l 
+      LEFT JOIN (
+        SELECT * 
+        FROM course_student 
+        WHERE user_id = ?) r 
+      ON l.id = r.course_id`,
       [decoded.userId]
     );
 
@@ -65,13 +63,13 @@ const checkout = async (prime, order, token) => {
     // start to pay the bill!
     const tappay_header = {
       "Content-Type": "application/json",
-      "x-api-key": partner_key,
+      "x-api-key": PARTNER_KEY,
     };
 
     const tappay_body = {
       prime: prime,
-      partner_key: partner_key,
-      merchant_id: merchant_id,
+      partner_key: PARTNER_KEY,
+      merchant_id: MERCHANT_ID,
       amount: total,
       order_number: order_id,
       currency: "TWD",
@@ -84,7 +82,7 @@ const checkout = async (prime, order, token) => {
       remember: false,
     };
 
-    const tappay_result = await axios.post(tappay_url, tappay_body, {
+    const tappay_result = await axios.post(TAPPAY_URL, tappay_body, {
       headers: tappay_header,
     });
 

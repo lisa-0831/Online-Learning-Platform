@@ -46,7 +46,10 @@ const signUp = async (req, res) => {
 
 const nativeSignIn = async (email, password) => {
   if (!email || !password) {
-    return { error: "Request Error: User needs to enter email and password." };
+    return {
+      error: "Request Error: User needs to enter email and password.",
+      status: 400,
+    };
   }
 
   try {
@@ -131,7 +134,7 @@ const getUserInfo = async (req, res) => {
 
   const userId = parseInt(req.query.id);
   if (Number.isInteger(userId)) {
-    const user = await User.getUserDetail(userId, token);
+    const user = await User.getUserProfile(userId, token);
 
     return res.status(200).send({ user });
   }

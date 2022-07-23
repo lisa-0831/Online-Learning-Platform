@@ -1,6 +1,7 @@
 .main-content {
     margin: 100px 50px 50px 50px;
-    height: 100vh;
+    height: 100%;
+    min-height: 85vh;
 }
 
 .main-result{
@@ -58,6 +59,11 @@
 #courses {
     display: flex;
     flex-wrap: wrap;
+}
+
+#livestreams {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .course {

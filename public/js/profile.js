@@ -268,19 +268,19 @@ window.onload = async function () {
     document.getElementsByClassName("courses")[3].appendChild(course);
   }
 
-  // Streamer
+  // Livestream
   if ((user.auth == 1 && user.role == "teacher") || user.streamer.length > 0) {
     document.getElementById(
-      "content-title-streamer"
+      "content-title-livestream"
     ).innerHTML = `<h1 class="content-title">開設的直播</h1>`;
   }
   if (user.auth == 1 && user.role == "teacher" && user.streamer.length == 0) {
     document.getElementById(
-      "content-streamer-link"
+      "content-livestream-link"
     ).innerHTML = `<a href="./admin/livestream.html" class="course-redirect"> 目前無舉辦任何直播，前往新增 >> </a>`;
   } else if (user.auth == 1 && user.role == "teacher") {
     document.getElementById(
-      "content-streamer-link"
+      "content-livestream-link"
     ).innerHTML = `<a href="./admin/livestream.html" class="course-redirect"> 前往新增 >> </a>`;
   }
 
@@ -327,6 +327,58 @@ window.onload = async function () {
     courseTag.appendChild(figcaption);
     course.appendChild(courseTag);
     document.getElementsByClassName("courses")[4].appendChild(course);
+  }
+
+  // Streamer
+  if (user.auth == 1 && user.role == "teacher") {
+    document.getElementById(
+      "content-title-streamer"
+    ).innerHTML = `<h1 class="content-title">直播間入口</h1>`;
+
+    for (let i = 0; i < user.streamer.length; i++) {
+      // Course Div
+      let course = document.createElement("figure");
+      course.setAttribute("class", "course");
+
+      // Course a Tag
+      let courseTag = document.createElement("a");
+      courseTag.setAttribute("class", "course-detail");
+      courseTag.setAttribute(
+        "href",
+        `/admin/streamer.html?id=${user.streamer[i].id}`
+      );
+
+      // Course Cover
+      let imgDiv = document.createElement("div");
+      imgDiv.setAttribute("class", "course-image");
+
+      let courseImg = document.createElement("img");
+      courseImg.src = `https://d1wan10jjr4v2x.cloudfront.net/assets/${user.streamer[i]["cover"]}`;
+      courseImg.width = "300";
+      courseImg.height = "186";
+      imgDiv.appendChild(courseImg);
+      courseTag.appendChild(imgDiv);
+
+      // Course Figcaption
+      let figcaption = document.createElement("figcaption");
+
+      // Course Title
+      let courseTitle = document.createElement("h3");
+      // courseTitle.setAttribute("class", "course-title");
+      courseTitle.innerText = user.streamer[i]["title"];
+      figcaption.appendChild(courseTitle);
+
+      // Course Time
+      let courseTime = document.createElement("p");
+      courseTime.innerText = `直播時間 ${timestamp2Date(
+        user.streamer[i]["start_time"]
+      )}`;
+      figcaption.appendChild(courseTime);
+
+      courseTag.appendChild(figcaption);
+      course.appendChild(courseTag);
+      document.getElementsByClassName("courses")[5].appendChild(course);
+    }
   }
 };
 
