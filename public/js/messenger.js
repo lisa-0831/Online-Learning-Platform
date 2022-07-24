@@ -11,32 +11,6 @@ window.onload = async function () {
   const chatForm = document.getElementById("chat-form");
   const chatMessages = document.querySelector(".chat-messages");
 
-  // Output message to DOM
-  const outputMessage = (payload) => {
-    const messageDiv = document.createElement("div");
-    if (payload.userId == userId) {
-      messageDiv.setAttribute("class", "message right");
-    } else {
-      messageDiv.setAttribute("class", "message");
-    }
-
-    let contentHtml = `
-        <p class="meta">
-          ${payload.message.username}
-           <span> ${payload.message.time} </span>
-        </p>
-        <p class="text">
-          ${payload.message.text}
-        </p>`;
-
-    const contentDiv = document.createElement("div");
-    contentDiv.setAttribute("class", "content");
-    contentDiv.innerHTML = contentHtml;
-
-    messageDiv.appendChild(contentDiv);
-    document.getElementById("chat-messages").appendChild(messageDiv);
-  };
-
   // Timestamp To Date
   const timestamp2Date = (timestamp) => {
     const date = new Date(timestamp);
@@ -55,6 +29,32 @@ window.onload = async function () {
     } else {
       return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
     }
+  };
+
+  // Output message to DOM
+  const outputMessage = (payload) => {
+    const messageDiv = document.createElement("div");
+    if (payload.userId == userId) {
+      messageDiv.setAttribute("class", "message right");
+    } else {
+      messageDiv.setAttribute("class", "message");
+    }
+
+    let contentHtml = `
+        <p class="meta">
+          ${payload.message.username}
+           <span> ${timestamp2Time(payload.message.time)} </span>
+        </p>
+        <p class="text">
+          ${payload.message.text}
+        </p>`;
+
+    const contentDiv = document.createElement("div");
+    contentDiv.setAttribute("class", "content");
+    contentDiv.innerHTML = contentHtml;
+
+    messageDiv.appendChild(contentDiv);
+    document.getElementById("chat-messages").appendChild(messageDiv);
   };
 
   // SideBar
