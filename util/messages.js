@@ -10,7 +10,7 @@ function formatMessage(payload) {
       username: payload.message.username,
       // time: moment().format("h:mm a"),
       // time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
-      time: `${date.toLocaleTimeString()}`,
+      time: Date.now(),
     },
   };
 }
