@@ -2,7 +2,7 @@
 <br />
 <div align="center">
     <h1>Pi Course</h1>
-    <img src="https://d1wan10jjr4v2x.cloudfront.net/assets/demo/logo.png" alt="Logo" height="100" width="400">
+    <img src="https://d1wan10jjr4v2x.cloudfront.net/assets/demo/logo.png" alt="Logo" height="100" width="360">
   <p align="center">
     An online learning platform where teachers can upload their courses and students can learn from here!
     <br />
@@ -64,36 +64,37 @@ Main featurs to expect from Pi Course:
 ### Recommendation
 
 - Personalized recommendation system based on your favorite list and other courses taken by your classmates
-  ![support](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/recommendation.gif)
+  ![recommendation](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/recommendation.gif)
 
 ### Livestream
 
 - Students can join multiple one-to-many livestreams, and teachers can speak to students without interfering with each other
-  ![post](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/livestream.gif)
+  ![livestream](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/livestream.gif)
 
 ### Messenger
 
 - Chat with your classmates, teachers, or students individually
-  ![message](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/messenger.gif)
+  ![messenger](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/messenger.gif)
 
 ### Course
 
 - All users can watch a teaser before buying and users who bought the course can see all course contents
-  ![dashboard](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/course.gif)
+  ![course](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/course.gif)
 
 ### Comment & Rating
 
 - Users can read comment and rating section before buying courses
-  ![newsfeed](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/commentrating.gif)
+  ![commentrating](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/commentrating.gif)
 
 ### User-friendly
 
 - Provides users with the search bar, categorization, and hashtags sorted by click-through rate to find courses quickly
-  ![claimbutton](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/userfriendly.gif)
+  ![userfriendly](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/userfriendly.gif)
 
 ### Cart
 
 - Provides credit card method to buy courses in a simple way
+  ![cart](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/cart.gif)
 
 ## Contact Me :)
 
