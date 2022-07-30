@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>PI COURSE</title>
+    <link rel="icon" href="./images/icon.png" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
+    <link rel="stylesheet" href="./styles/bar.css" />
+    <link rel="stylesheet" href="./styles/courses.css" />
+  </head>
+
+  <body>
+    <div class="desktop-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="48" />
+      </a>
+      <div class="nav">
+        <a href="./courses.html" class="tag tag-courses">課程</a>
+        <div class="tag-line"></div>
+        <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
+        <div class="tag-line"></div>
+      </div>
+      <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
+      <div class="messenger" onclick="checkMessenger()">我的訊息</div>
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart-mobile.png" height="35" />
+        <div class="count"></div>
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member-mobile.png" height="35" />
+      </div>
+    </div>
+    <div class="mobile-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="20" />
+      </a>
+      <input
+        id="search-mobile"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
+    </div>
+    <div class="mobile-nav">
+      <a href="./courses.html" class="tag tag-courses">課程</a>
+      <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
+      <a class="tag tag-messenger" onclick="checkMessenger()">訊息</a>
+    </div>
+    <div class="mobile-footer">
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart-mobile.png" height="44" />
+        <div class="count"></div>
+        購物車
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member-mobile.png" height="44" />
+        個人資訊
+      </div>
+    </div>
+
+    <main>
+      <div class="sidebar">
+        <div class="sidebar-categories">
+          <a
+            href="./courses.html?category=all"
+            class="sidebar-category"
+            id="all"
+            >所有課程</a
+          >
+          <a
+            href="./courses.html?category=humanities"
+            class="sidebar-category"
+            id="humanities"
+            >人文社會</a
+          >
+          <a
+            href="./courses.html?category=investment"
+            class="sidebar-category"
+            id="investment"
+            >投資理財</a
+          >
+          <a
+            href="./courses.html?category=language"
+            class="sidebar-category"
+            id="language"
+            >語言學習</a
+          >
+          <a
+            href="./courses.html?category=marketing"
+            class="sidebar-category"
+            id="marketing"
+            >市場行銷</a
+          >
+          <a
+            href="./courses.html?category=music"
+            class="sidebar-category"
+            id="music"
+            >樂器演奏</a
+          >
+          <a
+            href="./courses.html?category=programming"
+            class="sidebar-category"
+            id="programming"
+            >程式語言</a
+          >
+        </div>
+
+        <div class="sidebar-hot">
+          <h2 class="sidebar-title">＃即時熱門標籤</h2>
+          <div id="tagParent" class="sidebar-tags">
+            <!-- <a class="sidebar-tag" data-type="Writing">#Writing</a>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="top-bar">
+          <h2 class="top-bar-title">所有影音課程</h2>
+          <div id="orderParent" class="top-bar-selections">
+            <a class="top-bar-selection" data-type="trending" id="trending"
+              >熱門課程</a
+            >
+            <a class="top-bar-selection" data-type="latest" id="latest"
+              >最新發佈</a
+            >
+            <!-- <a class="top-bar-selection" data-type="recommend" id="recommend"
+              >個人推薦</a
+            > -->
+          </div>
+        </div>
+        <div id="courses">
+          <!-- <figure class="course">
+            <a class="course-detail" href="/"></a>
+              <div class="course-image">
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample47.jpg"
+                  alt="sample47"
+                />
+              </div>
+              <figcaption>
+                <h3>自動理財：不記帳的無痛存錢課</h3>
+                <h4>學生 360 人</h4>
+                <p>NT$ 2800</p>
+              </figcaption>
+            </a>
+          </figure> -->
+        </div>
+        <div class="pagination">
+          <div id="pagingParent">
+            <a data-type="last">&laquo;</a>
+            <div id="pagingNum">
+              <!-- <a data-type="1">1</a>
+            <a class="active" data-type="2">2</a>
+            <a data-type="3">3</a>
+            <a data-type="4">4</a>
+            <a data-type="5">5</a>
+            <a data-type="...">...</a> -->
+            </div>
+            <a data-type="next">&raquo;</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
+      <div class="rights">© 2022. All rights reserved.</div>
+    </footer>
+    <script src="./js/courses.js"></script>
+    <script src="./util/util.js"></script>
+  </body>
+</html>

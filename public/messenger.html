@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>PI COURSE</title>
+    <link rel="icon" href="./images/icon.png" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles/messenger.css" />
+  </head>
+
+  <body>
+    <div class="desktop-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="48" />
+      </a>
+      <div class="nav">
+        <a href="./courses.html" class="tag tag-courses">課程</a>
+        <div class="tag-line"></div>
+        <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
+        <div class="tag-line"></div>
+      </div>
+      <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
+      <div class="messenger" onclick="checkMessenger()">我的訊息</div>
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart-mobile.png" height="35" />
+        <div class="count"></div>
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member-mobile.png" height="35" />
+      </div>
+    </div>
+    <div class="mobile-header">
+      <a class="logo" href="./">
+        <img src="./images/logo.png" height="20" />
+      </a>
+      <input
+        id="search-mobile"
+        class="search"
+        type="text"
+        placeholder="搜尋課程、直播、老師 ......"
+        required
+      />
+    </div>
+    <div class="mobile-nav">
+      <a href="./courses.html" class="tag tag-courses">課程</a>
+      <a href="./livestreams.html" class="tag tag-livestreams">直播</a>
+      <a class="tag tag-messenger" onclick="checkMessenger()">訊息</a>
+    </div>
+    <div class="mobile-footer">
+      <div class="cart" onclick="checkLogin()">
+        <img src="./images/cart-mobile.png" height="44" />
+        <div class="count"></div>
+        購物車
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="./images/member-mobile.png" height="44" />
+        個人資訊
+      </div>
+    </div>
+    <main>
+      <div class="messenger-bg">
+        <div class="container">
+          <div class="chat-left">
+            <div class="chat-left-title"></div>
+            <div class="chats">
+              <div id="roomParent" class="group-list">
+                <!-- <div class="group" data-type="i">
+              <div class="image" data-type="i">
+                <image
+                  class="profile"
+                  src="http://placekitten.com/51/51"
+                  alt="profile piture"
+                ></image>
+              </div>
+              <div class="group-name" data-type="i">
+                <p class="title">
+                  Group One
+                  <span class="date">3 min</span>
+                </p>
+                <p>
+                  How do you feel about...
+                  <span class="n">1</span>
+                </p>
+              </div>
+            </div>
+            <div class="group active">
+              <div class="image">
+                <image
+                  class="profile"
+                  src="http://placekitten.com/50/50"
+                  alt="profile piture"
+                ></image>
+                <i class="fas"></i>
+              </div>
+              <div class="group-name">
+                <p class="title">
+                  Group Two
+                  <span class="date">5 min</span>
+                </p>
+                <p>
+                  Where did you put the...
+                  <span class="n">3</span>
+                </p>
+              </div>
+            </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="chat-right">
+            <div class="chat-right-title"></div>
+            <div class="chat-messages" id="chat-messages">
+              <!-- <div class="message">
+            <div class="content">
+              <p class="meta">Brad<span> 9:12pm</span></p>
+              <p class="text">Dont know what to say</p>
+            </div>
+          </div>
+          <div class="message right">
+            <div class="content">
+              <p class="meta">yellow<span> 9:12pm</span></p>
+              <p class="text">
+                Dont know what to sayDont know what to saDont know what to
+                saDont know what to saDont know what to sa
+              </p>
+            </div>
+          </div> -->
+            </div>
+            <div class="chat-form-container">
+              <form id="chat-form">
+                <!-- <input
+                  id="msg"
+                  type="text"
+                  placeholder="Enter Message"
+                  required
+                  autocomplete="off"
+                />
+                <button class="btn">
+                  <i class="fas fa-paper-plane"></i> Send
+                </button> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./util/util.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.3/qs.min.js"
+      integrity="sha512-juaCj8zi594KHQqb92foyp87mCSriYjw3BcTHaXsAn4pEB1YWh+z+XQScMxIxzsjfM4BeVFV3Ij113lIjWiC2w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/messenger.js"></script>
+    <script src="./util/util.js"></script>
+  </body>
+</html>

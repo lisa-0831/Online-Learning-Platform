@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>PI COURSE</title>
+    <link rel="icon" href="../images/icon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <link rel="stylesheet" href="../styles/livestream.css" />
+    <link rel="stylesheet" href="../styles/fontawesome/css/all.css" />
+  </head>
+
+  <body>
+    <div class="desktop-header">
+      <a class="logo" href="../">
+        <img src="../images/logo.png" height="48" />
+      </a>
+      <div class="nav">
+        <a href="../courses.html" class="tag tag-courses">課程</a>
+        <div class="tag-line"></div>
+        <a href="../livestreams.html" class="tag tag-livestreams">直播</a>
+        <div class="tag-line"></div>
+      </div>
+      <input class="search" />
+      <div class="messenger" onclick="checkMessenger()">我的訊息</div>
+      <div class="cart" onclick="checkLogin()">
+        <img src="../images/cart-mobile.png" height="35" />
+        <!-- <div class="count"></div> -->
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="../images/member-mobile.png" height="35" />
+      </div>
+    </div>
+    <div class="mobile-header">
+      <a class="logo" href="./">
+        <img src="../images/logo.png" height="20" />
+      </a>
+      <input class="search" />
+    </div>
+    <div class="mobile-nav">
+      <a href="../courses.html" class="tag tag-courses">課程</a>
+      <a href="../livestreams.html" class="tag tag-livestreams">直播</a>
+      <a class="tag tag-messenger" onclick="checkMessenger()">訊息</a>
+    </div>
+    <div class="mobile-footer">
+      <div class="cart" onclick="checkLogin()">
+        <img src="../images/cart-mobile.png" height="44" />
+        <!-- <div class="count"></div> -->
+        購物車
+      </div>
+      <div class="member" onclick="checkIdentity()">
+        <img src="../images/member-mobile.png" height="44" />
+        個人資訊
+      </div>
+    </div>
+
+    <main id="main-content" style="display: none">
+      <div class="course-context">
+        <div class="video-player">
+          <div class="video" id="video-grid">
+            <!-- <video
+              controls
+              width="1280"
+              height="720"
+              id="video-controls"
+            ></video> -->
+          </div>
+          <div class="subtitle"></div>
+        </div>
+        <!-- <div class="start-button">
+          <button type="button" onclick="startLivestream()">開始直播</button>
+        </div> -->
+        <div class="course-timer">
+          <div class="course-timer-title" id="timer-title"></div>
+          <br />
+          <div class="course-timer-time" id="demo"></div>
+        </div>
+
+        <div class="course-all-info">
+          <div class="course-info">
+            <div class="course-introduction">
+              <h2 class="course-subtitle">你可以學到 //</h2>
+            </div>
+            <div class="course-description">
+              <h2 class="course-subtitle">課程詳情 //</h2>
+            </div>
+            <div class="course-preparation">
+              <h2 class="course-subtitle">觀看直播前的準備 //</h2>
+            </div>
+          </div>
+
+          <div class="course-action">
+            <div class="course-action-content">
+              <div class="course-title"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="sideproject">｜ 此網頁為課程作業，無營利用途。 ｜</div>
+      <div class="rights">© 2022. All rights reserved.</div>
+    </footer>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../js/admin_streamer.js"></script>
+    <script src="../js/admin_streamer_webrtc.js"></script>
+    <script src="../util/util.js"></script>
+  </body>
+</html>

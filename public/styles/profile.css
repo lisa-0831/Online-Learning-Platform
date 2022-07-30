@@ -1,0 +1,247 @@
+.main-content{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.sidebar {
+  height: 100vh;
+  width: 400px;
+  position: sticky;
+  top: 120px;
+}
+
+.content{
+  width: 80vw;
+  margin-top: 100px;
+  /* margin-bottom: 120px; */
+}
+
+
+/* Left */
+
+
+.center {
+  position: sticky;
+  top: 100px;
+  left: 80px;
+  width: 280px;
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+.profile {
+  /* float: left;
+  width: 280px;
+  height: 450px; */
+  text-align: center;
+}
+.profile .image {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 38px auto 0 auto;
+}
+.profile .image .circle-1, .profile .image .circle-2 {
+  position: absolute;
+  box-sizing: border-box;
+  width: 180px;
+  height: 180px;
+  top: -3px;
+  left: -3px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #786450 #786450 #786450 transparent;
+  border-radius: 50%;
+  transition: all 1.5s ease-in-out;
+}
+.profile .image .circle-2 {
+  width: 180px;
+  height: 180px;
+  top: -6px;
+  left: -6px;
+  border-color: #786450 transparent #786450 #786450;
+}
+.profile .image img {
+  display: block;
+  border-radius: 50%;
+  background: #f5e8df;
+}
+/* .profile .image:hover {
+  cursor: pointer;
+} */
+.profile .image:hover .circle-1, .profile .image:hover .image .circle-2, .profile .image .image:hover .circle-2 {
+  transform: rotate(360deg);
+}
+.profile .image:hover .circle-2 {
+  transform: rotate(-360deg);
+}
+.profile .name {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 40px;
+}
+.profile .email {
+  font-size: 16px;
+  line-height: 45px;
+}
+.profile .self-intro{
+  line-height: 28px;
+  font-size: 16px;
+  margin: 20px 20px;
+}
+.profile .actions {
+  margin-top: 15px;
+}
+.profile .actions .btn {
+  display: block;
+  width: 120px;
+  height: 30px;
+  margin: 0 auto 20px auto;
+  background: none;
+  border: 1px solid #313538;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 450;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  color: #313538;
+  cursor: pointer;
+}
+.profile .actions .btn:hover {
+  background: #313538;
+  color: #fff;
+}
+.stats {
+  /* float: left; */
+  display: flex;
+  margin-top: auto;
+}
+.stats .box {
+  width: 140px;
+  height: 100px;
+  background: #f2f2f289;
+  text-align: center;
+  padding-top: 28px;
+}
+.stats .box:hover {
+  background: #F2F2F2;
+  cursor: default;
+}
+.stats span {
+  display: block;
+}
+.stats .parameter {
+  font-size: 11px;
+}
+.stats .value {
+  font-size: 35px;
+  font-weight: 600;
+}
+
+
+/* Right */
+
+.content-title{
+  font-size: 24px;
+  color: #e8b563;
+  padding: 15px 18px;
+  margin: 0px 5px;
+  border-left: 5px #e8b563 solid;
+}
+
+.course-redirect{
+  font-size: 20px;
+  padding: 20px;
+  margin: 20px;
+  color: #313538;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.course-redirect:hover{
+  color: #F2F2F2;
+}
+
+.courses {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.course {
+  cursor: pointer;
+  overflow: hidden;
+  font-family: 'Open Sans', Arial, sans-serif;
+  position: relative;
+  margin: 30px;
+  min-width: 295px;
+  max-width: 380px;
+  width: 100%;
+  color: #000000;
+  text-align: center;
+  line-height: 1.4em;
+  font-size: 14px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.course:hover {
+  transform:scale(1.05,1.05);
+  transition: all ease 0.5s;
+}
+
+.course * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.course .course-image {
+  display: inline-block;
+  width: 80%;
+  z-index: 1;
+  position: relative;
+  padding: 10px;
+  border: 2px solid #e8b563;
+}
+
+.course .course-image img {
+  max-width: 100%;
+  vertical-align: top;
+}
+
+.course figcaption {
+  height: 100%;
+  width: 100%;
+  background-color: #F2F2F2;
+  color: #555;
+  padding: 125px 25px 25px;
+  margin-top: -100px;
+  display: inline-block;
+}
+
+.course h3,
+.course h4,
+.course p {
+  margin: 0 0 5px;
+}
+
+.course h3 {
+  font-weight: 600;
+  font-size: 1.3em;
+  font-family: 'Playfair Display', Arial, sans-serif;
+}
+
+.course h4 {
+  color: #8c8c8c;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.course p {
+  font-size: 0.9em;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
