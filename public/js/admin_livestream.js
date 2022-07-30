@@ -18,7 +18,7 @@ window.onload = async function () {
 
 // const postData = async (event) => {
 //   event.preventDefault();
-//   const data = new FormData(submitForm);
+//   const data = new FormData(submitForm[0]);
 //   let fetchResponse = await fetch("/api/1.0/admin/livestream", {
 //     method: "POST",
 //     headers: new Headers({

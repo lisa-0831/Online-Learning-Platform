@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const { pool } = require("./mysqlcon");
-const { TOKEN_SECRET, PARTNER_KEY, TAPPAY_URL } = process.env;
+const { TOKEN_SECRET, PARTNER_KEY, MERCHANT_ID, TAPPAY_URL } = process.env;
 const jwt = require("jsonwebtoken");
 
 const axios = require("axios").default;
