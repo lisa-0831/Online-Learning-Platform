@@ -7,14 +7,14 @@ const { promisify } = require("util"); // util from native nodejs library
 const multer = require("multer");
 const upload = multer({
   limits: {
-    fileSize: 500000000, // Maximum
+    fileSize: 104857600, // 1000 Mb
   },
 });
 
 const cpUpload = upload.fields([
   { name: "cover", maxCount: 1 },
   { name: "video", maxCount: 1 },
-  { name: "videoList", maxCount: 30 },
+  { name: "videoList", maxCount: 20 },
 ]);
 
 const errorHandler = (fn) => {

@@ -4,9 +4,6 @@ pageSize = 12;
 
 const createLivestream = async (req, res) => {
   const body = req.body;
-  // console.log(7, body);
-
-  // console.log(9, req.files);
 
   // upload Image
   const coverUrl = await uploadToS3(req.files, "cover");
@@ -31,8 +28,6 @@ const createLivestream = async (req, res) => {
     preparation: body.preparation,
     user_id: 1, // Didn't get user id
     category_id: categoryObj[body.category],
-    // cover: req.files.cover[0].filename,
-    // video: req.files.video[0].filename,
     cover: coverUrl,
     teaser: videoUrl,
     start_time: new Date(body.startTime).getTime(),
