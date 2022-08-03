@@ -25,7 +25,7 @@
 
 An online learning plarform where students can not only watch courses but also interact with teachers through livestreaming and chatroom.
 
-![main](https://user-images.githubusercontent.com/84017050/182574366-b0b3288d-933b-48f5-a9b5-f06d768224ae.gif)
+![main](https://user-images.githubusercontent.com/84017050/182579400-c4563882-60ea-4b45-8223-83ae8f31e8f4.gif)
 
 Main featurs to expect from Pi Course:
 
