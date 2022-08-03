@@ -25,7 +25,7 @@
 
 An online learning plarform where students can not only watch courses but also interact with teachers through livestreaming and chatroom.
 
-![image](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/main.gif)
+![main](https://user-images.githubusercontent.com/84017050/182574366-b0b3288d-933b-48f5-a9b5-f06d768224ae.gif)
 
 Main featurs to expect from Pi Course:
 
@@ -53,7 +53,7 @@ Main featurs to expect from Pi Course:
 
 ## Architecture
 
-![architecture](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/architecture.jpg)
+![AWS S3 (1)](https://user-images.githubusercontent.com/84017050/182573056-b95b66ae-5f69-4700-ae33-fce8bb01be66.jpg)
 
 ## Database Schema
 
@@ -64,38 +64,38 @@ Main featurs to expect from Pi Course:
 ### Recommendation
 
 - Personalized recommendation system based on your favorite list and other courses taken by your classmates
-  ![recommendation](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/recommendation.gif)
+  ![recommendation](https://user-images.githubusercontent.com/84017050/182574989-f3cb11c6-3105-485f-937d-76954fbefaff.gif)
 
 ### Livestream
 
 - Students can join multiple one-to-many livestreams, and teachers can speak to students without interfering with each other
-  ![livestream](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/livestream.gif)
+  ![livestream](https://user-images.githubusercontent.com/84017050/182575762-3cbc623d-d6ee-4f48-b6f2-cdcfc2271cc6.gif)
 
 ### Messenger
 
 - Chat with your classmates, teachers, or students individually
-  ![messenger](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/messenger.gif)
+  ![messenger](https://user-images.githubusercontent.com/84017050/182578774-6ee08af5-ac87-4a42-bb78-9a70058f67e3.gif)
 
 ### Course
 
 - All users can watch a teaser before buying and users who bought the course can see all course contents
-  ![course](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/course.gif)
+  ![course](https://user-images.githubusercontent.com/84017050/182576117-61a8c0fe-1adc-4027-89d5-e84c9a8ca80f.gif)
 
 ### Comment & Rating
 
 - Users can read comment and rating section before buying courses
-  ![commentrating](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/commentrating.gif)
+  ![comment](https://user-images.githubusercontent.com/84017050/182578098-3ff32b0f-2314-4d43-b9d0-ea4a94b93664.gif)
 
 ### User-friendly
 
 - Provides users with the search bar, categorization, and hashtags sorted by click-through rate to find courses quickly
-  ![userfriendly](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/userfriendly.gif)
+  ![userfriendly](https://user-images.githubusercontent.com/84017050/182577297-fa328bea-1464-4f26-aa4f-da16c6fb457c.gif)
 
 ### Cart
 
 - Provides credit card method to buy courses in a simple way
-  ![cart](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/cart.gif)
-
+  ![cart](https://user-images.githubusercontent.com/84017050/182577724-d5009127-0d9c-4e74-b858-0a242a03c77a.gif)
+  
 ## Contact Me :)
 
 - Email Address: peiwen0831@gmail.com
