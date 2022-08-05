@@ -12,9 +12,9 @@
     Demo Account
     <br />
     <br />
-     Student's account: student@demo.com
+     Student's account: lisa@gmail.com
     <br />
-     Password: student
+     Password: test
     <br />
   </p>
 </div>
