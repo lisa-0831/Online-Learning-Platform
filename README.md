@@ -57,7 +57,7 @@ Main featurs to expect from Pi Course:
 
 ## Database Schema
 
-![dbschema]<img width="1408" alt="dbschema" src="https://github.com/lisa-0831/Online-Learning-Platform/assets/84017050/320e5de3-ebfb-4900-b6f5-8e388b213c89">
+<img width="1408" alt="dbschema" src="https://github.com/lisa-0831/Online-Learning-Platform/assets/84017050/320e5de3-ebfb-4900-b6f5-8e388b213c89">
 
 
 ## Main features
