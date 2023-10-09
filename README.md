@@ -2,7 +2,7 @@
 <br />
 <div align="center">
     <h1>Pi Course</h1>
-    <img src="https://d1wan10jjr4v2x.cloudfront.net/assets/demo/logo.png" alt="Logo" height="100" width="360">
+<!--     <img src="https://d1wan10jjr4v2x.cloudfront.net/assets/demo/logo.png" alt="Logo" height="100" width="360"> -->
   <p align="center">
     An online learning platform where teachers can upload their courses and students can learn from here!
     <br />
@@ -57,7 +57,8 @@ Main featurs to expect from Pi Course:
 
 ## Database Schema
 
-![dbschema](https://d1wan10jjr4v2x.cloudfront.net/assets/demo/dbschema.png)
+![dbschema]<img width="1408" alt="dbschema" src="https://github.com/lisa-0831/Online-Learning-Platform/assets/84017050/320e5de3-ebfb-4900-b6f5-8e388b213c89">
+
 
 ## Main features
 
